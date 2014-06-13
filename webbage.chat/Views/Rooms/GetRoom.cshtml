@@ -1,11 +1,19 @@
-﻿<h2>Chat Test</h2>
-<div class="container">
-    <input type="text" id="message" />
-    <input type="button" id="sendMessage" />
-    <input type="hidden" id="displayName" />
-    <ul id="discussion">
+﻿<div id="main">
+    <div id="chat">
 
-    </ul>
+    </div>
+    <div class="col-lg-3">
+        <div id="sidebar"></div>
+    </div>
+    <div id="input-area" class="silver">
+        <div id="input-wrapper">
+            <textarea id="message" style="height: 60px; width: 550px;"></textarea>
+        </div>
+        <div id="button-wrapper" style="padding: 10px;">
+            <input type="button" id="sendMessage" value="Send" style="margin-left: 10px;"/>
+        </div>
+    </div>
+    <input type="hidden" id="displayName" />
 </div>
 
 @section scripts {    
@@ -16,12 +24,21 @@
 
             var chat = $.connection.chatHub;
 
-            chat.client.addNewMessageToPane = function (name, message) {
-                $('#discussion').append('<li><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</li>');
-            }
+            $('#message').keypress(function (e) {
+                if (e.keyCode == 13) {
+                    chat.server.send($('#displayName').val(), $('#message').val());
+                    $('#message').val('').focus();
+                    e.preventDefault();
+                }
+            });
 
             $('#displayName').val(prompt('Enter your name:', ''));
             $('#message').focus();
+
+            chat.client.addNewMessageToPane = function (name, message) {
+                $('#chat').append('<div><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</div>');
+                $('#chatRow').animate({ scrollTop: $('#chat')[0].scrollHeight }, 400);
+            }
 
             $.connection.hub.start().done(function () {
                 $('#sendMessage').click(function () {
