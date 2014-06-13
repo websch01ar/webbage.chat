@@ -3,15 +3,199 @@
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.turquoise {
+    background: #1ABC9C;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.green-sea {
+    background: #16A085;
 }
+
+.emerald {
+    background: #2ECC71;
+}
+
+.nephritis {
+    background: #27AE60;
+}
+
+.peter-river {
+    background: #3498DB;
+}
+
+.belize-hole {
+    background: #2980B9;
+}
+
+.amethyst {
+    background: #9B59B6;
+}
+
+.wisteria {
+    background: #8E44AD;
+}
+
+.wet-asphalt {
+    background: #34495E;
+}
+
+.midnight-blue {
+    background: #2C3E50;
+}
+
+.sun-flower {
+    background: #F1C40F;
+}
+
+.orange {
+    background: #F39C12;
+}
+
+.carrot {
+    background: #E67E22;
+}
+
+.pumpkin {
+    background: #D35400;
+}
+
+.alizarin {
+    background: #E74C3C;
+}
+
+.pomegranate {
+    background: #C0392B;
+}
+
+.clouds {
+    background: #ECF0F1;
+    color: #bdc3c7;
+}
+
+.silver {
+    background: #BDC3C7;
+}
+
+.concrete {
+    background: #95A5A6;
+}
+
+.asbestos {
+    background: #7F8C8D;
+}
+
+.text-turquoise {
+    color: #1ABC9C !important;
+}
+
+.text-green-sea {
+    color: #16A085 !important;
+}
+
+.text-emerald {
+    color: #2ECC71 !important;
+}
+
+.text-nephritis {
+    color: #27AE60 !important;
+}
+
+.text-peter-river {
+    color: #3498DB !important;
+}
+
+.text-belize-hole {
+    color: #2980B9 !important;
+}
+
+.text-amethyst {
+    color: #9B59B6 !important;
+}
+
+.text-wisteria {
+    color: #8E44AD !important;
+}
+
+.text-wet-asphalt {
+    color: #34495E !important;
+}
+
+.text-midnight-blue {
+    color: #2C3E50 !important;
+}
+
+.text-sun-flower {
+    color: #F1C40F !important;
+}
+
+.text-orange {
+    color: #F39C12 !important;
+}
+
+.text-carrot {
+    color: #E67E22 !important;
+}
+
+.text-pumpkin {
+    color: #D35400 !important;
+}
+
+.text-alizarin {
+    color: #E74C3C !important;
+}
+
+.text-pomegranate {
+    color: #C0392B !important;
+}
+
+.text-clouds {
+    color: #ECF0F1 !important;    
+}
+
+.text-silver {
+    color: #BDC3C7 !important;
+}
+
+.text-concrete {
+    color: #95A5A6 !important;
+}
+
+.text-asbestos {
+    color: #7F8C8D !important;
+}
+
+.chat-room-display {
+    height: 200px;
+    width: 200px;
+    float: left;
+    background: #bdc3c7;
+    margin: 10px;
+    border: 1px solid #7f8c8d;
+    cursor: pointer;
+    padding: 5px;
+
+            transition-duration: 200ms;
+         -o-transition-duration: 200ms;
+       -moz-transition-duration: 200ms;
+}
+    .chat-room-display:hover {
+        background: #ecf0f1;
+
+             transition-duration: 200ms;
+          -o-transition-duration: 200ms;
+        -moz-transition-duration: 200ms;
+    }
+    .chat-room-display .chat-room-display-title {
+        color: #34495e;
+        font-size: 22px;
+    }
+    .chat-room-display hr {
+        display: block;
+        height: 1px;
+        border: 1px solid #7f8c8d;
+        margin-top: -1px;
+    }
+    .chat-room-display .chat-room-display-desc {
+        color: #e67e22;
+        margin-top: -15px;
+    }
