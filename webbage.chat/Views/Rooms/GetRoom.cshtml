@@ -2,15 +2,18 @@
     <div id="chat">
 
     </div>
-    <div class="col-lg-3">
-        <div id="sidebar"></div>
-    </div>
+    <div id="sidebar"></div>
     <div id="input-area" class="silver">
         <div id="input-wrapper">
-            <textarea id="message" style="height: 60px; width: 550px;"></textarea>
+            <textarea id="message"></textarea>
         </div>
-        <div id="button-wrapper" style="padding: 10px;">
-            <input type="button" id="sendMessage" value="Send" style="margin-left: 10px;"/>
+        <div id="button-wrapper">
+            <button class="button carrot" id="sendMessage" disabled>send</button>
+        </div>
+        <div id="logo-wrapper">
+            <div id="logo">
+                <h5 style="position: absolute; top:35%;">webbage.{chat} @DateTime.Now.Year</h5>
+            </div>
         </div>
     </div>
     <input type="hidden" id="displayName" />
@@ -19,6 +22,9 @@
 @section scripts {    
     <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
     <script src="~/signalr/hubs"></script>
+    
+    @Styles.Render("~/Content/chat");
+
     <script>
         $(function () {
 
@@ -26,8 +32,7 @@
 
             $('#message').keypress(function (e) {
                 if (e.keyCode == 13) {
-                    chat.server.send($('#displayName').val(), $('#message').val());
-                    $('#message').val('').focus();
+                    sendMessage($('#displayname').val(), $('#message').val());
                     e.preventDefault();
                 }
             });
@@ -42,12 +47,18 @@
 
             $.connection.hub.start().done(function () {
                 $('#sendMessage').click(function () {
-                    chat.server.send($('#displayName').val(), $('#message').val());
-                    $('#message').val('').focus();
+                    sendMessage($('#displayname').val(), $('#message').val());
                 });
             });
 
             function htmlEncode(value) { return $('<div />').text(value).html(); }
+
+            function sendMessage(name, message) {
+                if (name != '' && message != '') {
+                    chat.server.send($('#displayName').val(), $('#message').val());
+                    $('#message').val('').focus();
+                };
+            };
 
         });
     </script>

@@ -1,0 +1,51 @@
+﻿#main {
+    height: 100%;
+    width: 100%;
+}
+#chat {
+    max-height: 80%;
+    width: 73%;
+    padding-top: 30px;
+    padding-left: 70px;
+    margin-bottom: 110px;
+}
+#sidebar {
+    position: fixed;
+    right: 0;
+    top: 75px;
+    height: 700px;
+    width: 24%;
+}
+#input-area {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+}
+    #input-area > #input-wrapper {
+        height: 100%;
+        padding-left: 70px;
+        padding-top: 10px;
+        float: left;
+    } 
+        #input-area > #input-wrapper > #message {
+            height: 60px;
+            width: 450px;
+        }
+    #input-area > #button-wrapper {
+        padding: 10px;
+    }
+        #input-area > #button-wrapper > #sendMessage {
+            margin-left: 10px;
+        }
+    #input-area > #logo-wrapper {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10%;
+            height: 100%;
+        }
+        #input-area > #logo-wrapper > #logo {
+            height: 100%;
+        }
