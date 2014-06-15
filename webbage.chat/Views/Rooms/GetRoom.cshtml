@@ -30,32 +30,39 @@
 
             var chat = $.connection.chatHub;
 
-            $('#message').keypress(function (e) {
-                if (e.keyCode == 13) {
-                    sendMessage($('#displayname').val(), $('#message').val());
-                    e.preventDefault();
-                }
-            });
-
             $('#displayName').val(prompt('Enter your name:', ''));
-            $('#message').focus();
-
-            chat.client.addNewMessageToPane = function (name, message) {
-                $('#chat').append('<div><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</div>');
-                $('#chatRow').animate({ scrollTop: $('#chat')[0].scrollHeight }, 400);
-            }
 
             $.connection.hub.start().done(function () {
                 $('#sendMessage').click(function () {
-                    sendMessage($('#displayname').val(), $('#message').val());
+                    sendMessage($('#displayName').val(), $('#message').val());
                 });
+
+                sendMessage("room", $('#displayName').val() + ' has joined the room.');
+                $('#message').focus();
             });
 
-            function htmlEncode(value) { return $('<div />').text(value).html(); }
+            chat.client.addNewMessageToPane = function (name, message) {
+                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '</div>');                
+                $('#chat').append(chatRoomMessage);
+                $('#chatRow').animate({ scrollTop: $('#chat')[0].scrollHeight }, 400);
+            }
 
+            //////////////////////////////////////////////////////////////// FUNCTIONS
+            $('#message').keypress(function (e) {
+                if (e.keyCode == 13) {
+                    sendMessage($('#displayName').val(), $('#message').val());
+                    e.preventDefault();
+                }
+            });
+            function htmlEncodeName(value) {                
+                return '<div class="chat-room-message-name">' + value + '</div>'
+            }
+            function htmlEncodeMessage(value) {
+                return '<div class="chat-room-message-message">' + value + '</div>';
+            }
             function sendMessage(name, message) {
                 if (name != '' && message != '') {
-                    chat.server.send($('#displayName').val(), $('#message').val());
+                    chat.server.send(name, message);
                     $('#message').val('').focus();
                 };
             };

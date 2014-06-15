@@ -49,3 +49,26 @@
         #input-area > #logo-wrapper > #logo {
             height: 100%;
         }
+
+.chat-room-message-wrapper {
+    width: 100%;
+    min-height: 25px;
+    clear:both;
+    margin-top: 8px;
+}
+    .chat-room-message-wrapper > .chat-room-message-name {
+        font-style: italic;
+        font-size: 14px;
+        float: left;
+        padding-right: 10px;
+        width: 5%;
+    }
+    .chat-room-message-wrapper > .chat-room-message-message {
+        border-radius: 4px;
+        padding: 4px;
+        font-size: 16px;
+        float: left;
+        width: 85%;
+        background: #E5EDEF;
+        word-wrap: break-word;
+    }
