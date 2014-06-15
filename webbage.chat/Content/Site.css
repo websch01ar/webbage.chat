@@ -6,6 +6,10 @@ body {
     padding-bottom: 20px;
 }
 
+.clear {
+    clear: both;
+}
+
 .chat-room-display {
     height: 200px;
     width: 200px;

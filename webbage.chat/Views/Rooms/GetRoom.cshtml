@@ -42,7 +42,7 @@
             });
 
             chat.client.addNewMessageToPane = function (name, message) {
-                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '</div>');                
+                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');                
                 $('#chat').append(chatRoomMessage);
                 $('#chatRow').animate({ scrollTop: $('#chat')[0].scrollHeight }, 400);
             }

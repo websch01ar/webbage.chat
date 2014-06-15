@@ -4,7 +4,7 @@
 }
 #chat {
     max-height: 80%;
-    width: 73%;
+    width: 78%;
     padding-top: 30px;
     padding-left: 70px;
     margin-bottom: 110px;
@@ -14,7 +14,7 @@
     right: 0;
     top: 75px;
     height: 700px;
-    width: 24%;
+    width:19%;
 }
 #input-area {
     position: fixed;
@@ -52,9 +52,8 @@
 
 .chat-room-message-wrapper {
     width: 100%;
-    min-height: 25px;
     clear:both;
-    margin-top: 8px;
+    margin: 7px;
 }
     .chat-room-message-wrapper > .chat-room-message-name {
         font-style: italic;
@@ -64,11 +63,12 @@
         width: 5%;
     }
     .chat-room-message-wrapper > .chat-room-message-message {
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 4px;
+        padding-left: 10px;
         font-size: 16px;
         float: left;
         width: 85%;
-        background: #E5EDEF;
+        background: #f6f6f6;
         word-wrap: break-word;
     }
