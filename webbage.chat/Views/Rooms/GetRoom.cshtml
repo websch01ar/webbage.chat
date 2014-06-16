@@ -12,7 +12,7 @@
             <textarea id="message"></textarea>
         </div>
         <div id="button-wrapper">
-            <button class="button carrot" id="sendMessage" disabled>send</button>
+            <button class="button carrot" id="sendMessage">send</button>
         </div>
         <div id="logo-wrapper">
             <div id="logo">
@@ -35,23 +35,31 @@
             var $displayName    = $('#displayName');
             var $chatDisplay    = $('#chat');
             var $message        = $('#message');
+            var $sendMessage    = $('#sendMessage');
             var $onlineUserList = $('#online-user-list');
+
+            // set height of the main chat div     
+            alert($(window).height());
+            $chatDisplay.height($(window).height() + 300);
 
             $displayName.val(prompt('Enter your name:', ''));
           
             $.connection.hub.qs = { "userName" : $displayName.val() };
             $.connection.hub.start().done(function () {
-                $('#sendMessage').click(function () {
-                    sendMessage($displayName.val(), $message.val());
-                });
-
                 $.connection.hub.qs = '';
             });            
 
             chat.client.addNewMessageToPane = function (name, message) {
-                // TODO: Determine if the message from yourself, if so append the "me" class to it
-                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');
+                var chatRoomMessage = '';
+                if (name == $displayName.val()) {
+                    chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMyMessage(message) + '<div class="clear"></div></div>');
+                } else if (name == 'room') {
+                    chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeRoomMessage(message) + '<div class="clear"></div></div>');
+                } else {
+                    chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');
+                }
                 $chatDisplay.append(chatRoomMessage);
+                $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
             };
             chat.client.updateOnlineUsers = function (users) {                
                 $.each($.parseJSON(users), function () {
@@ -66,18 +74,30 @@
                 $div.remove();
             }
 
-            //////////////////////////////////////////////////////////////// FUNCTIONS
-            $('#message').keypress(function (e) {
+            //////////////////////////////////////////////////////////////// SEND FUNCTIONS
+            $message.keypress(function (e) {
                 if (e.keyCode == 13) {
                     sendMessage($displayName.val(), $message.val());
                     e.preventDefault();
                 }
+            });
+            ///////////////////////////////////////////////////////////////////////////////
+
+            //////////////////////////////////////////////////////////////// MISC FUNCTIONS
+            $sendMessage.on('click', function() {
+                sendMessage($displayName.val(), $message.val());
             });
             function htmlEncodeName(value) {
                 return '<div class="chat-room-message-name">' + value + '</div>'
             };
             function htmlEncodeMessage(value) {
                 return '<div class="chat-room-message-message">' + value + '</div>';
+            };
+            function htmlEncodeMyMessage(value) {
+                return '<div class="chat-room-message-message mine">' + value + '</div>';
+            };
+            function htmlEncodeRoomMessage(value) {
+                return '<div class="chat-room-message-message room">' + value + '</div>';
             };
             function htmlEncodeOnlineUser(value) {
                 if (value == $displayName.val()) {
@@ -92,6 +112,7 @@
                     $message.val('').focus();
                 };
             };
+            ///////////////////////////////////////////////////////////////////////////////
 
         });
     </script>

@@ -9,15 +9,17 @@
     padding-top: 30px;
     padding-left: 70px;
     margin-bottom: 110px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .chat-room-message-wrapper {
     width: 100%;
     clear:both;
-    margin: 7px;
+    margin: 7px;    
 }
     .chat-room-message-wrapper > .chat-room-message-name {
         font-style: italic;
-        font-size: 14px;
+        font-size: 13px;
         float: left;
         padding-right: 10px;
         width: 5%;
@@ -26,14 +28,19 @@
         border-radius: 8px;
         padding: 4px;
         padding-left: 10px;
-        font-size: 16px;
+        font-size: 13px;
         float: left;
-        width: 85%;
-        background: #f6f6f6;
+        width: 92%;
+        background: #bdc3c7;
         word-wrap: break-word;
     }
     .chat-room-message-wrapper > .chat-room-message-message.mine {
-        background: #fbf2d9;
+        background: #E59650;
+        color: #ecf0f1;
+    }
+    .chat-room-message-wrapper > .chat-room-message-message.room {
+        background: #5B6A78;
+        color: #ecf0f1;
     }
 
 #sidebar {
@@ -41,7 +48,7 @@
     right: 50px;
     top: 75px;
     height: 700px;
-    width:19%;
+    width:20%;
 }
     #sidebar > #online-user-list {
         width: 100%;
