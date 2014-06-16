@@ -59,10 +59,10 @@
             cursor: pointer;
         }
         #sidebar > #online-user-list > .online-user.active-user {
-            background: #2ecc71;
+            background: #bdc3c7;
         }
             #sidebar > #online-user-list > .online-user.active-user:hover {
-                background: #27ae60;
+                background: #95a5a6;
             }
         #sidebar > #online-user-list > .online-user.inactive-user {
             background: #e67e22;
@@ -71,10 +71,10 @@
                 background: #c0392b;
             }
         #sidebar > #online-user-list > .online-user.me {
-            background: #3498db;
+            background: #E59650;
         }
             #sidebar > #online-user-list > .online-user.me:hover {
-                background: #2980b9;
+                background: #e67e22;
             }
 
 #input-area {

@@ -41,7 +41,9 @@
             // set height of the main chat div                 
             $chatDisplay.height(($(window).height() - 200) + 'px');
 
-            $displayName.val(prompt('Enter your name:', ''));
+            while (!$displayName.val()) {
+                $displayName.val(prompt('Enter your name:', '').trim());
+            }
           
             $.connection.hub.qs = { "userName" : $displayName.val() };
             $.connection.hub.start().done(function () {
