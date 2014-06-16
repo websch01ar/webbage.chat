@@ -38,9 +38,8 @@
             var $sendMessage    = $('#sendMessage');
             var $onlineUserList = $('#online-user-list');
 
-            // set height of the main chat div     
-            alert($(window).height());
-            $chatDisplay.height($(window).height() + 300);
+            // set height of the main chat div                 
+            $chatDisplay.height(($(window).height() - 200) + 'px');
 
             $displayName.val(prompt('Enter your name:', ''));
           
