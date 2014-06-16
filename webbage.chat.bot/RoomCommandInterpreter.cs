@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace webbage.chat.bot {
-    public class BotController {
+    public class RoomCommandInterpreter {
+
+        public bool DoCommand(Command cmd) {
+
+            return true;
+        }
     }
 }

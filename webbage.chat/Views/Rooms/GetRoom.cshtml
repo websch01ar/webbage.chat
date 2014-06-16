@@ -43,11 +43,12 @@
 
             while (!$displayName.val()) {
                 $displayName.val(prompt('Enter your name:', '').trim());
-            }
-          
+            };
+
             $.connection.hub.qs = { "userName" : $displayName.val() };
             $.connection.hub.start().done(function () {
                 $.connection.hub.qs = '';
+                $message.val('').focus();
             });            
 
             chat.client.addNewMessageToPane = function (name, message) {
@@ -56,6 +57,8 @@
                     chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMyMessage(message) + '<div class="clear"></div></div>');
                 } else if (name == 'room') {
                     chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeRoomMessage(message) + '<div class="clear"></div></div>');
+                } else if (name == 'bot') {
+                    chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeBotMessage(message) + '<div class="clear"></div></div>');
                 } else {
                     chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');
                 }
@@ -73,6 +76,9 @@
             chat.client.removeDisconnectedUser = function (name) {
                 var $div = $('#online-user-list .online-user.' + name);
                 $div.remove();
+            };
+            chat.client.kickThisAsshole = function () {
+                $.connection.hub.stop();
             }
 
             //////////////////////////////////////////////////////////////// SEND FUNCTIONS
@@ -100,13 +106,16 @@
             function htmlEncodeRoomMessage(value) {
                 return '<div class="chat-room-message-message room">' + value + '</div>';
             };
+            function htmlEncodeBotMessage(value) {
+                return '<div class="chat-room-message-message bot">' + value + '</div>';
+            };
             function htmlEncodeOnlineUser(value) {
                 if (value == $displayName.val()) {
                     return '<div class="online-user active-user me ' + value + '">' + value + '</div>';
                 } else {
                     return '<div class="online-user active-user ' + value + '">' + value + '</div>';
                 }
-            }
+            };
             function sendMessage(name, message) {
                 if (name != '' && message != '') {
                     chat.server.send(name, message);

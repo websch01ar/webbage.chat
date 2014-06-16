@@ -39,6 +39,9 @@
         background: #5B6A78;
         color: #ecf0f1;
     }
+    .chat-room-message-wrapper > .chat-room-message-message.bot {
+        background: #E67366;
+    }
 
 #sidebar {
     position: fixed;
