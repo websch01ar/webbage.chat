@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
 }
+
 #chat {
     max-height: 80%;
     width: 78%;
@@ -9,13 +10,69 @@
     padding-left: 70px;
     margin-bottom: 110px;
 }
+.chat-room-message-wrapper {
+    width: 100%;
+    clear:both;
+    margin: 7px;
+}
+    .chat-room-message-wrapper > .chat-room-message-name {
+        font-style: italic;
+        font-size: 14px;
+        float: left;
+        padding-right: 10px;
+        width: 5%;
+    }
+    .chat-room-message-wrapper > .chat-room-message-message {
+        border-radius: 8px;
+        padding: 4px;
+        padding-left: 10px;
+        font-size: 16px;
+        float: left;
+        width: 85%;
+        background: #f6f6f6;
+        word-wrap: break-word;
+    }
+    .chat-room-message-wrapper > .chat-room-message-message.mine {
+        background: #fbf2d9;
+    }
+
 #sidebar {
     position: fixed;
-    right: 0;
+    right: 50px;
     top: 75px;
     height: 700px;
     width:19%;
 }
+    #sidebar > #online-user-list {
+        width: 100%;
+    }
+        #sidebar > #online-user-list > .online-user {
+            padding: 2px 10px;
+            margin: 2px;
+            border-radius: 7px;
+            float: left;
+            color: #ecf0f1;
+            cursor: pointer;
+        }
+        #sidebar > #online-user-list > .online-user.active-user {
+            background: #2ecc71;
+        }
+            #sidebar > #online-user-list > .online-user.active-user:hover {
+                background: #27ae60;
+            }
+        #sidebar > #online-user-list > .online-user.inactive-user {
+            background: #e67e22;
+        }
+            #sidebar > #online-user-list > .online-user.inactive-user:hover {
+                background: #c0392b;
+            }
+        #sidebar > #online-user-list > .online-user.me {
+            background: #3498db;
+        }
+            #sidebar > #online-user-list > .online-user.me:hover {
+                background: #2980b9;
+            }
+
 #input-area {
     position: fixed;
     bottom: 0;
@@ -49,26 +106,3 @@
         #input-area > #logo-wrapper > #logo {
             height: 100%;
         }
-
-.chat-room-message-wrapper {
-    width: 100%;
-    clear:both;
-    margin: 7px;
-}
-    .chat-room-message-wrapper > .chat-room-message-name {
-        font-style: italic;
-        font-size: 14px;
-        float: left;
-        padding-right: 10px;
-        width: 5%;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message {
-        border-radius: 8px;
-        padding: 4px;
-        padding-left: 10px;
-        font-size: 16px;
-        float: left;
-        width: 85%;
-        background: #f6f6f6;
-        word-wrap: break-word;
-    }

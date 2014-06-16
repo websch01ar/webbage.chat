@@ -2,7 +2,11 @@
     <div id="chat">
 
     </div>
-    <div id="sidebar"></div>
+    <div id="sidebar">
+        <div id="online-user-list">
+
+        </div>
+    </div>
     <div id="input-area" class="silver">
         <div id="input-wrapper">
             <textarea id="message"></textarea>
@@ -27,43 +31,65 @@
 
     <script>
         $(function () {
+            var chat            = $.connection.chatHub;
+            var $displayName    = $('#displayName');
+            var $chatDisplay    = $('#chat');
+            var $message        = $('#message');
+            var $onlineUserList = $('#online-user-list');
 
-            var chat = $.connection.chatHub;
-
-            $('#displayName').val(prompt('Enter your name:', ''));
-
+            $displayName.val(prompt('Enter your name:', ''));
+          
+            $.connection.hub.qs = { "userName" : $displayName.val() };
             $.connection.hub.start().done(function () {
                 $('#sendMessage').click(function () {
-                    sendMessage($('#displayName').val(), $('#message').val());
+                    sendMessage($displayName.val(), $message.val());
                 });
 
-                sendMessage("room", $('#displayName').val() + ' has joined the room.');
-                $('#message').focus();
-            });
+                $.connection.hub.qs = '';
+            });            
 
             chat.client.addNewMessageToPane = function (name, message) {
-                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');                
-                $('#chat').append(chatRoomMessage);
-                $('#chatRow').animate({ scrollTop: $('#chat')[0].scrollHeight }, 400);
+                // TODO: Determine if the message from yourself, if so append the "me" class to it
+                var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');
+                $chatDisplay.append(chatRoomMessage);
+            };
+            chat.client.updateOnlineUsers = function (users) {                
+                $.each($.parseJSON(users), function () {
+                    if (!($('#online-user-list .online-user.' + this).length)) {
+                        var onlineUserContent = htmlEncodeOnlineUser(this);
+                        $onlineUserList.append(onlineUserContent);
+                    }
+                });
+            };
+            chat.client.removeDisconnectedUser = function (name) {
+                var $div = $('#online-user-list .online-user.' + name);
+                $div.remove();
             }
 
             //////////////////////////////////////////////////////////////// FUNCTIONS
             $('#message').keypress(function (e) {
                 if (e.keyCode == 13) {
-                    sendMessage($('#displayName').val(), $('#message').val());
+                    sendMessage($displayName.val(), $message.val());
                     e.preventDefault();
                 }
             });
-            function htmlEncodeName(value) {                
+            function htmlEncodeName(value) {
                 return '<div class="chat-room-message-name">' + value + '</div>'
-            }
+            };
             function htmlEncodeMessage(value) {
                 return '<div class="chat-room-message-message">' + value + '</div>';
+            };
+            function htmlEncodeOnlineUser(value) {
+                if (value == $displayName.val()) {
+                    return '<div class="online-user active-user me ' + value + '">' + value + '</div>';
+                } else {
+                    return '<div class="online-user active-user ' + value + '">' + value + '</div>';
+                }
             }
             function sendMessage(name, message) {
                 if (name != '' && message != '') {
                     chat.server.send(name, message);
-                    $('#message').val('').focus();
+                    $message.val('').focus();
                 };
             };
 
