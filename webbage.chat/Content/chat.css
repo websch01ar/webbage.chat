@@ -44,6 +44,7 @@
     }
     .chat-room-message-wrapper > .chat-room-message-message.private {
         background: #A378B3;
+        color: #ecf0f1;
     }
 
 #sidebar {

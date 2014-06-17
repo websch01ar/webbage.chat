@@ -118,7 +118,9 @@
         return '<div class="chat-room-message-name">' + value + '</div>'
     };
     function htmlEncodeMessage(value) {
-        return '<div class="chat-room-message-message">' + value + '</div>';
+        return '<div class="chat-room-message-message">' + 
+            value.replace('<script>', '').replace('</script>', '').replace('<style>', '').replace('</style>', '') + 
+            '</div>';
     };
     function htmlEncodeMyMessage(value) {
         return '<div class="chat-room-message-message mine">' + value + '</div>';
