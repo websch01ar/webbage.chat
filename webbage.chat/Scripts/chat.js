@@ -1,13 +1,16 @@
 ﻿$(function () {
-    var chat = $.connection.chatHub;
-    var $displayName = $('#displayName');
-    var $chatDisplay = $('#chat');
-    var $message = $('#message');
-    var $sendMessage = $('#sendMessage');
+    var chat            = $.connection.chatHub;
+    var $displayName    = $('#displayName');
+    var $chatDisplay    = $('#chat');
+    var $message        = $('#message');
+    var $sendMessage    = $('#sendMessage');
     var $onlineUserList = $('#online-user-list');
 
-    // set height of the main chat div                 
+    // set height of the main chat div on initial load and any window resize
     $chatDisplay.height(($(window).height() - 200) + 'px');
+    $(window).on('resize', function () {
+        $chatDisplay.height(($(window).height() - 200) + 'px');
+    });
 
     // get the display name
     // TODO: Replacement code will be needed when accounts are implemented, just replace userName
@@ -21,6 +24,7 @@
     $.connection.hub.start().done(function () {
         // no implementation yet
     });
+
 
     ///////////////////////////////////////////////////////////////// S2C FUNCTIONS
     chat.client.userConnected = function (name) {
@@ -65,7 +69,7 @@
 
     // add desired message to the chat pane
     function appendMessage(message) {
-        if ($chatDisplay.scrollTop() == $chatDisplay[0].scrollHeight) {
+        if (($chatDisplay[0].scrollHeight - $chatDisplay.scrollTop()) == $chatDisplay.outerHeight()) {
             $chatDisplay.append(message);
             $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
         } else {
@@ -73,6 +77,7 @@
         }
     };
     ///////////////////////////////////////////////////////////////////////////////  
+
 
     ///////////////////////////////////////////////////////////////// C2S FUNCTIONS
     $message.keypress(function (e) {
@@ -85,6 +90,9 @@
     $sendMessage.on('click', function () {
         determineMessageRoute($message.val());
         $message.val('').focus();
+    });
+    $message.on('focus', function () {
+        notifcationCount = 0;
     });
     function determineMessageRoute(message) {        
         if (message.substring(0, 1) == "*") {
@@ -103,6 +111,7 @@
         chat.server.sendToUser(recipient, message);
     };
     ///////////////////////////////////////////////////////////////////////////////
+
 
     //////////////////////////////////////////////////////////////// MISC FUNCTIONS
     function htmlEncodeName(value) {
