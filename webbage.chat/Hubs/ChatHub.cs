@@ -1,13 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Microsoft.AspNet.SignalR;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
 using System.Web.Script.Serialization;
 using webbage.chat.bot;
-using System.Threading;
+using webbage.chat.model;
 
 namespace webbage.chat.Hubs {
     public class ChatHub : Hub {
@@ -20,51 +18,84 @@ namespace webbage.chat.Hubs {
         ///         -- Wiki command
         ///     Notifications for @[userName] messages
         ///     Change tab title on new message in room
+        ///     
 
         // currently online user list
-        public static Dictionary<string, string> onlineUsers = new Dictionary<string, string>();        
+        private static List<User> onlineUsers = new List<User>();
 
         // command interpreters
         private static BotCommandInterpreter botInterpreter = new BotCommandInterpreter();
         private static RoomCommandInterpreter roomInterpreter = new RoomCommandInterpreter();
 
-        #region Server-to-Client Actions
-        public void Send(string name, string message) {
-            Clients.All.addNewMessageToPane(name, message);
-            checkCommands(message);
-        }
-        public void UpdateOnlineUsers() {
-            var jsonUsers = (new JavaScriptSerializer()).Serialize(onlineUsers);
-            Clients.All.updateOnlineUsers(jsonUsers);
-        }
-        public void RemoveDisconnectedUser(string name) {
-            Clients.All.removeDisconnectedUser(name);
-        }
-        #endregion
-
-        #region Hub Overrides
+        // add user to onlineUsers
         public override Task OnConnected() {
-            // get the userName from the querystring set in jquery, send a notification
-            // from room that the user has joined
-            string user = getUser();
-            Send("room", string.Format("{0} has joined the room", user));           
+            User user = new User { Name = Context.QueryString["userName"].ToString(), ConnectionId = Context.ConnectionId };
+            onlineUsers.Add(user);
+            Clients.Others.userConnected(user.Name);
 
-            onlineUsers.Add(Context.ConnectionId, user);
-
-            UpdateOnlineUsers();
+            // update the online-user-list
+            updateOnlineUsers();
 
             return base.OnConnected();
         }
+        // remove user from onlineUsers based on ConnectionId, notify everyone else they left
         public override Task OnDisconnected() {
-            string user = getUser();
-            
-            // find them in the dictionary
-            var disconnectedUser = onlineUsers.Where(u => u.Key == user || u.Value == user).FirstOrDefault();
-            Send("room", string.Format("{0} has left the building", disconnectedUser.Value));
-
-            onlineUsers.Remove(disconnectedUser.Key);
-            RemoveDisconnectedUser(disconnectedUser.Value);
+            if (onlineUsers.Any(u => u.ConnectionId == Context.ConnectionId)) {
+                User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
+                onlineUsers.Remove(user);
+                Clients.Others.userDisconnected(user.Name);
+            }
             return base.OnDisconnected();
+        }
+
+        #region Client-to-Server Actions
+        public void SendToRoom(string message) {
+            User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
+            Clients.All.addNewMessageToPane(user.Name, message, false);
+
+            determineBotActions(user, message);
+        }
+        public void SendToUser(string recipient, string message) {
+            User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
+            User receiver = onlineUsers.FirstOrDefault(u => u.Name == recipient);
+
+            if (!(receiver == null)) {
+                Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.Name, message, true);
+            } else {
+                Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true);
+            }
+        }
+        private void determineBotActions(User user, string message) {
+            if (message.StartsWith("!")) {
+                Command cmd = new Command(message);
+                botInterpreter.DoWork(cmd);
+                
+                if (cmd.Response != "invalid command")
+                    Clients.All.addNewMessageToPane("bot", cmd.Response, false);
+                else
+                    Clients.Client(user.ConnectionId).addNewMessageToPane("bot", cmd.Response, true);
+
+            } else if (message.StartsWith("/")) {                
+                if (userIsAuthorized) {
+                    Command cmd = new Command(message);
+                    roomInterpreter.DoWork(cmd);
+
+                    if (cmd.Response != "invalid command")
+                        Clients.All.addNewMessageToPane("room", cmd.Response, false);
+                    else
+                        Clients.Client(user.ConnectionId).addNewMessageToPane("room", cmd.Response, true);
+
+                } else {
+                    Clients.Client(user.ConnectionId).addNewMessageToPane("room", "you don't have the necessary permissions to do that", true);
+                }
+            }
+        }
+        #endregion
+
+        #region Server-to-Client Actions
+        private void updateOnlineUsers() {
+            var jsonUsers = (new JavaScriptSerializer()).Serialize(onlineUsers);
+            Clients.All.updateOnlineUsers(jsonUsers);
         }
         #endregion
 
@@ -78,33 +109,6 @@ namespace webbage.chat.Hubs {
                 clientId = Context.ConnectionId;
 
             return clientId;
-        }
-        private void checkCommands(string message) {
-            if (message.StartsWith("!")) {
-                (new Thread(() => { interpretBotCommand(message); })).Start();                
-            } else if (message.StartsWith(".")) {
-                (new Thread(() => { interpretRoomCommand(message); })).Start();
-            }
-        }
-        private void interpretBotCommand(string message) {
-            Command cmd = new Command(message);
-            if (botInterpreter.DoCommand(cmd)) {
-                Clients.All.addNewMessageToPane("bot", cmd.Response);
-            } else {
-                Clients.All.addNewMessageToPane("bot", "does not compute.");
-            }
-        }
-        private void interpretRoomCommand(string message) {
-            Command cmd = new Command(message);
-            if (userIsAuthorized) {
-                if (roomInterpreter.DoCommand(cmd)) {
-                    Clients.All.addNewMessageToPane("room", cmd.Response);
-                } else {
-                    Clients.All.addNewMessageToPane("room", "does not compute.");
-                }
-            } else {
-                Clients.All.addNewMessageToPane("room", "access denied.");
-            }
         }
         private bool userIsAuthorized {
             get { return false; }

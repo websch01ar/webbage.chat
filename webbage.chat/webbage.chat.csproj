@@ -151,16 +151,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chat.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.js" />
     <Content Include="Scripts\jquery.signalR-2.0.3.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\site.js" />
@@ -196,6 +191,10 @@
     <ProjectReference Include="..\webbage.chat.bot\webbage.chat.bot.csproj">
       <Project>{a11fb996-3d82-4608-9899-3c00dfd7535d}</Project>
       <Name>webbage.chat.bot</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\webbage.chat.model\webbage.chat.model.csproj">
+      <Project>{07ad1567-df3b-4b0b-a1a3-e4b0a8a43e40}</Project>
+      <Name>webbage.chat.model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

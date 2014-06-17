@@ -41,7 +41,11 @@ namespace webbage.chat.bot {
             };
         }
 
-        public bool DoCommand(Command cmd) {
+        public void DoWork(Command cmd) {
+            if (!DoCommand(cmd))
+                cmd.Response = "invalid command";
+        }
+        private bool DoCommand(Command cmd) {
             if (!(validateCommand(cmd.Text.Split(' ')[0])))
                 return false;
 

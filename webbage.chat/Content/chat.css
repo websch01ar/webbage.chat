@@ -42,6 +42,9 @@
     .chat-room-message-wrapper > .chat-room-message-message.bot {
         background: #E67366;
     }
+    .chat-room-message-wrapper > .chat-room-message-message.private {
+        background: #A378B3;
+    }
 
 #sidebar {
     position: fixed;
