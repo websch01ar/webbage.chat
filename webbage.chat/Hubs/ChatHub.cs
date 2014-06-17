@@ -61,6 +61,7 @@ namespace webbage.chat.Hubs {
 
             if (!(receiver == null)) {
                 Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.Name, message, true);
+                Clients.Client(user.ConnectionId).addNewMessageToPane(user.Name, message, true);
             } else {
                 Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true);
             }
