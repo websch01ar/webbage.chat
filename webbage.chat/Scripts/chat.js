@@ -67,7 +67,6 @@
     function appendMessage(message) {
         $chatDisplay.append(message);
         $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
-        $message.val('').focus();
     };
     ///////////////////////////////////////////////////////////////////////////////  
 
@@ -75,10 +74,12 @@
     $message.keypress(function (e) {
         if (e.keyCode == 13) {
             determineMessageRoute($message.val());
+            $message.val('').focus();
         }
     });
     $sendMessage.on('click', function () {
         determineMessageRoute($message.val());
+        $message.val('').focus();
     });
     function determineMessageRoute(message) {        
         if (message.substring(0, 1) == "*") {
@@ -88,6 +89,7 @@
         } else {
             sendRoomMessage(message);
         }
+        
     };
     function sendRoomMessage(message) {
         chat.server.sendToRoom(message);
