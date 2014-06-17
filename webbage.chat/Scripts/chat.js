@@ -75,6 +75,7 @@
         if (e.keyCode == 13) {
             determineMessageRoute($message.val());
             $message.val('').focus();
+            e.preventDefault();
         }
     });
     $sendMessage.on('click', function () {

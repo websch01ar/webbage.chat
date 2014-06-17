@@ -59,7 +59,7 @@ namespace webbage.chat.Hubs {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
             User receiver = onlineUsers.FirstOrDefault(u => u.Name.ToLower() == recipient.ToLower());
 
-            if (!(receiver == null)) {
+            if (receiver != null && user.ConnectionId != receiver.ConnectionId) {
                 Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.Name, message, true);
                 Clients.Client(user.ConnectionId).addNewMessageToPane(user.Name, message, true);
             } else {
