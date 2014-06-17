@@ -57,7 +57,7 @@ namespace webbage.chat.Hubs {
         }
         public void SendToUser(string recipient, string message) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
-            User receiver = onlineUsers.FirstOrDefault(u => u.Name == recipient);
+            User receiver = onlineUsers.FirstOrDefault(u => u.Name.ToLower() == recipient.ToLower());
 
             if (!(receiver == null)) {
                 Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.Name, message, true);
