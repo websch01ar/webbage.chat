@@ -65,8 +65,12 @@
 
     // add desired message to the chat pane
     function appendMessage(message) {
-        $chatDisplay.append(message);
-        $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
+        if ($chatDisplay.scrollTop() == $chatDisplay[0].scrollHeight) {
+            $chatDisplay.append(message);
+            $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
+        } else {
+            $chatDisplay.append(message);
+        }
     };
     ///////////////////////////////////////////////////////////////////////////////  
 
