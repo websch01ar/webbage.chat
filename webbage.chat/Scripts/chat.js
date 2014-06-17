@@ -118,21 +118,19 @@
         return '<div class="chat-room-message-name">' + value + '</div>'
     };
     function htmlEncodeMessage(value) {
-        return '<div class="chat-room-message-message">' + 
-            value.replace('<script>', '').replace('</script>', '').replace('<style>', '').replace('</style>', '') + 
-            '</div>';
+        return '<div class="chat-room-message-message">' + scriptPreventor(value) + '</div>';
     };
     function htmlEncodeMyMessage(value) {
-        return '<div class="chat-room-message-message mine">' + value + '</div>';
+        return '<div class="chat-room-message-message mine">' + scriptPreventor(value) + '</div>';
     };
     function htmlEncodeRoomMessage(value) {
-        return '<div class="chat-room-message-message room">' + value + '</div>';
+        return '<div class="chat-room-message-message room">' + scriptPreventor(value) + '</div>';
     };
     function htmlEncodeBotMessage(value) {
-        return '<div class="chat-room-message-message bot">' + value + '</div>';
+        return '<div class="chat-room-message-message bot">' + scriptPreventor(value) + '</div>';
     };
     function htmlEncodePrivateMessage(value) {
-        return '<div class="chat-room-message-message private">' + value + '</div>';
+        return '<div class="chat-room-message-message private">' + scriptPreventor(value) + '</div>';
     };
     function htmlEncodeOnlineUser(value) {
         if (value == $displayName.val()) {
@@ -141,6 +139,13 @@
             return '<div class="online-user active-user ' + value + '">' + value + '</div>';
         }
     };
+    function scriptPreventor(value) {
+        return value
+            .replace('<script>', '')
+            .replace('</script>', '')
+            .replace('<style>', '')
+            .replace('</style>', '')
+    }
     ///////////////////////////////////////////////////////////////////////////////
 
 });
