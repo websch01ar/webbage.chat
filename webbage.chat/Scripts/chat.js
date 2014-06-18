@@ -4,7 +4,9 @@
     var $chatDisplay    = $('#chat');
     var $message        = $('#message');
     var $sendMessage    = $('#sendMessage');
+    var $codeMessage    = $('#sendCodeMessage');
     var $onlineUserList = $('#online-user-list');
+    var codeMessage     = false;
 
     // set height of the main chat div on initial load and any window resize
     $chatDisplay.height(($(window).height() - 200) + 'px');
@@ -43,6 +45,9 @@
     };
     chat.client.addNewMessageToPane = function (name, message, pm) {
         var chatRoomMessage = '';
+        if (codeMessage) {
+            message = '<pre><code>' + message + '</code></pre>';
+        }
         if (!(pm)) {
             if (name == $displayName.val()) {
                 chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMyMessage(message) + '<div class="clear"></div></div>');
@@ -57,6 +62,9 @@
             chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodePrivateMessage(message) + '<div class="clear"></div></div>');
         }
         appendMessage(chatRoomMessage);
+        codeMessage = false;
+        $codeMessage.removeClass('carrot');
+        $codeMessage.addClass('concrete');
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {
@@ -91,8 +99,16 @@
         determineMessageRoute($message.val());
         $message.val('').focus();
     });
-    $message.on('focus', function () {
-        notifcationCount = 0;
+    $codeMessage.on('click', function () {
+        codeMessage = !codeMessage;
+
+        if (codeMessage) {
+            $codeMessage.removeClass('concrete');
+            $codeMessage.addClass('carrot');
+        } else {
+            $codeMessage.removeClass('carrot');
+            $codeMessage.addClass('concrete');
+        }
     });
     function determineMessageRoute(message) {        
         if (message.substring(0, 1) == "*") {

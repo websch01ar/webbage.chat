@@ -46,6 +46,10 @@
         background: #A378B3;
         color: #ecf0f1;
     }
+    .chat-room-message-wrapper > .chat-room-message-message.code {
+        font-family: 'Courier New';
+        font-size: 13px;
+    }
 
 #sidebar {
     position: fixed;
