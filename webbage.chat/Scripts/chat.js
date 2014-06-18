@@ -109,6 +109,7 @@
             $codeMessage.removeClass('carrot');
             $codeMessage.addClass('concrete');
         }
+        $message.focus();
     });
     function determineMessageRoute(message) {        
         if (message.substring(0, 1) == "*") {
