@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace webbage.chat.bot {
     public class BotCommandInterpreter {
@@ -37,6 +38,14 @@ namespace webbage.chat.bot {
                         Parser = new Func<string, string[]>(helper.ParseNormal),
                         Action = new Func<Command, bool>(helper.Insult)
                     }
+                },
+                {
+                    "!google",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, bool>>() {
+                        Desc = @"Usage: !google [""queryString""] :: returns a url for a google search for the specified [""queryString""]. [""queryString""] must be enclosed in "" (double-quotes)",
+                        Parser = new Func<string, string[]>(helper.ParseQuotes),
+                        Action = new Func<Command, bool>(helper.Google)
+                    }
                 }
             };
         }
@@ -45,6 +54,7 @@ namespace webbage.chat.bot {
             if (!DoCommand(cmd))
                 cmd.Response = "invalid command";
         }
+        // do the actual work of the command
         private bool DoCommand(Command cmd) {
             if (!(validateCommand(cmd.Text.Split(' ')[0])))
                 return false;
@@ -112,6 +122,13 @@ namespace webbage.chat.bot {
                     return false;
 
                 cmd.Response = string.Format(parent.insult.GetNew(), cmd.Args[1]);
+                return true;
+            }
+            public bool Google(Command cmd) {
+                if (cmd.Args.Count() < 2)
+                    return false;
+
+                cmd.Response = "http://lmgtfy.com/?q=" + HttpUtility.UrlEncode(cmd.Args[1]);
                 return true;
             }
             #endregion

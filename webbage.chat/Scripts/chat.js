@@ -108,9 +108,8 @@
                 case "room": messageDiv = htmlEncodeRoomMessage(message, code); break;
                 case "bot": messageDiv = htmlEncodeBotMessage(message, code); break;
                 default: messageDiv = htmlEncodeMessage(message, code); break;
-            }
+            }            
         }
-
         return $('<div class="chat-room-message-wrapper">' + nameDiv +  messageDiv + '<div class="clear"></div></div>')
     }
     function htmlEncodeName(value) {        
