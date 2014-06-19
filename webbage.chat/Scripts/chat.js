@@ -25,9 +25,9 @@
     var userName = $displayName.val();
     
     // connection start and store user as online
-    $.connection.hub.qs = "userName=" + userName;
+    $.connection.hub.qs = "userName=" + userName + "&roomId=" + roomId;
     $.connection.hub.start().done(function () {
-        chat.server.joinRoom(roomId);
+        // no implementation yet
     });
 
 

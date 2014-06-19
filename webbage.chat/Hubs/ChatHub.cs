@@ -17,8 +17,25 @@ namespace webbage.chat.Hubs {
         private static RoomCommandInterpreter roomInterpreter = new RoomCommandInterpreter();
 
         // remove user from onlineUsers based on ConnectionId, notify everyone else they left
-        public override Task OnDisconnected() {
-            return base.OnDisconnected();
+        public override async Task OnConnected() {
+            string roomId = Context.QueryString["roomId"];
+
+            User user = new User { UserName = Context.QueryString["userName"], ConnectionId = Context.ConnectionId, RoomId = roomId };
+            onlineUsers.Add(user);
+
+            await Groups.Add(Context.ConnectionId, roomId);
+            await Clients.OthersInGroup(roomId).userConnected(user.UserName);
+            updateOnlineUsers(roomId);
+        }        
+        public override async Task OnDisconnected() {
+            string roomId = Context.QueryString["roomId"];
+
+            User disconnectedUser = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
+            onlineUsers.Remove(disconnectedUser);
+
+            //await Groups.Remove(Context.ConnectionId, roomId);
+            await Clients.OthersInGroup(roomId).userDisconnected(disconnectedUser.UserName);
+            updateOnlineUsers(roomId);
         }
 
         #region Client-to-Server Actions
@@ -37,22 +54,6 @@ namespace webbage.chat.Hubs {
                 }
             }
             return null;
-        }
-        public async Task JoinRoom(string roomId) {
-            User user = new User { UserName = Context.QueryString["userName"], ConnectionId = Context.ConnectionId, RoomId = roomId };
-            onlineUsers.Add(user);
-            
-            await Groups.Add(Context.ConnectionId, roomId);
-            await Clients.OthersInGroup(roomId).userConnected(user.UserName);
-            updateOnlineUsers(roomId);
-        }
-        public async Task LeaveRoom(string roomId) {
-            User disconnectedUser = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
-            onlineUsers.Remove(disconnectedUser);
-
-            await Groups.Remove(Context.ConnectionId, roomId);
-            await Clients.OthersInGroup(roomId).userDisconnected(disconnectedUser.UserName);
-            updateOnlineUsers(roomId);
         }
         #endregion
 
