@@ -34,7 +34,7 @@
     ///////////////////////////////////////////////////////////////// S2C FUNCTIONS
     chat.client.userConnected = function (name) {
         // notify room they joined        
-        var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName("room") + htmlEncodeRoomMessage(name + ' has joined the room.') + '<div class="clear"></div></div>');
+        var chatRoomMessage = encodeMessageMaster("room", name + 'has joined the room', false, false);
         appendMessage(chatRoomMessage);
     };
     chat.client.userDisconnected = function (name) {
@@ -43,10 +43,10 @@
         $div.remove();
 
         // notify room they left
-        var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName("room") + htmlEncodeRoomMessage(name + ' has left the building.') + '<div class="clear"></div></div>');
+        var chatRoomMessage = encodeMessageMaster("room", name + 'has left the building', false, false);
         appendMessage(chatRoomMessage);
     };
-    chat.client.addNewMessageToPane = function (name, message, pm, isCode, roomName) {
+    chat.client.addNewMessageToPane = function (name, message, pm, isCode) {
         var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode);
         appendMessage(chatRoomMessage);
     };

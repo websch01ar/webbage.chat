@@ -18,22 +18,27 @@ namespace webbage.chat.Hubs {
 
         // remove user from onlineUsers based on ConnectionId, notify everyone else they left
         public override async Task OnConnected() {
+            // get the room id
             string roomId = Context.QueryString["roomId"];
-
+            // add them to onlineUsers
             User user = new User { UserName = Context.QueryString["userName"], ConnectionId = Context.ConnectionId, RoomId = roomId };
             onlineUsers.Add(user);
 
+            // add them to this room's group
             await Groups.Add(Context.ConnectionId, roomId);
+            // send out notification that they joined
             await Clients.OthersInGroup(roomId).userConnected(user.UserName);
             updateOnlineUsers(roomId);
         }        
         public override async Task OnDisconnected() {
+            // get the room id
             string roomId = Context.QueryString["roomId"];
-
+            // remove them from online users
             User disconnectedUser = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
             onlineUsers.Remove(disconnectedUser);
 
-            //await Groups.Remove(Context.ConnectionId, roomId);
+            // no need to remove from group here, should be already removed in OnDisconnected()
+            // send out notification that they've left
             await Clients.OthersInGroup(roomId).userDisconnected(disconnectedUser.UserName);
             updateOnlineUsers(roomId);
         }
@@ -46,8 +51,10 @@ namespace webbage.chat.Hubs {
             if (validateMessage(message, out validatedMessage)) {
                 // determine if this is a private message
                 if (validatedMessage.StartsWith("*")) {
-                    string recipientName = validatedMessage.Split(' ')[0].Replace("*", ""); // get the recipient's name
-                    validatedMessage = validatedMessage.Replace(recipientName, "").Replace("*", ""); // update the message
+                    // get the recipient's name
+                    string recipientName = validatedMessage.Split(' ')[0].Replace("*", "");
+                    // get the actual message
+                    validatedMessage = validatedMessage.Replace(recipientName, "").Replace("*", "");
                     return sendToUser(recipientName, validatedMessage, isCodeMessage, roomId);
                 } else {
                     return sendToRoom(validatedMessage, isCodeMessage, roomId);
@@ -56,14 +63,15 @@ namespace webbage.chat.Hubs {
             return null;
         }
         #endregion
-
         #region Private
+        // send the message out to the room
         private async Task sendToRoom(string message, bool isCodeMessage, string roomId) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
 
-            await Clients.Group(roomId).addNewMessageToPane(user.UserName, message, false, isCodeMessage, roomId);
+            await Clients.Group(roomId).addNewMessageToPane(user.UserName, message, false, isCodeMessage);
             await determineBotActions(user, message);
         }
+        // see if we need to do any bot actions based on the message sent
         private Task determineBotActions(User user, string message) {
             if (message.StartsWith("!")) {
                 Command cmd = new Command(message);
@@ -91,15 +99,18 @@ namespace webbage.chat.Hubs {
             return null;
         }        
 
+        // send the message out to a particular user
         private async Task sendToUser(string recipient, string message, bool isCodeMessage, string roomId) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
             User receiver = onlineUsers.FirstOrDefault(u => u.UserName.ToLower() == recipient.ToLower() && u.RoomId == roomId);
 
+            // if we found the person to send it to, append it to the sender and reciever's message panes
+            // TODO: Figure out one day if we can do this with jquery tabs
             if (receiver != null && user.ConnectionId != receiver.ConnectionId) {
-                await Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, roomId);
-                await Clients.Client(user.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, roomId);
+                await Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage);
+                await Clients.Client(user.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage);
             } else {
-                await Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true, false, roomId);
+                await Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true, false);
             }
         }        
         #endregion
