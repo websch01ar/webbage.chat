@@ -5,20 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using webbage.chat.bot;
-using webbage.chat.model;
+using webbage.chat.model.ef;
 
 namespace webbage.chat.Hubs {
     public class ChatHub : Hub {
-
-        /// TODO Feature List
-        /// 
-        ///     Implement op'd users that can do room commands (might need to wait for db to do that, for now just disallow room commands
-        ///     Finish webbage.chat.bot
-        ///         -- Google command (lmgtfy.com)
-        ///         -- Wiki command
-        ///     Notifications for @[userName] messages
-        ///     Change tab title on new message in room
-        ///     
 
         // currently online user list
         private static List<User> onlineUsers = new List<User>();
@@ -29,9 +19,9 @@ namespace webbage.chat.Hubs {
 
         // add user to onlineUsers
         public override Task OnConnected() {
-            User user = new User { Name = Context.QueryString["userName"].ToString(), ConnectionId = Context.ConnectionId };
+            User user = new User { UserName = Context.QueryString["userName"].ToString(), ConnectionId = Context.ConnectionId };
             onlineUsers.Add(user);
-            Clients.Others.userConnected(user.Name);
+            Clients.Others.userConnected(user.UserName);
 
             // update the online-user-list
             updateOnlineUsers();
@@ -43,27 +33,41 @@ namespace webbage.chat.Hubs {
             if (onlineUsers.Any(u => u.ConnectionId == Context.ConnectionId)) {
                 User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
                 onlineUsers.Remove(user);
-                Clients.Others.userDisconnected(user.Name);
+                Clients.Others.userDisconnected(user.UserName);
             }
             return base.OnDisconnected();
         }
 
         #region Client-to-Server Actions
-        public void SendToRoom(string message) {
+        public void SendMessage(string message, bool isCodeMessage) {
+            string validatedMessage = null;
+            // filter the message
+            if (validateMessage(message, out validatedMessage)) {
+                // determine if this is a private message
+                if (validatedMessage.StartsWith("*")) {
+                    string recipientName = validatedMessage.Split(' ')[0].Replace("*", ""); // get the recipient's name
+                    validatedMessage = validatedMessage.Replace(recipientName, "").Replace("*", ""); // update the message
+                    SendToUser(recipientName, validatedMessage, isCodeMessage);
+                } else {
+                    SendToRoom(validatedMessage, isCodeMessage);
+                }
+            }
+        }
+        public void SendToRoom(string message, bool isCodeMessage) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
-            Clients.All.addNewMessageToPane(user.Name, message, false);
+            Clients.All.addNewMessageToPane(user.UserName, message, false, isCodeMessage);
 
             determineBotActions(user, message);
         }
-        public void SendToUser(string recipient, string message) {
+        public void SendToUser(string recipient, string message, bool isCodeMessage) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId);
-            User receiver = onlineUsers.FirstOrDefault(u => u.Name.ToLower() == recipient.ToLower());
+            User receiver = onlineUsers.FirstOrDefault(u => u.UserName.ToLower() == recipient.ToLower());
 
             if (receiver != null && user.ConnectionId != receiver.ConnectionId) {
-                Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.Name, message, true);
-                Clients.Client(user.ConnectionId).addNewMessageToPane(user.Name, message, true);
+                Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage);
+                Clients.Client(user.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage);
             } else {
-                Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true);
+                Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true, false);
             }
         }
         private void determineBotActions(User user, string message) {
@@ -113,6 +117,16 @@ namespace webbage.chat.Hubs {
         }
         private bool userIsAuthorized {
             get { return false; }
+        }
+        private bool validateMessage(string message, out string validatedMessage) {
+            validatedMessage = null;
+
+            // make it impossible to send empty or just whitespace messages
+            if (string.IsNullOrWhiteSpace(message))
+                return false;
+
+            validatedMessage = message;
+            return true;
         }
         #endregion
 

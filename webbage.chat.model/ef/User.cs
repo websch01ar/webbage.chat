@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webbage.chat.model {
+namespace webbage.chat.model.ef {
     public partial class User {
-        public string Name { get; set; }
-        public string ConnectionId { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }

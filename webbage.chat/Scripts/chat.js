@@ -43,33 +43,14 @@
         var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName("room") + htmlEncodeRoomMessage(name + ' has left the building.') + '<div class="clear"></div></div>');
         appendMessage(chatRoomMessage);
     };
-    chat.client.addNewMessageToPane = function (name, message, pm) {
-        var chatRoomMessage = '';
-        if (codeMessage) {
-            message = '<pre><code>' + message + '</code></pre>';
-        }
-        if (!(pm)) {
-            if (name == $displayName.val()) {
-                chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMyMessage(message) + '<div class="clear"></div></div>');
-            } else if (name == 'room') {
-                chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeRoomMessage(message) + '<div class="clear"></div></div>');
-            } else if (name == 'bot') {
-                chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeBotMessage(message) + '<div class="clear"></div></div>');
-            } else {
-                chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodeMessage(message) + '<div class="clear"></div></div>');
-            }
-        } else {
-            chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName(name) + htmlEncodePrivateMessage(message) + '<div class="clear"></div></div>');
-        }
+    chat.client.addNewMessageToPane = function (name, message, pm, isCode) {
+        var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode);
         appendMessage(chatRoomMessage);
-        codeMessage = false;
-        $codeMessage.removeClass('carrot');
-        $codeMessage.addClass('concrete');
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {
-            if (!($('#online-user-list .online-user.' + this.Name).length)) {
-                var onlineUserContent = htmlEncodeOnlineUser(this.Name);
+            if (!($('#online-user-list .online-user.' + this.UserName).length)) {                
+                var onlineUserContent = htmlEncodeOnlineUser(this.UserName);
                 $onlineUserList.append(onlineUserContent);
             }
         });
@@ -90,79 +71,82 @@
     ///////////////////////////////////////////////////////////////// C2S FUNCTIONS
     $message.keypress(function (e) {
         if (e.keyCode == 13) {
-            determineMessageRoute($message.val());
-            $message.val('').focus();
+            sendMessage($message.val(), codeMessage);
             e.preventDefault();
         }
     });
     $sendMessage.on('click', function () {
-        determineMessageRoute($message.val());
+        sendMessage($message.val(), codeMessage);
         $message.val('').focus();
     });
+    function sendMessage(message, codeToggle) {
+        chat.server.sendMessage(message, codeToggle);
+        $message.val('').focus();
+        codeMessage = false;
+        toggleCodeSwitch(codeMessage);
+    }
     $codeMessage.on('click', function () {
         codeMessage = !codeMessage;
+        toggleCodeSwitch(codeMessage);
+        $message.focus();
+    });
+    ///////////////////////////////////////////////////////////////////////////////
 
-        if (codeMessage) {
+
+    //////////////////////////////////////////////////////////////// MISC FUNCTIONS
+    function encodeMessageMaster(name, message, pm, code) {
+        var nameDiv = htmlEncodeName(name);
+        var messageDiv = '';
+        if (pm) {
+            messageDiv = htmlEncodePrivateMessage(message, code);
+        } else {
+            switch (name) {
+                case userName: messageDiv = htmlEncodeMyMessage(message, code); break;
+                case "room": messageDiv = htmlEncodeRoomMessage(message, code); break;
+                case "bot": messageDiv = htmlEncodeBotMessage(message, code); break;
+                default: messageDiv = htmlEncodeMessage(message, code); break;
+            }
+        }
+
+        return $('<div class="chat-room-message-wrapper">' + nameDiv +  messageDiv + '<div class="clear"></div></div>')
+    }
+    function htmlEncodeName(value) {        
+        return '<div class="chat-room-message-name">' + htmlEncodeValue(value) + '</div>';
+    };
+    function htmlEncodeMessage(value, code) {
+        return '<div class="chat-room-message-message">' + htmlEncodeValue(value, code) + '</div>';
+    };
+    function htmlEncodeMyMessage(value, code) {
+        return '<div class="chat-room-message-message mine">' + htmlEncodeValue(value, code) + '</div>';
+    };
+    function htmlEncodeRoomMessage(value, code) {
+        return '<div class="chat-room-message-message room">' + htmlEncodeValue(value, code) + '</div>';
+    };
+    function htmlEncodeBotMessage(value, code) {
+        return '<div class="chat-room-message-message bot">' + htmlEncodeValue(value, code) + '</div>';
+    };
+    function htmlEncodePrivateMessage(value, code) {
+        return '<div class="chat-room-message-message private">' + htmlEncodeValue(value, code) + '</div>';
+    };
+    function htmlEncodeOnlineUser(value) {
+        if (value == $displayName.val()) {
+            return '<div class="online-user active-user me ' + htmlEncodeValue(value) + '">' + htmlEncodeValue(value) + '</div>';
+        } else {
+            return '<div class="online-user active-user ' + htmlEncodeValue(value) + '">' + htmlEncodeValue(value) + '</div>';
+        }
+    };
+    function htmlEncodeValue(value, code) {
+        return ((code == true) ? '<pre><code>' : '') + $('<div/>').text(value).html() + ((code == true) ? '</pre></code>' : '');
+    };
+    function toggleCodeSwitch(toggle) {
+        if (toggle) {
             $codeMessage.removeClass('concrete');
             $codeMessage.addClass('carrot');
         } else {
             $codeMessage.removeClass('carrot');
             $codeMessage.addClass('concrete');
         }
-        $message.focus();
-    });
-    function determineMessageRoute(message) {        
-        if (message.substring(0, 1) == "*") {
-            var recipientName = message.split(' ')[0].replace('*', '');
-            message = message.replace('*' + recipientName + ' ', '');
-            sendPrivateMessage(recipientName, message);
-        } else {
-            sendRoomMessage(message);
-        }
-        
     };
-    function sendRoomMessage(message) {
-        chat.server.sendToRoom(message);
-    };
-    function sendPrivateMessage(recipient, message) {
-        chat.server.sendToUser(recipient, message);
-    };
-    ///////////////////////////////////////////////////////////////////////////////
-
-
-    //////////////////////////////////////////////////////////////// MISC FUNCTIONS
-    function htmlEncodeName(value) {
-        return '<div class="chat-room-message-name">' + value + '</div>'
-    };
-    function htmlEncodeMessage(value) {
-        return '<div class="chat-room-message-message">' + scriptPreventor(value) + '</div>';
-    };
-    function htmlEncodeMyMessage(value) {
-        return '<div class="chat-room-message-message mine">' + scriptPreventor(value) + '</div>';
-    };
-    function htmlEncodeRoomMessage(value) {
-        return '<div class="chat-room-message-message room">' + scriptPreventor(value) + '</div>';
-    };
-    function htmlEncodeBotMessage(value) {
-        return '<div class="chat-room-message-message bot">' + scriptPreventor(value) + '</div>';
-    };
-    function htmlEncodePrivateMessage(value) {
-        return '<div class="chat-room-message-message private">' + scriptPreventor(value) + '</div>';
-    };
-    function htmlEncodeOnlineUser(value) {
-        if (value == $displayName.val()) {
-            return '<div class="online-user active-user me ' + value + '">' + value + '</div>';
-        } else {
-            return '<div class="online-user active-user ' + value + '">' + value + '</div>';
-        }
-    };
-    function scriptPreventor(value) {
-        return value
-            .replace('<script>', '')
-            .replace('</script>', '')
-            .replace('<style>', '')
-            .replace('</style>', '')
-    }
     ///////////////////////////////////////////////////////////////////////////////
 
 });
