@@ -1,7 +1,7 @@
 ﻿$(function () {
     var chat            = $.connection.chatHub;
     var $displayName    = $('#displayName');
-    var $chatDisplay    = $('#chat');
+    var $chatDisplay    = $('#chat');    
     var $message        = $('#message');
     var $sendMessage    = $('#sendMessage');
     var $codeMessage    = $('#sendCodeMessage');
@@ -9,10 +9,13 @@
     var codeMessage     = false;
 
     // set height of the main chat div on initial load and any window resize
-    $chatDisplay.height(($(window).height() - 200) + 'px');
+    $chatDisplay.height(($(window).height() - 200) + 'px');    
     $(window).on('resize', function () {
         $chatDisplay.height(($(window).height() - 200) + 'px');
     });
+
+    // set up that roomId of $chatDisplay
+    var roomId = window.location.pathname.split('/')[3]
 
     // get the display name
     // TODO: Replacement code will be needed when accounts are implemented, just replace userName
@@ -24,7 +27,7 @@
     // connection start and store user as online
     $.connection.hub.qs = "userName=" + userName;
     $.connection.hub.start().done(function () {
-        // no implementation yet
+        chat.server.joinRoom(roomId);
     });
 
 
@@ -43,12 +46,12 @@
         var chatRoomMessage = $('<div class="chat-room-message-wrapper">' + htmlEncodeName("room") + htmlEncodeRoomMessage(name + ' has left the building.') + '<div class="clear"></div></div>');
         appendMessage(chatRoomMessage);
     };
-    chat.client.addNewMessageToPane = function (name, message, pm, isCode) {
+    chat.client.addNewMessageToPane = function (name, message, pm, isCode, roomName) {
         var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode);
         appendMessage(chatRoomMessage);
     };
     chat.client.updateOnlineUsers = function (users) {
-        $.each($.parseJSON(users), function () {
+        $.each($.parseJSON(users), function () {            
             if (!($('#online-user-list .online-user.' + this.UserName).length)) {                
                 var onlineUserContent = htmlEncodeOnlineUser(this.UserName);
                 $onlineUserList.append(onlineUserContent);
@@ -80,7 +83,7 @@
         $message.val('').focus();
     });
     function sendMessage(message, codeToggle) {
-        chat.server.sendMessage(message, codeToggle);
+        chat.server.sendMessage(message, codeToggle, roomId);
         $message.val('').focus();
         codeMessage = false;
         toggleCodeSwitch(codeMessage);
