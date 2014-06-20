@@ -99,7 +99,7 @@
     //////////////////////////////////////////////////////////////// MISC FUNCTIONS
     function encodeMessageMaster(name, message, pm, code) {
         var nameDiv = htmlEncodeName(name);
-        var messageDiv = '';
+        var messageDiv = message;
         if (pm) {
             messageDiv = htmlEncodePrivateMessage(message, code);
         } else {
@@ -132,13 +132,13 @@
     };
     function htmlEncodeOnlineUser(value) {
         if (value == $displayName.val()) {
-            return '<div class="online-user active-user me ' + htmlEncodeValue(value) + '">' + htmlEncodeValue(value) + '</div>';
+            return '<div class="online-user active-user me ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
         } else {
-            return '<div class="online-user active-user ' + htmlEncodeValue(value) + '">' + htmlEncodeValue(value) + '</div>';
+            return '<div class="online-user active-user ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
         }
     };
     function htmlEncodeValue(value, code) {
-        return ((code == true) ? '<pre><code>' : '') + $('<div/>').text(value).html() + ((code == true) ? '</pre></code>' : '');
+        return ((code == true) ? '<pre><code>' : '') + value + ((code == true) ? '</pre></code>' : '');
     };
     function toggleCodeSwitch(toggle) {
         if (toggle) {

@@ -199,6 +199,10 @@
       <Project>{07ad1567-df3b-4b0b-a1a3-e4b0a8a43e40}</Project>
       <Name>webbage.chat.model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\webbage.chat.utils\webbage.chat.utils.csproj">
+      <Project>{2c01fc77-9535-4867-9475-712f1cf0a056}</Project>
+      <Name>webbage.chat.utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

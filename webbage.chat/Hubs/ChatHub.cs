@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using webbage.chat.bot;
 using webbage.chat.model.ef;
+using webbage.chat.utils;
 
 namespace webbage.chat.Hubs {
     public class ChatHub : Hub {
@@ -144,7 +145,8 @@ namespace webbage.chat.Hubs {
             if (string.IsNullOrWhiteSpace(message))
                 return false;
 
-            validatedMessage = message;
+            validatedMessage = HtmlEncoder.Sanitize(message);
+            validatedMessage = HtmlEncoder.EncodeUrl(validatedMessage);
             return true;
         }
         #endregion

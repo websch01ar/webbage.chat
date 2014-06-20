@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.bot", "webbage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.model", "webbage.chat.model\webbage.chat.model.csproj", "{07AD1567-DF3B-4B0B-A1A3-E4B0A8A43E40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.utils", "webbage.chat.utils\webbage.chat.utils.csproj", "{2C01FC77-9535-4867-9475-712F1CF0A056}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{07AD1567-DF3B-4B0B-A1A3-E4B0A8A43E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07AD1567-DF3B-4B0B-A1A3-E4B0A8A43E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07AD1567-DF3B-4B0B-A1A3-E4B0A8A43E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C01FC77-9535-4867-9475-712F1CF0A056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C01FC77-9535-4867-9475-712F1CF0A056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C01FC77-9535-4867-9475-712F1CF0A056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C01FC77-9535-4867-9475-712F1CF0A056}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

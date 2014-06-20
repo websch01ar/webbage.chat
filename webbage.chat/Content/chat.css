@@ -50,7 +50,15 @@
         font-family: 'Courier New';
         font-size: 13px;
     }
-
+    .chat-room-message-wrapper > .chat-room-message-message > a {
+        color: #2c3e50;
+    }
+        .chat-room-message-wrapper > .chat-room-message-message > a > img {
+            max-height: 300px;
+            max-width: 300px;
+            overflow: hidden;
+            margin: 5px 0px;
+        }
 #sidebar {
     position: fixed;
     right: 50px;
