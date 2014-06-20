@@ -24,10 +24,7 @@
     <input type="hidden" id="displayName" />
 </div>
 
-@section scripts {    
-    <script src="~/Scripts/jquery.signalR-2.0.3.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/chat.js"></script>
-    
-    @Styles.Render("~/Content/chat");
+@section scripts {
+    @Scripts.Render("~/scripts/chat")
+    <script src="~/signalr/hubs"></script>    
 }

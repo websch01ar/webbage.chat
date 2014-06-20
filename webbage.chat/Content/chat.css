@@ -16,13 +16,13 @@
     margin: 2px;
 }
     .chat-room-message-wrapper > .chat-room-message-name {
-                font-style: italic;
-                font-size: 13px;
-                float: left;
-                padding-right: 10px;
-                min-width: 5%;  
-                min-height: 18px;          
-            }
+        font-style: italic;
+        font-size: 13px;
+        float: left;
+        padding-right: 10px;
+        min-width: 5%;  
+        min-height: 18px;
+    }
     .chat-room-message-wrapper > .messages {
         padding: 4px;
         font-size: 13px;
