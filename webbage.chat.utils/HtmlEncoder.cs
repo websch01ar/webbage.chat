@@ -83,7 +83,7 @@ namespace webbage.chat.utils {
                 
                 Uri uri = new UriBuilder(linkName).Uri;
                 if (!isImage(linkName)) {                    
-                    html = html.Replace(linkName, "<a href='" + uri.AbsoluteUri + "' target='_blank'>" + "</a>");
+                    html = html.Replace(linkName, "<a href='" + uri.AbsoluteUri + "' target='_blank'>" + linkName + "</a>");
                 } else {
                     html = html.Replace(linkName, "<a href='" + uri.AbsoluteUri + "' target='_blank'><img src='" + uri.AbsoluteUri + "' /></a>");
                 }
