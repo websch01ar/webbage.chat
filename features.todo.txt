@@ -1,9 +1,0 @@
-FEATURE						DATE ADDED			DATE COMPLETED			DESCRIPTION
--------------------------------------------------------------------------------------------
-Private Messaging			6/17/14				6/17/14					Allow users to private message one another by prepending their message with *[userName]
-Script Injection Fix		6/17/14				6/18/14					Prevent users from sending <script> and <style> tags in their message
-Private Messaging 2			6/18/14										Left-click user's name in the online-user-list to private message them (among other options that would be available)
-Tab Notification			6/18/14										Show tab notifications (enable/disable sound) for new messages directed at the user
-Desktop Notification		6/18/14										Show desktop notifications (enable/disable) for new messages directed at the user
-Chat colors change			6/18/14										Determine the best colors for chat messages and how to separate the categories (room/bot/private/mine/everyone else)
-Enable code formatting		6/18/14										Enable code formatting in chat
