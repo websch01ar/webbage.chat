@@ -13,52 +13,66 @@
 .chat-room-message-wrapper {
     width: 100%;
     clear:both;
-    margin: 7px;    
+    margin: 2px;
 }
     .chat-room-message-wrapper > .chat-room-message-name {
-        font-style: italic;
-        font-size: 13px;
-        float: left;
-        padding-right: 10px;
-        width: 5%;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message {
-        border-radius: 8px;
+                font-style: italic;
+                font-size: 13px;
+                float: left;
+                padding-right: 10px;
+                min-width: 5%;  
+                min-height: 18px;          
+            }
+    .chat-room-message-wrapper > .messages {
         padding: 4px;
-        padding-left: 10px;
         font-size: 13px;
-        float: left;
         width: 92%;
-        background: #bdc3c7;
         word-wrap: break-word;
+        display: inline-block;
+    }    
+    .chat-room-message-wrapper > .messages > .chat-room-message-message:first-of-type {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
     }
-    .chat-room-message-wrapper > .chat-room-message-message.mine {
-        background: #E59650;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message.room {
-        background: #5B6A78;
-        color: #ecf0f1;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message.bot {
-        background: #E67366;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message.private {
-        background: #A378B3;
-        color: #ecf0f1;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message.code {
-        font-family: 'Courier New';
-        font-size: 13px;
-    }
-    .chat-room-message-wrapper > .chat-room-message-message > a {
-        color: #2c3e50;
-    }
-        .chat-room-message-wrapper > .chat-room-message-message > a > img {
-            max-height: 300px;
-            max-width: 300px;
-            overflow: hidden;
-            margin: 5px 0px;
+    .chat-room-message-wrapper > .messages > .chat-room-message-message:last-of-type {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }         
+        .chat-room-message-wrapper > .messages > .chat-room-message-message {
+            padding: 4px;
+            padding-left: 10px;
+            width: 100%;
+            background: #bdc3c7;
+            word-wrap: break-word;            
         }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message.mine {
+            background: #E59650;
+        }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message.room {
+            background: #5B6A78;
+            color: #ecf0f1;
+        }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message.bot {
+            background: #E67366;
+        }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message.private {
+            background: #A378B3;
+            color: #ecf0f1;
+        }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message.code {
+            font-family: 'Courier New';
+            font-size: 13px;
+        }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message > a {
+            color: #2c3e50;
+        }
+            .chat-room-message-wrapper > .messages > .chat-room-message-message > a > img {
+                max-height: 300px;
+                max-width: 300px;
+                overflow: hidden;
+                margin: 5px 0px;
+            }
+
 #sidebar {
     position: fixed;
     right: 50px;

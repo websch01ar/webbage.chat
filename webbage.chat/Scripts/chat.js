@@ -35,7 +35,7 @@
     chat.client.userConnected = function (name) {
         // notify room they joined        
         var chatRoomMessage = encodeMessageMaster("room", name + ' has joined the room', false, false);
-        appendMessage(chatRoomMessage);
+        appendMessage("room", chatRoomMessage, '0');
     };
     chat.client.userDisconnected = function (name) {
         // remove from online-user-list
@@ -44,11 +44,13 @@
 
         // notify room they left
         var chatRoomMessage = encodeMessageMaster("room", name + ' has left the building', false, false);
-        appendMessage(chatRoomMessage);
+        appendMessage("room", chatRoomMessage, 0);
     };
-    chat.client.addNewMessageToPane = function (name, message, pm, isCode) {
+    chat.client.addNewMessageToPane = function (name, message, pm, isCode, senderConnectionId) {
+        // get the content of what we want to display and pass it to appendMessage
+        // appendMessage() will decide where it needs to be displayed
         var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode);
-        appendMessage(chatRoomMessage);
+        appendMessage(name, chatRoomMessage, senderConnectionId);
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {            
@@ -60,12 +62,21 @@
     };
 
     // add desired message to the chat pane
-    function appendMessage(message) {
+    function appendMessage(name, message, senderConnectionId) {
+        // determine if we need to append it or not
+        var appendToLast = isLastMatched(senderConnectionId)
         if (($chatDisplay[0].scrollHeight - $chatDisplay.scrollTop()) == $chatDisplay.outerHeight()) {
-            $chatDisplay.append(message);
+            if (appendToLast)
+                $('#chat :last-child').children('.messages').append(message);
+            else
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
+            
             $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
         } else {
-            $chatDisplay.append(message);
+            if (appendToLast)
+                $('#chat :last-child').children('.messages').append(message);
+            else
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
         }
     };
     ///////////////////////////////////////////////////////////////////////////////  
@@ -97,20 +108,17 @@
 
 
     //////////////////////////////////////////////////////////////// MISC FUNCTIONS
-    function encodeMessageMaster(name, message, pm, code) {
-        var nameDiv = htmlEncodeName(name);
-        var messageDiv = message;
+    function encodeMessageMaster(name, message, pm, code) {        
         if (pm) {
-            messageDiv = htmlEncodePrivateMessage(message, code);
+            return htmlEncodePrivateMessage(message, code);
         } else {
             switch (name) {
-                case userName: messageDiv = htmlEncodeMyMessage(message, code); break;
-                case "room": messageDiv = htmlEncodeRoomMessage(message, code); break;
-                case "bot": messageDiv = htmlEncodeBotMessage(message, code); break;
-                default: messageDiv = htmlEncodeMessage(message, code); break;
-            }            
+                case userName: return htmlEncodeMyMessage(message, code);
+                case "room": return htmlEncodeRoomMessage(message, code);
+                case "bot": return htmlEncodeBotMessage(message, code);
+                default: return htmlEncodeMessage(message, code);
+            }
         }
-        return $('<div class="chat-room-message-wrapper">' + nameDiv +  messageDiv + '<div class="clear"></div></div>')
     }
     function htmlEncodeName(value) {        
         return '<div class="chat-room-message-name">' + htmlEncodeValue(value) + '</div>';
@@ -149,6 +157,9 @@
             $codeMessage.addClass('concrete');
         }
     };
+    function isLastMatched(senderConnectionId) {        
+        return $('#chat :last-child').hasClass(senderConnectionId);
+    }
     ///////////////////////////////////////////////////////////////////////////////
 
 });
