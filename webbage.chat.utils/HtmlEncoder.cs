@@ -61,7 +61,7 @@ namespace webbage.chat.utils {
 
 
 
-        private static Regex _links = new Regex(@"(www.+|https?.+)([\s]|$)",
+        private static Regex _links = new Regex(@"(www\..+|https?:.+)([\s]|$)",
             RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
         /// <summary>
