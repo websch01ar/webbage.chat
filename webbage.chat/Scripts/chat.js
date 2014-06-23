@@ -32,25 +32,27 @@
 
 
     ///////////////////////////////////////////////////////////////// S2C FUNCTIONS
-    chat.client.userConnected = function (name) {
+    chat.client.userConnected = function (name, messageId) {
         // notify room they joined        
-        var chatRoomMessage = encodeMessageMaster("room", name + ' has joined the room', false, false);
-        appendMessage("room", chatRoomMessage, '0');
+        var chatRoomMessage = encodeMessageMaster("room", name + ' has joined the room', false, false, messageId);
+        appendMessage("room", chatRoomMessage, '0', messageId);
     };
-    chat.client.userDisconnected = function (name) {
+    chat.client.userDisconnected = function (name, messageId) {
         // remove from online-user-list
         var $div = $('#online-user-list .online-user.' + name);
         $div.remove();
 
         // notify room they left
-        var chatRoomMessage = encodeMessageMaster("room", name + ' has left the building', false, false);
-        appendMessage("room", chatRoomMessage, 0);
+        var chatRoomMessage = encodeMessageMaster("room", name + ' has left the building', false, false, messageId);
+        appendMessage("room", chatRoomMessage, 0, messageId);
     };
-    chat.client.addNewMessageToPane = function (name, message, pm, isCode, senderConnectionId) {
+    chat.client.addNewMessageToPane = function (name, message, pm, isCode, senderConnectionId, messageId) {
         // get the content of what we want to display and pass it to appendMessage
         // appendMessage() will decide where it needs to be displayed
-        var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode);
-        appendMessage(name, chatRoomMessage, senderConnectionId);
+        console.log(messageId);
+
+        var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode, messageId);
+        appendMessage(name, chatRoomMessage, senderConnectionId, messageId);
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {            
@@ -62,9 +64,10 @@
     };
 
     // add desired message to the chat pane
-    function appendMessage(name, message, senderConnectionId) {
-        // determine if we need to append it or not
-        var appendToLast = isLastMatched(senderConnectionId)
+    function appendMessage(name, message, senderConnectionId, messageId) {
+        // determine if we need to append it to the last `messages` group or not
+        var appendToLast = isLastMatched(senderConnectionId);                
+
         if (($chatDisplay[0].scrollHeight - $chatDisplay.scrollTop()) == $chatDisplay.outerHeight()) {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
@@ -78,7 +81,30 @@
             else
                 $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
         }
+
+        var $ele = $('.chat-room-message-message.' + messageId);
+        if (needsShowMore($ele)) {
+            $('#chat :last-child').children('.messages').append('<div id="show-' + messageId + '" class="show-more">{show full text}</div>');
+        }
     };
+
+    $(document).on('click', '.show-more, .show-less', function () {
+        var $this = $(this);
+        var messageId = $this.attr('id').replace('show-', '');
+        var $message = $('.chat-room-message-message.' + messageId);
+
+        // determine if we need to show more or show less
+        if ($this.hasClass('show-more')) {
+            $message.css({ maxHeight: '10000000000px' });
+            $this.text('{show minimized text}');
+        } else {
+            $message.css({ maxHeight: '102px' });
+            $this.text('{show full text}');
+        }
+        $this.toggleClass('show-more');
+        $this.toggleClass('show-less');
+
+    });
     ///////////////////////////////////////////////////////////////////////////////  
 
 
@@ -108,35 +134,35 @@
 
 
     //////////////////////////////////////////////////////////////// MISC FUNCTIONS
-    function encodeMessageMaster(name, message, pm, code) {        
+    function encodeMessageMaster(name, message, pm, code, messageId) {        
         if (pm) {
-            return htmlEncodePrivateMessage(message, code);
+            return htmlEncodePrivateMessage(message, code, messageId);
         } else {
             switch (name) {
-                case userName: return htmlEncodeMyMessage(message, code);
-                case "room": return htmlEncodeRoomMessage(message, code);
-                case "bot": return htmlEncodeBotMessage(message, code);
-                default: return htmlEncodeMessage(message, code);
+                case userName: return htmlEncodeMyMessage(message, code, messageId);
+                case "room": return htmlEncodeRoomMessage(message, code, messageId);
+                case "bot": return htmlEncodeBotMessage(message, code, messageId);
+                default: return htmlEncodeMessage(message, code, messageId);
             }
         }
     }
     function htmlEncodeName(value) {        
         return '<div class="chat-room-message-name">' + htmlEncodeValue(value) + '</div>';
     };
-    function htmlEncodeMessage(value, code) {
-        return '<div class="chat-room-message-message">' + htmlEncodeValue(value, code) + '</div>';
+    function htmlEncodeMessage(value, code, messageId) {
+        return '<div class="chat-room-message-message ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
-    function htmlEncodeMyMessage(value, code) {
-        return '<div class="chat-room-message-message mine">' + htmlEncodeValue(value, code) + '</div>';
+    function htmlEncodeMyMessage(value, code, messageId) {
+        return '<div class="chat-room-message-message mine ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
-    function htmlEncodeRoomMessage(value, code) {
-        return '<div class="chat-room-message-message room">' + htmlEncodeValue(value, code) + '</div>';
+    function htmlEncodeRoomMessage(value, code, messageId) {
+        return '<div class="chat-room-message-message room ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
-    function htmlEncodeBotMessage(value, code) {
-        return '<div class="chat-room-message-message bot">' + htmlEncodeValue(value, code) + '</div>';
+    function htmlEncodeBotMessage(value, code, messageId) {
+        return '<div class="chat-room-message-message bot ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
-    function htmlEncodePrivateMessage(value, code) {
-        return '<div class="chat-room-message-message private">' + htmlEncodeValue(value, code) + '</div>';
+    function htmlEncodePrivateMessage(value, code, messageId) {
+        return '<div class="chat-room-message-message private ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
     function htmlEncodeOnlineUser(value) {
         if (value == $displayName.val()) {
@@ -157,9 +183,12 @@
             $codeMessage.addClass('concrete');
         }
     };
-    function isLastMatched(senderConnectionId) {        
+    function isLastMatched(senderConnectionId) {
         return $('#chat :last-child').hasClass(senderConnectionId);
-    }
+    };
+    function needsShowMore(ele) {
+        return ele.prop('scrollHeight') > 103;
+    };
     ///////////////////////////////////////////////////////////////////////////////
 
 });

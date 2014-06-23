@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -28,7 +29,7 @@ namespace webbage.chat.Hubs {
             // add them to this room's group
             await Groups.Add(Context.ConnectionId, roomId);
             // send out notification that they joined
-            await Clients.OthersInGroup(roomId).userConnected(user.UserName);
+            await Clients.OthersInGroup(roomId).userConnected(user.UserName, Guid.NewGuid());
             updateOnlineUsers(roomId);
         }        
         public override async Task OnDisconnected() {
@@ -40,7 +41,7 @@ namespace webbage.chat.Hubs {
 
             // no need to remove from group here, should be already removed in OnDisconnected()
             // send out notification that they've left
-            await Clients.OthersInGroup(roomId).userDisconnected(disconnectedUser.UserName);
+            await Clients.OthersInGroup(roomId).userDisconnected(disconnectedUser.UserName, Guid.NewGuid());
             updateOnlineUsers(roomId);
         }
 
@@ -69,7 +70,7 @@ namespace webbage.chat.Hubs {
         private async Task sendToRoom(string message, bool isCodeMessage, string roomId) {
             User user = onlineUsers.First(u => u.ConnectionId == Context.ConnectionId && u.RoomId == roomId);
 
-            await Clients.Group(roomId).addNewMessageToPane(user.UserName, message, false, isCodeMessage, Context.ConnectionId);
+            await Clients.Group(roomId).addNewMessageToPane(user.UserName, message, false, isCodeMessage, Context.ConnectionId, Guid.NewGuid());
             await determineBotActions(user, message);
         }
         // see if we need to do any bot actions based on the message sent
@@ -79,9 +80,9 @@ namespace webbage.chat.Hubs {
                 botInterpreter.DoWork(cmd);
 
                 if (cmd.Response != "invalid command")
-                    return Clients.All.addNewMessageToPane("bot", cmd.Response, false, null);
+                    return Clients.All.addNewMessageToPane("bot", cmd.Response, false, null, Guid.NewGuid());
                 else
-                    return Clients.Client(user.ConnectionId).addNewMessageToPane("bot", cmd.Response, true, null);
+                    return Clients.Client(user.ConnectionId).addNewMessageToPane("bot", cmd.Response, true, null, Guid.NewGuid());
 
             } else if (message.StartsWith("/")) { // room command
                 if (userIsAuthorized) {
@@ -89,12 +90,12 @@ namespace webbage.chat.Hubs {
                     roomInterpreter.DoWork(cmd);
 
                     if (cmd.Response != "invalid command")
-                        return Clients.All.addNewMessageToPane("room", cmd.Response, false, "0");
+                        return Clients.All.addNewMessageToPane("room", cmd.Response, false, "0", Guid.NewGuid());
                     else
-                        return Clients.Client(user.ConnectionId).addNewMessageToPane("room", cmd.Response, true, "0");
+                        return Clients.Client(user.ConnectionId).addNewMessageToPane("room", cmd.Response, true, "0", Guid.NewGuid());
 
                 } else {
-                    return Clients.Client(user.ConnectionId).addNewMessageToPane("room", "you don't have the necessary permissions to do that", true, "0");
+                    return Clients.Client(user.ConnectionId).addNewMessageToPane("room", "you don't have the necessary permissions to do that", true, "0", Guid.NewGuid());
                 }
             }
             return null;
@@ -108,10 +109,10 @@ namespace webbage.chat.Hubs {
             // if we found the person to send it to, append it to the sender and reciever's message panes
             // TODO: Figure out one day if we can do this with jquery tabs
             if (receiver != null && user.ConnectionId != receiver.ConnectionId) {
-                await Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, Context.ConnectionId);
-                await Clients.Client(user.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, Context.ConnectionId);
+                await Clients.Client(receiver.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, Context.ConnectionId, Guid.NewGuid());
+                await Clients.Client(user.ConnectionId).addNewMessageToPane(user.UserName, message, true, isCodeMessage, Context.ConnectionId, Guid.NewGuid());
             } else {
-                await Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true, false, "0");
+                await Clients.Client(user.ConnectionId).addNewMessageToPane("room", "user not found", true, false, "0", Guid.NewGuid());
             }
         }        
         #endregion
