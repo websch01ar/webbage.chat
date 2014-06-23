@@ -49,15 +49,13 @@
     chat.client.addNewMessageToPane = function (name, message, pm, isCode, senderConnectionId, messageId) {
         // get the content of what we want to display and pass it to appendMessage
         // appendMessage() will decide where it needs to be displayed
-        console.log(messageId);
-
         var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode, messageId);
         appendMessage(name, chatRoomMessage, senderConnectionId, messageId);
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {            
             if (!($('#online-user-list .online-user.' + this.UserName).length)) {                
-                var onlineUserContent = htmlEncodeOnlineUser(this.UserName);
+                var onlineUserContent = htmlEncodeOnlineUser(this.UserName, this.ConnectionId);
                 $onlineUserList.append(onlineUserContent);
             }
         });
@@ -106,7 +104,7 @@
         $message.val('').focus();
         codeMessage = false;
         toggleCodeSwitch(codeMessage);
-    }
+    };
     $codeMessage.on('click', function () {
         codeMessage = !codeMessage;
         toggleCodeSwitch(codeMessage);
@@ -146,11 +144,11 @@
     function htmlEncodePrivateMessage(value, code, messageId) {
         return '<div class="chat-room-message-message private ' + messageId + '">' + htmlEncodeValue(value, code) + '</div>';
     };
-    function htmlEncodeOnlineUser(value) {
+    function htmlEncodeOnlineUser(value, connectionId) {
         if (value == $displayName.val()) {
-            return '<div class="online-user active-user me ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
+            return '<div id="user-' + connectionId + '" class="online-user active-user me ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
         } else {
-            return '<div class="online-user active-user ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
+            return '<div id="user-' + connectionId + '" class="online-user active-user ' + htmlEncodeValue(value, false) + '">' + htmlEncodeValue(value, false) + '</div>';
         }
     };
     function htmlEncodeValue(value, code) {
@@ -198,6 +196,11 @@
             maxWidth: '800px'
         });
     });
+    $(document).on('click', '.online-user', function () {
+        // beginning of popup user context menu
+        var $this = $(this);
+        console.log($this.attr('id').replace('user-', ''));
+    })
     ///////////////////////////////////////////////////////////////////////////////
 
 });
