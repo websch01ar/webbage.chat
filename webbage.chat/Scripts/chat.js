@@ -87,24 +87,6 @@
             $('#chat :last-child').children('.messages').append('<div id="show-' + messageId + '" class="show-more">{show full text}</div>');
         }
     };
-
-    $(document).on('click', '.show-more, .show-less', function () {
-        var $this = $(this);
-        var messageId = $this.attr('id').replace('show-', '');
-        var $message = $('.chat-room-message-message.' + messageId);
-
-        // determine if we need to show more or show less
-        if ($this.hasClass('show-more')) {
-            $message.css({ maxHeight: '10000000000px' });
-            $this.text('{show minimized text}');
-        } else {
-            $message.css({ maxHeight: '102px' });
-            $this.text('{show full text}');
-        }
-        $this.toggleClass('show-more');
-        $this.toggleClass('show-less');
-
-    });
     ///////////////////////////////////////////////////////////////////////////////  
 
 
@@ -189,6 +171,28 @@
     function needsShowMore(ele) {
         return ele.prop('scrollHeight') > 103;
     };
+
+    $(document).on('click', '.show-more, .show-less', function () {
+        var $this = $(this);
+        var messageId = $this.attr('id').replace('show-', '');
+        var $message = $('.chat-room-message-message.' + messageId);
+
+        // determine if we need to show more or show less
+        if ($this.hasClass('show-more')) {
+            $message.css({ maxHeight: '10000000000px' });
+            $this.text('{show minimized text}');
+        } else {
+            $message.css({ maxHeight: '102px' });
+            $this.text('{show full text}');
+        }
+        $this.toggleClass('show-more');
+        $this.toggleClass('show-less');
+
+    });
+    $(document).on('click', '.chat-room-message-wrapper.messages.chat-room-message-message.a.img', function (e) {
+        e.preventDefault();
+        console.log('image clicked');
+    });
     ///////////////////////////////////////////////////////////////////////////////
 
 });

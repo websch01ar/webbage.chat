@@ -79,10 +79,16 @@ namespace webbage.chat.Hubs {
                 Command cmd = new Command(message);
                 botInterpreter.DoWork(cmd);
 
-                if (cmd.Response != "invalid command")
-                    return Clients.All.addNewMessageToPane("bot", cmd.Response, false, null, Guid.NewGuid());
-                else
+                string validatedMessage = null;
+                if (cmd.Response != "invalid command") {
+                    if (validateMessage(cmd.Response, out validatedMessage)) {
+                        return Clients.All.addNewMessageToPane("bot", validatedMessage, false, null, Guid.NewGuid());
+                    } else {
+                        return Clients.Client(user.ConnectionId).addNewMessageToPane("bot", cmd.Response, true, null, Guid.NewGuid());
+                    }
+                } else {
                     return Clients.Client(user.ConnectionId).addNewMessageToPane("bot", cmd.Response, true, null, Guid.NewGuid());
+                }
 
             } else if (message.StartsWith("/")) { // room command
                 if (userIsAuthorized) {
