@@ -19,6 +19,7 @@ namespace webbage.chat.Controllers {
         [Route("home/contact")]
         public ActionResult Contact() {
             return View();
+            //lol?
         }
     }
 }
