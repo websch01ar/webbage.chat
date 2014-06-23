@@ -87,9 +87,10 @@
             float: left;
             width: 100%;
             padding: 4px;
+            padding-left: 10px;
             background: #27ae60;
             font-size: 11px;
-            color: #d35400;
+            color: #ecf0f1;
         }
             .chat-room-message-wrapper > .messages > .show-more:hover, .show-less:hover {
                 text-decoration: underline;
