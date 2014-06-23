@@ -85,7 +85,7 @@ namespace webbage.chat.utils {
                 if (!isImage(linkName)) {                    
                     html = html.Replace(linkName, "<a href='" + uri.AbsoluteUri + "' target='_blank'>" + linkName + "</a>");
                 } else {
-                    html = html.Replace(linkName, "<a href='" + uri.AbsoluteUri + "' target='_blank'><img src='" + uri.AbsoluteUri + "' /></a>");
+                    html = html.Replace(linkName, "<img src='" + uri.AbsoluteUri + "' />");
                 }
             }
 

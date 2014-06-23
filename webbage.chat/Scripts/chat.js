@@ -189,9 +189,14 @@
         $this.toggleClass('show-less');
 
     });
-    $(document).on('click', '.chat-room-message-wrapper.messages.chat-room-message-message.a.img', function (e) {
-        e.preventDefault();
-        console.log('image clicked');
+    $(document).on('click', '.chat-room-message-wrapper > .messages > .chat-room-message-message > img', function (e) {
+        $.colorbox({
+            href: $(this).attr('src'),
+            closeButton: false,
+            photo: true,
+            maxHeight: '800px',
+            maxWidth: '800px'
+        });
     });
     ///////////////////////////////////////////////////////////////////////////////
 

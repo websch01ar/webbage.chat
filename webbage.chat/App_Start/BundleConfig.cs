@@ -9,7 +9,8 @@ namespace webbage.chat {
                         "~/Scripts/jquery-{version}.min.js",
                         "~/Scripts/site.js",
                         "~/Scripts/bootstrap.min.js",
-                        "~/Scripts/respond.min.js"));
+                        "~/Scripts/respond.min.js",
+                        "~/Scripts/colorbox/jquery.colorbox-min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/chat").Include(
                         "~/Scripts/chat.js",

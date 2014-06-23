@@ -77,12 +77,11 @@
         .chat-room-message-wrapper > .messages > .chat-room-message-message > a {
             color: #2c3e50;
         }
-            .chat-room-message-wrapper > .messages > .chat-room-message-message > a > img {
-                max-height: 300px;
-                max-width: 300px;
-                overflow: hidden;
-                margin: 5px 0px;
-            }
+        .chat-room-message-wrapper > .messages > .chat-room-message-message > img {
+            max-height: 100px;
+            max-width: 100px;
+            overflow: hidden;
+        }
         .chat-room-message-wrapper > .messages > .show-more, .show-less {
             float: left;
             width: 100%;
