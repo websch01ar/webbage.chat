@@ -105,7 +105,7 @@ $(function () {
         // get the content of what we want to display and pass it to appendMessage
         // appendMessage() will decide where it needs to be displayed
         var chatRoomMessage = encodeMessageMaster(name, message, pm, isCode, messageId);
-        appendMessage(name, chatRoomMessage, senderConnectionId, messageId);
+        appendMessage(name, chatRoomMessage, senderConnectionId, messageId, isCode);
     };
     chat.client.updateOnlineUsers = function (users) {
         $.each($.parseJSON(users), function () {            
@@ -117,10 +117,10 @@ $(function () {
     };
 
     // add desired message to the chat pane
-    function appendMessage(name, message, senderConnectionId, messageId) {
+    function appendMessage(name, message, senderConnectionId, messageId, isCode) {
         // determine if we need to append it to the last `messages` group or not
-        var appendToLast = isLastMatched(senderConnectionId);                
-
+        var appendToLast = isLastMatched(senderConnectionId);
+        
         if (($chatDisplay[0].scrollHeight - $chatDisplay.scrollTop()) == $chatDisplay.outerHeight()) {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
@@ -136,9 +136,9 @@ $(function () {
         }
 
         var $ele = $('.chat-room-message-message.' + messageId);
-        if (needsShowMore($ele)) {
+        if (needsShowMore($ele, isCode)) {
             $('#chat :last-child').children('.messages').append('<div id="show-' + messageId + '" class="show-more">{show full text}</div>');
-        }
+        }       
 
         if (document.body.className == 'hidden' && name != 'room') {
             updateTitle();
@@ -225,8 +225,11 @@ $(function () {
     function isLastMatched(senderConnectionId) {
         return $('#chat :last-child').hasClass(senderConnectionId);
     };
-    function needsShowMore(ele) {
-        return ele.prop('scrollHeight') > 103;
+    function needsShowMore(ele, isCode) {
+        var lineCount = ele.text().split('\n').length;
+        var charCount = ele.text().length;
+                
+        return (lineCount > 4 && isCode) || charCount > 956;
     };
 
     $(document).on('click', '.show-more, .show-less', function () {
@@ -255,10 +258,11 @@ $(function () {
             maxWidth: '800px'
         });
     });
-    $(document).on('click', '.online-user', function () {
+    $(document).on('click', '.online-user', function (e) {
         // beginning of popup user context menu
         var $this = $(this);
-        console.log($this.attr('id').replace('user-', ''));
+        console.log($this.attr('id').replace('user-', '') + ' ' + e.pageX + ' ' + e.pageY);
+
     })
     ///////////////////////////////////////////////////////////////////////////////
 
