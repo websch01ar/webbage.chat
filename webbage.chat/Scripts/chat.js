@@ -54,6 +54,23 @@ function resetTitle() {
     notificationCount = 0;
 }
 
+function setSelectionRange(input, selectionStart, selectionEnd) {
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(selectionStart, selectionEnd);
+    }
+    else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', selectionEnd);
+        range.moveStart('character', selectionStart);
+        range.select();
+    }
+}
+function setCaretToPos(input, pos) {    
+    setSelectionRange(input, pos, pos);
+}
+
 $(function () {
     var chat            = $.connection.chatHub;
     var $displayName    = $('#displayName');
@@ -262,8 +279,10 @@ $(function () {
     $(document).on('click', '.online-user', function (e) {
         // beginning of popup user context menu
         var $this = $(this);
-        console.log($this.attr('id').replace('user-', '') + ' ' + e.pageX + ' ' + e.pageY);
-
+        if (!($this.hasClass('me'))) {
+            $message.val('*' + $this.text() + ' ').focus();
+            setCaretToPos(document.getElementById('message'), $message.val().length);
+        }
     })
     ///////////////////////////////////////////////////////////////////////////////
 
