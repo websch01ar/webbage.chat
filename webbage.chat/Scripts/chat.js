@@ -19,6 +19,8 @@
         window.onpageshow = window.onpagehide
             = window.onfocus = window.onblur = onchange;
 
+    oldTitle = document.title;
+
     function onchange(evt) {
         var v = 'visible', h = 'hidden',
             evtMap = {
@@ -39,19 +41,15 @@
 // tab notification logic
 var oldTitle, notificationCount = 0, firstTime = true;
 function updateTitle() {
-    if (firstTime) {
+    if (firstTime)
         firstTime = false;
-        oldTitle = document.title;
-    }
 
     notificationCount++;
     document.title = '(' + notificationCount + ') ' + oldTitle;
 };
 function resetTitle() {
     firstTime = true;
-    if (!oldTitle === undefined) {
-        document.title = oldTitle;
-    }
+    document.title = oldTitle;
     notificationCount = 0;
 }
 
