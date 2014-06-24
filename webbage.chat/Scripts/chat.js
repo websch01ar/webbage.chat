@@ -49,7 +49,9 @@ function updateTitle() {
 };
 function resetTitle() {
     firstTime = true;
-    document.title = oldTitle;
+    if (!oldTitle === undefined) {
+        document.title = oldTitle;
+    }
     notificationCount = 0;
 }
 
