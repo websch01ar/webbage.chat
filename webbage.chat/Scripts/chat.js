@@ -46,6 +46,7 @@ function updateTitle() {
 
     notificationCount++;
     document.title = '(' + notificationCount + ') ' + oldTitle;
+    (new Audio('/Content/Sound/new-message-notification.mp3')).play();
 };
 function resetTitle() {
     firstTime = true;
