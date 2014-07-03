@@ -12,7 +12,7 @@ namespace webbage.chat.utils {
             RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
         private static Regex _whitelist = new Regex(@"
-            ^</?(b(lockquote)?|code|d(d|t|l|el)|em|h(1|2|3)|i|kbd|li|ol|p(re)?|s(ub|up|trong|trike)?|ul)>$|
+            ^</?(b(lockquote)?|code|d(d|t|l|el)|marquee|blink|em|h(1|2|3)|i|kbd|li|ol|p(re)?|s(ub|up|trong|trike)?|ul)>$|
             ^<(b|h)r\s?/?>$",
             RegexOptions.Singleline | RegexOptions.ExplicitCapture | RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
 
