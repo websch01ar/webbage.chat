@@ -3,6 +3,10 @@
     width: 100%;
 }
 
+.hoverme:hover {
+    cursor: pointer;
+}
+
 #chat {
     width: 78%;
     padding-top: 30px;

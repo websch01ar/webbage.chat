@@ -39,15 +39,22 @@
 })();
 
 // tab notification logic
-var oldTitle, notificationCount = 0, firstTime = true;
+var oldTitle, notificationCount = 0, firstTime = true, audio = true;
 function updateTitle() {
     if (firstTime)
         firstTime = false;
 
     notificationCount++;
     document.title = '(' + notificationCount + ') ' + oldTitle;
-    (new Audio('/Content/Sound/new-message-notification.mp3')).play();
 };
+
+function playNotification() {
+    if (!audio)
+        return false;
+
+    (new Audio('/Content/Sound/new-message-notification.mp3')).play();
+}
+
 function resetTitle() {
     firstTime = true;
     document.title = oldTitle;
@@ -101,6 +108,22 @@ $(function () {
     $.connection.hub.qs = "userName=" + userName + "&roomId=" + roomId;
     $.connection.hub.start().done(function () {
         // no implementation yet
+    });
+
+    //Change audio boolean to true or false depending on if user wants audio
+    $(document).on("click", "#toggleAudioNotification", function () {
+        var $el = $(this);
+        if ($el.hasClass("soundTrue")) {
+            $el.removeClass("soundTrue");
+            audio = false;
+            $el.removeClass("glyphicon-volume-up");
+            $el.addClass("glyphicon-volume-off");
+        } else {
+            $el.addClass("soundTrue");
+            audio = true;
+            $el.addClass("glyphicon-volume-up");
+            $el.removeClass("glyphicon-volume-off");
+        }
     });
 
 
@@ -161,6 +184,8 @@ $(function () {
         if (document.body.className == 'hidden' && name != 'room') {
             updateTitle();
         }
+
+        playNotification();
     };
     ///////////////////////////////////////////////////////////////////////////////  
 
