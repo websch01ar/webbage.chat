@@ -185,7 +185,9 @@ $(function () {
             updateTitle();
         }
 
-        playNotification();
+        if (name != $displayName.val()) {
+            playNotification();
+        }
     };
     ///////////////////////////////////////////////////////////////////////////////  
 
