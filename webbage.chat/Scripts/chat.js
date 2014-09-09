@@ -157,6 +157,29 @@ $(function () {
         });
     };
 
+    function ShowLocalDate() {
+        var dNow = new Date();
+        var hours = dNow.getHours();
+        var ampm = 'am';
+
+        var minuts = dNow.getMinutes();
+
+        if (parseInt(minuts) < 10)
+        {
+            minuts = "0"+minuts;
+        }
+
+
+        if (parseInt(hours, 10) > 12)
+        {
+            hours = parseInt(hours, 10) - 12;
+            ampm = 'pm';
+        }
+
+        var localdate = (dNow.getMonth() + 1) + '/' + dNow.getDate() + '/' + dNow.getFullYear() + ' ' +  hours + ':' + minuts + ampm;
+        return localdate;
+    }
+
     // add desired message to the chat pane
     function appendMessage(name, message, senderConnectionId, messageId, isCode) {
         // determine if we need to append it to the last `messages` group or not
@@ -166,7 +189,7 @@ $(function () {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
             else
-                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '<br />' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
             
             $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
         } else {
@@ -189,7 +212,7 @@ $(function () {
             playNotification();
         }
     };
-    ///////////////////////////////////////////////////////////////////////////////  
+ ///////////////////////////////////////////////////////////////////////////////  
 
 
     ///////////////////////////////////////////////////////////////// C2S FUNCTIONS
