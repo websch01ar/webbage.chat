@@ -26,15 +26,15 @@
         text-align: right;
         float: left;
         padding-right: 10px;
-        min-width: 10%;
-        max-width: 10%; 
+        min-width: 15%;
+        max-width: 15%; 
         min-height: 18px;
         overflow: hidden;
     }
     .chat-room-message-wrapper > .messages {
         padding: 4px;
         font-size: 13px;
-        width: 87%;
+        width: 81%;
         word-wrap: break-word;
         display: inline-block;
     }    

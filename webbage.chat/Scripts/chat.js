@@ -189,14 +189,14 @@ $(function () {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
             else
-                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '<br />' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + ' -- ' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
             
             $chatDisplay.animate({ scrollTop: $chatDisplay[0].scrollHeight }, 500);
         } else {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
             else
-                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '<br />' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + ' -- ' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
         }
 
         var $ele = $('.chat-room-message-message.' + messageId);
