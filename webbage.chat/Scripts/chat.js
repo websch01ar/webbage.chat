@@ -176,7 +176,7 @@ $(function () {
             ampm = 'pm';
         }
 
-        var localdate = (dNow.getMonth() + 1) + '/' + dNow.getDate() + '/' + dNow.getFullYear() + ' ' +  hours + ':' + minuts + ampm;
+        var localdate = hours + ':' + minuts + ampm;
         return localdate;
     }
 
@@ -196,7 +196,7 @@ $(function () {
             if (appendToLast)
                 $('#chat :last-child').children('.messages').append(message);
             else
-                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
+                $chatDisplay.append($('<div class="chat-room-message-wrapper ' + senderConnectionId + '"><div class="chat-room-message-name">' + name + '<br />' + ShowLocalDate() + '</div><div class="messages">' + message + '</div><div class="clear"></div></div>'));
         }
 
         var $ele = $('.chat-room-message-message.' + messageId);
