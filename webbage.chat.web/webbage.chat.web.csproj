@@ -94,7 +94,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="css\" />
     <Folder Include="directives\" />
     <Folder Include="templates\" />
   </ItemGroup>
@@ -103,7 +102,7 @@
     <Content Include="content\bootstrap-theme.min.css" />
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
-    <Content Include="factories\authservice.js" />
+    <Content Include="css\site.css" />
     <Content Include="factories\hubcontext.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

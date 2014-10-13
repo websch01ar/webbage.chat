@@ -5,11 +5,18 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope']; 
+    LoginController.$inject = ['$scope', 'auth']; 
 
-    function LoginController($scope) {
+    function LoginController($scope, auth) {
 
-        activate();
-        function activate() { }
+        $scope.login = function () {
+            auth.signin({
+                popup: true
+            }, function () {
+                // Success callback
+            }, function () {
+                // Error callback
+            });
+        }
     }
 })();
