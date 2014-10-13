@@ -1,0 +1,17 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html ng-app="app">
+    <head>
+        <title>webbage.chat</title>
+
+        @Styles.Render("~/styles/bootstrap")
+        @Styles.Render("~/styles/site")
+    </head>
+    <body>
+       <div ng-view></div>
+
+        @Scripts.Render("~/scripts/js")
+        @Scripts.Render("~/scripts/angular")
+    </body>
+</html>
