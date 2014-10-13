@@ -13,14 +13,15 @@ namespace webbage.chat.web {
                 .Include("~/scripts/angular-sanitize.js")
                 .IncludeDirectory("~/scripts/angular-ui", "*.js", true)
                 .IncludeDirectory("~/js", "*.js", true)
-                .IncludeDirectory("~/factories", "*.js", true)                
+                .IncludeDirectory("~/factories", "*.js", true)
+                //.IncludeDirectory("~/directives", "*.js", true)
                 .IncludeDirectory("~/ngControllers", "*.js", true));
 
             bundles.Add(new StyleBundle("~/styles/bootstrap")
                 .Include("~/content/*.css"));
 
-            bundles.Add(new StyleBundle("~/styles/site")
-                .Include("~/css/*.css"));
+            /*bundles.Add(new StyleBundle("~/styles/site")
+                .Include("~/css/*.css"));*/
         }
     }
 }
