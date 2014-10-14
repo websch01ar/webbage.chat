@@ -23,7 +23,8 @@
                 <a class="navbar-brand" href="#">webbage.chat</a>
             </div>
             <div class="navbar-right" style="margin-top: 10px;color: #ecf0f1">
-                <i ng-click="logout()" class="fa fa-2x fa-sign-out"></i>
+                <img class="img-circle" ng-class="$rootScope.user ? '' : 'hidden'" style="height: 10px; width: 10px;" src="{[$rootScope.user.image]}"/>
+                <i ng-click="logout()" class="fa fa-2x fa-sign-out hover"></i>
             </div>
         </div>
     </nav>

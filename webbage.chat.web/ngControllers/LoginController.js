@@ -5,9 +5,9 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'auth', '$location']; 
+    LoginController.$inject = ['$scope', 'auth', '$location', '$rootScope']; 
 
-    function LoginController($scope, auth, $location) {
+    function LoginController($scope, auth, $location, $root) {
 
         // popup on page present
         auth.signin({
@@ -16,6 +16,8 @@
             showIcon: true
         }, function () {
             $location.path('/');
+            $root.user = auth.profile;
+            console.log($root.user);
         }, function () {
             // Error callback
         });
