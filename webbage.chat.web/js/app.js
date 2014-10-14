@@ -8,8 +8,8 @@
         'auth0'
     ]).config(function (authProvider, $routeProvider, $locationProvider) {
         $routeProvider
-            .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })            
-            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html', requiresLogin: true });
+            .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })
+            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html' });
 
         authProvider.init({
             domain: 'webbage.auth0.com',
@@ -17,11 +17,11 @@
             callbackURL: location.href,
             loginUrl: '/login'
         });
-        alert(authProvider);
-    }).run(['$rootScope', 'auth', function($rootScope, auth) {
+    }).run(['$rootScope', 'auth', '$route', function($rootScope, auth, $route) {
         $rootScope.logout = function () {
-            alert(auth);
+            console.log(auth);
             auth.signout();
+            $route.reload();
         }
     }]);
 
