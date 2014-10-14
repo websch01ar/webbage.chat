@@ -19,6 +19,7 @@
         });
     }).run(function($rootScope) {
         $rootScope.signout = function () {
+            alert(authProvider);
             authProvider.signout();
         }
     });
