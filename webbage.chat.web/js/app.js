@@ -8,8 +8,8 @@
         'auth0'
     ]).config(function (authProvider, $routeProvider, $locationProvider) {
         $routeProvider
-            .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })
-            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html' });
+            .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })            
+            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html', requiresLogin: true });
 
         authProvider.init({
             domain: 'webbage.auth0.com',
@@ -19,7 +19,6 @@
         });
     }).run(['$rootScope', 'auth', '$route', function($rootScope, auth, $route) {
         $rootScope.logout = function () {
-            console.log(auth);
             auth.signout();
             $route.reload();
         }
