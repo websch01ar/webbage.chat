@@ -5,9 +5,9 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope']; 
+    HomeController.$inject = ['$scope', '$rootScope']; 
 
-    function HomeController($scope) {
+    function HomeController($scope, $root) {
 
 
         activate();
