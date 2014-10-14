@@ -19,3 +19,10 @@
     width: 25px;
     margin-right: 15px;
 }
+
+#right-nav {
+    margin-top: 10px;
+    color: #ecf0f1;
+    float: right;
+    clear:none !important;
+}
