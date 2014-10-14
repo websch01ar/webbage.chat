@@ -1,2 +1,7 @@
 ﻿body {
+    background: #f7f7f7;
+}
+
+.a0-close {
+    display: none !important;
 }

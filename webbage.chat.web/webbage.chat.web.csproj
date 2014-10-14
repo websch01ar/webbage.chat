@@ -141,7 +141,6 @@
     <Content Include="factories\interceptor.js" />
     <Content Include="views\home.html" />
     <Content Include="views\login.html" />
-    <Content Include="views\register.html" />
     <Content Include="Web.config" />
     <Content Include="scripts\jquery-2.1.1.min.map" />
   </ItemGroup>

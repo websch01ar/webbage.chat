@@ -5,18 +5,18 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'auth']; 
+    LoginController.$inject = ['$scope', 'auth', '$location']; 
 
-    function LoginController($scope, auth) {
+    function LoginController($scope, auth, $location) {
+        auth.signin({
+            popup: true,
+            icon: '',
+            showIcon: true,
 
-        $scope.login = function () {
-            auth.signin({
-                popup: true
-            }, function () {
-                // Success callback
-            }, function () {
-                // Error callback
-            });
-        }
+        }, function () {
+            $location.path('/');
+        }, function () {
+            // Error callback
+        });
     }
 })();
