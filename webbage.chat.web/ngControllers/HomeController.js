@@ -9,6 +9,7 @@
 
     function HomeController($scope, auth) {
         $scope.user = auth.profile;
+        console.log($scope.user);
 
         activate();
         function activate() { }

@@ -16,8 +16,6 @@
             showIcon: true
         }, function () {
             $location.path('/');
-            $root.user = auth.profile;
-            console.log($root.user);
         }, function () {
             // Error callback
         });
