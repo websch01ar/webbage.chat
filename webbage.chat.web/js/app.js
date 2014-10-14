@@ -17,11 +17,12 @@
             callbackURL: location.href,
             loginUrl: '/login'
         });
-    }).run(function($rootScope, auth) {
+        alert(authProvider);
+    }).run(['$rootScope', 'auth', function($rootScope, auth) {
         $rootScope.logout = function () {
             alert(auth);
             auth.signout();
         }
-    });
+    }]);
 
 })();
