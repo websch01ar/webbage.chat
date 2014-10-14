@@ -1,5 +1,7 @@
 ﻿<div id="user-image">
-    <a href="#/account"><img class="img-circle" src="{{auth.profile.picture}}" /></a>
+    <a href="#/account">
+        <img class="img-circle" ng-class="auth.profile.picture ? '' : 'hidden'" src="{{auth.profile.picture}}" />
+    </a>
 </div>
 <div class="container-fluid">
     <img class="img-responsive" src="{{auth.profile.picture}}" />
