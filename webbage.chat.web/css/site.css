@@ -31,4 +31,6 @@
 #right-nav {
     margin-top: 10px;
     color: #ecf0f1;
+    margin-right: 15px;
+    float: right;
 }
