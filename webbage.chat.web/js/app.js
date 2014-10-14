@@ -17,7 +17,7 @@
             callbackURL: location.href,
             loginUrl: '/login'
         });
-    }).run(function($rootScope) {
+    }).run(function($rootScope, authProvider) {
         $rootScope.logout = function () {
             alert(authProvider);
             authProvider.signout();
