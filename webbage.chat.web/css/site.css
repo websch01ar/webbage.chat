@@ -8,3 +8,9 @@
 .hover {
     cursor: pointer;
 }
+
+#user-image {
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
