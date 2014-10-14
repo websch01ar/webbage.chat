@@ -10,7 +10,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular-cookies.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-route.js"></script>
-    <script src="//cdn.auth0.com/w2/auth0-angular-2.js"> </script>
+    <script src="//cdn.auth0.com/w2/auth0-angular-2.js"></script>
 
     @Styles.Render("~/styles/bootstrap")
     @Styles.Render("~/styles/site")
@@ -21,6 +21,9 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">webbage.chat</a>
+            </div>
+            <div class="navbar-right" style="margin-top: 10px;color: #ecf0f1">
+                <i ng-click="logout()" class="fa fa-2x fa-sign-out"></i>
             </div>
         </div>
     </nav>

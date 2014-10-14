@@ -8,6 +8,8 @@
     LoginController.$inject = ['$scope', 'auth', '$location']; 
 
     function LoginController($scope, auth, $location) {
+
+        // popup on page present
         auth.signin({
             popup: true,
             icon: '',
@@ -17,5 +19,6 @@
         }, function () {
             // Error callback
         });
+
     }
 })();

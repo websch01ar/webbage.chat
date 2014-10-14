@@ -100,8 +100,11 @@
   <ItemGroup>
     <Content Include="content\bootstrap.css" />
     <Content Include="content\bootstrap.min.css" />
+    <Content Include="content\font-awesome.css" />
+    <Content Include="content\font-awesome.min.css" />
     <Content Include="css\site.css" />
     <Content Include="factories\hubcontext.js" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="js\app.js" />
@@ -132,13 +135,19 @@
     <Content Include="scripts\angular-route.min.js.map" />
     <Content Include="scripts\angular-animate.min.js.map" />
     <Content Include="index.cshtml" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
     <Content Include="factories\interceptor.js" />
     <Content Include="views\home.html" />
     <Content Include="views\login.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
