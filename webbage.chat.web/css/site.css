@@ -21,6 +21,7 @@
 
 .navbar {
     height: 33px;
+    min-height: 0;
 }
 .navbar > .container-fluid .navbar-header {
     padding: 6px 15px;
