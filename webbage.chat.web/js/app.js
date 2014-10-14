@@ -18,7 +18,7 @@
             loginUrl: '/login'
         });
     }).run(function($rootScope) {
-        $rootScope.signout = function () {
+        $rootScope.logout = function () {
             alert(authProvider);
             authProvider.signout();
         }
