@@ -108,6 +108,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="js\app.js" />
+    <Content Include="ngControllers\AccountController.js" />
     <Content Include="ngControllers\HomeController.js" />
     <Content Include="ngControllers\LoginController.js" />
     <Content Include="packages.config" />

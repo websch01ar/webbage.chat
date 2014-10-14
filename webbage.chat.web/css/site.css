@@ -12,11 +12,13 @@
 #user-image {
     position: absolute;
     top: 4px;
-    right: 55px;
+    right: 50px;
 }
-#user-image > img {
+#user-image img {
     height: 21px;
     width: 21px;
+    margin-top: 2px;
+    border: 1px solid #ecf0f1;
 }
 
 .navbar {
@@ -43,7 +45,9 @@
     clear :none !important;
 }
 #right-nav {
-    margin-top: 4px;
+    margin-top: 1px;
     color: #ecf0f1;
     float: right;
+    font-size: 22px;
+    font-weight: lighter;
 }
