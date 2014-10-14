@@ -5,10 +5,10 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', '$rootScope']; 
+    HomeController.$inject = ['$scope', 'auth']; 
 
-    function HomeController($scope, $root) {
-        console.log($root.user);
+    function HomeController($scope, auth) {
+        $scope.user = auth.profile;
 
         activate();
         function activate() { }
