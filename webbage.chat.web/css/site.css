@@ -19,9 +19,16 @@
     width: 25px;
 }
 
+.navbar-header:after {
+    clear: none !important;
+}
+.nav:after {
+    clear: none !important;
+}
+.navbar:after {
+    clear :none !important;
+}
 #right-nav {
     margin-top: 10px;
     color: #ecf0f1;
-    float: right;
-    clear:none !important;
 }
