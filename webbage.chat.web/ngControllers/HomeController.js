@@ -8,9 +8,7 @@
     HomeController.$inject = ['$scope', 'auth']; 
 
     function HomeController($scope, auth) {
-        $scope.user = auth.profile;
-        console.log(auth);
-        console.log($scope.user);
+        $scope.auth = auth;
 
         activate();
         function activate() { }
