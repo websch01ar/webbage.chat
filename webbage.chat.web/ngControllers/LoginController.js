@@ -5,15 +5,13 @@
         .module('app')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$scope', 'auth', '$location', '$rootScope']; 
+    LoginController.$inject = ['auth', '$location']; 
 
-    function LoginController($scope, auth, $location, $root) {
+    function LoginController(auth, $location) {
 
         // popup on page present
         auth.signin({
-            popup: true,
-            icon: '',
-            showIcon: true
+            popup: true
         }, function () {
             $location.path('/');
         }, function () {
