@@ -8,7 +8,7 @@
     HomeController.$inject = ['$scope', '$rootScope']; 
 
     function HomeController($scope, $root) {
-
+        console.log($root.user);
 
         activate();
         function activate() { }
