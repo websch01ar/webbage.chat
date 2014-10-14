@@ -11,8 +11,7 @@
         auth.signin({
             popup: true,
             icon: '',
-            showIcon: true,
-
+            showIcon: true
         }, function () {
             $location.path('/');
         }, function () {
