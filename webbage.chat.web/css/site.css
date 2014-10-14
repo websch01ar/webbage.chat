@@ -28,6 +28,9 @@
     height: 33px;
     font-size: 16px;
 }
+.navbar > .container-fluid .navbar-header > .navbar-brand {
+    padding: 0;
+}
 
 .navbar-header:after {
     clear: none !important;
