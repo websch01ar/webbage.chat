@@ -19,8 +19,8 @@
         });
     }).run(function($rootScope, auth) {
         $rootScope.logout = function () {
-            alert(authProvider);
-            authProvider.signout();
+            alert(auth);
+            auth.signout();
         }
     });
 
