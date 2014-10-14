@@ -7,7 +7,7 @@
 
     AccountController.$inject = ['$scope', 'auth']; 
 
-    function AccountController($scope) {
+    function AccountController($scope, auth) {
         $scope.auth = auth;
 
         activate();

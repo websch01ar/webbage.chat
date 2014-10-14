@@ -144,6 +144,7 @@
     <Content Include="scripts\jquery-2.1.1.js" />
     <Content Include="scripts\jquery-2.1.1.min.js" />
     <Content Include="factories\interceptor.js" />
+    <Content Include="views\account.html" />
     <Content Include="views\home.html" />
     <Content Include="views\login.html" />
     <Content Include="Web.config">
