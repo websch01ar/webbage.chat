@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html ng-app="app">
 <head>
-    <title>webbage.chat</title>    
+    <title>webbage.chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />    
 
     <script src="//cdn.auth0.com/w2/auth0-widget-5.2.min.js"></script>
@@ -16,13 +16,17 @@
     @Styles.Render("~/styles/site")
 </head>
 <body>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">webbage.chat</a>
+            </div>
+        </div>
+    </nav>
     <div ng-view></div>
 
     @Scripts.Render("~/scripts/js")
     @Scripts.Render("~/scripts/angular")
-
-    
-    
-    
 </body>
 </html>

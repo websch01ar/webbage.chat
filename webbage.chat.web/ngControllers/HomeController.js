@@ -8,6 +8,8 @@
     HomeController.$inject = ['$scope']; 
 
     function HomeController($scope) {
+
+
         activate();
         function activate() { }
     }
