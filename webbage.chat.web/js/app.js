@@ -9,8 +9,8 @@
     ]).config(function (authProvider, $routeProvider, $locationProvider) {
         $routeProvider
             .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })
-            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html' })
-            .when('/account', { controller: 'AccountController', templateUrl: 'views/account.html' });
+            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html', requiresLogin: true })
+            .when('/account', { controller: 'AccountController', templateUrl: 'views/account.html', requiresLogin: true });
 
         authProvider.init({
             domain: 'webbage.auth0.com',
