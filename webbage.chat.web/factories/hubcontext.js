@@ -27,11 +27,12 @@
         function connectHub() {
             connection = $.hubConnection();
             proxy = connection.createHubProxy('chatHub');
-            connection.start();
 
             proxy.on('broadcastMessage', function (message) {
                 $rootScope.$broadcast('broadcastMessage', message);
             });
+
+            connection.start();
         }
     }
 })();
