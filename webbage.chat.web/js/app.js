@@ -9,9 +9,9 @@
     ]).config(function (authProvider, $routeProvider, $locationProvider) {
         $routeProvider
             .when('/login', { controller: 'LoginController', templateUrl: 'views/login.html', })
-            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html', requiresLogin: true })
-            .when('/account', { controller: 'AccountController', templateUrl: 'views/account.html', requiresLogin: true })
-            .when('/room/:roomName', { controller: 'ChatController', templateUrl: 'views/chat.html', requiresLogin: true });
+            .when('/', { controller: 'HomeController', templateUrl: 'views/home.html' })
+            .when('/account', { controller: 'AccountController', templateUrl: 'views/account.html' })
+            .when('/room/:roomName', { controller: 'ChatController', templateUrl: 'views/chat.html' });
 
         authProvider.init({
             domain: 'webbage.auth0.com',

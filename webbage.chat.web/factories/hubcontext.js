@@ -24,6 +24,8 @@
             }
         }
 
+        return context;
+
         function connectHub() {
             connection = $.hubConnection();
             proxy = connection.createHubProxy('chatHub');
