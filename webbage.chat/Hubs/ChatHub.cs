@@ -23,7 +23,7 @@ namespace webbage.chat.Hubs {
             // get the room id
             string roomId = Context.QueryString["roomId"];
             // add them to onlineUsers
-            User user = new User { UserName = (Context.QueryString["userName"].ToString() == "Matt" ? "<img src='http://i.imgur.com/etjgJ2D.jpg' />" : Context.QueryString["userName"].ToString()), ConnectionId = Context.ConnectionId, RoomId = roomId };
+            User user = new User { UserName = Context.QueryString["userName"], ConnectionId = Context.ConnectionId, RoomId = roomId };
             onlineUsers.Add(user);
 
             // add them to this room's group
