@@ -11,9 +11,9 @@ namespace webbage.chat.web {
                 .Include("~/scripts/angular-route.js")
                 .Include("~/scripts/angular-sanitize.js")
                 .IncludeDirectory("~/scripts/angular-ui", "*.js", true)
-                .IncludeDirectory("~/js", "*.js", true)
-                .IncludeDirectory("~/factories", "*.js", true)
+                .IncludeDirectory("~/js", "*.js", true)                
                 //.IncludeDirectory("~/directives", "*.js", true)
+                .IncludeDirectory("~/services", "*.js", true)
                 .IncludeDirectory("~/ngControllers", "*.js", true));
 
             bundles.Add(new StyleBundle("~/styles/bootstrap")

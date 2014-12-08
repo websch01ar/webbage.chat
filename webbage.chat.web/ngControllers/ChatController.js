@@ -13,7 +13,7 @@
         $scope.sendMessage = function () {
             $hub.sendMessage(null);
         }
-
+        
         $scope.messages = [];
         $scope.$on('broadcastMessage', function (event, message) {
             $scope.messages.push(message);
