@@ -13,8 +13,14 @@
             domain: 'webbage.auth0.com',
             clientID: 'NjpJcv2innqRppQ7tnaOnP5GSwupT6qw'
         });
-    }).run(function (auth) {
+    }).run(function (auth, $rootScope, store) {
         auth.hookEvents();
+
+        $rootScope.logout = function () {
+            auth.signout();
+            store.remove('profile');
+            store.remove('token');
+        }
     });
 
 })();
