@@ -5,12 +5,14 @@
 
     login.$inject = ['$scope', 'store', '$location', 'auth'];
 
-    function login($scope, store, $location, auth) {
+    function login($scope, store, $location, auth) {       
+
         auth.signin({}, function (profile, token) {
             store.set('profile', profile);
             store.set('token', token);
+            console.log(store.get('profile'));
             $location.path('/');
-        }, function () { });
+        }, function () { });        
 
         activate();
         function activate() { }

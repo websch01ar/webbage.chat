@@ -6,7 +6,7 @@
 
     app.config(function ($routeProvider, authProvider) {
         $routeProvider
-            .when('/', { controller: 'home', templateUrl: '/app/webbage.app/views/home.html', requireLogin: true })
+            .when('/', { controller: 'home', templateUrl: '/app/webbage.app/views/home.html', requiresLogin: true })
             .when('/login', { controller: 'login', templateUrl: '/app/webbage.app/views/login.html' });
 
         authProvider.init({
@@ -16,6 +16,7 @@
     }).run(function (auth, $rootScope, store) {
         auth.hookEvents();
 
+        $rootScope.auth = auth;
         $rootScope.logout = function () {
             auth.signout();
             store.remove('profile');

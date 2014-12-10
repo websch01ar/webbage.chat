@@ -8,7 +8,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular-route.min.js"></script>
-    <script src="//code.angularjs.org/1.2.16/angular-cookies.min.js"></script>
+    <script src="//code.angularjs.org/1./angular-cookies.min.js"></script>
 
     <script src="//cdn.auth0.com/js/lock-6.js"></script>
     <script src="//rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
@@ -26,7 +26,8 @@
                 <a class="navbar-brand" href="#">webbage.chat</a>
             </div>
             <div id="right-nav" class="nav navbar-right">
-                                
+                <img src="auth.profile.picture" />
+                <i ng-show="auth.isAuthenticated" class="glyphicon glyphicon-log-out"></i>
             </div>
         </div>
     </nav>
