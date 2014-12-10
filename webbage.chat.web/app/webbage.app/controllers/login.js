@@ -10,7 +10,7 @@
             store.set('profile', profile);
             store.set('token', token);
             $location.path('/');
-        });
+        }, function () { });
 
         activate();
         function activate() { }
