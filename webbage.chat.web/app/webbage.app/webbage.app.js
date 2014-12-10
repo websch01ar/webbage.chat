@@ -6,7 +6,7 @@
 
     app.config(function ($routeProvider, authProvider) {
         $routeProvider
-            .when('/', { controller: 'home', templateUrl: '/app/webbage.app/views/home.html' })
+            .when('/', { controller: 'home', templateUrl: '/app/webbage.app/views/home.html', requireLogin: true })
             .when('/login', { controller: 'login', templateUrl: '/app/webbage.app/views/login.html' });
 
         authProvider.init({
