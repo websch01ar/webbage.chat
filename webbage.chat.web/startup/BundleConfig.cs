@@ -3,24 +3,15 @@
 namespace webbage.chat.web {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
-            bundles.Add(new ScriptBundle("~/scripts/js")
-                .Include("~/scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/scripts/lib")
+                .IncludeDirectory("~/assets/libs", "*.js", true)
+                .IncludeDirectory("~/assets/js", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/scripts/angular")
-                .Include("~/scripts/angular-animate.js")
-                .Include("~/scripts/angular-route.js")
-                .Include("~/scripts/angular-sanitize.js")
-                .IncludeDirectory("~/scripts/angular-ui", "*.js", true)
-                .IncludeDirectory("~/js", "*.js", true)                
-                //.IncludeDirectory("~/directives", "*.js", true)
-                .IncludeDirectory("~/services", "*.js", true)
-                .IncludeDirectory("~/ngControllers", "*.js", true));
-
-            bundles.Add(new StyleBundle("~/styles/bootstrap")
-                .Include("~/content/*.css"));
+                .IncludeDirectory("~/app/webbage.app", "*.js", true));
 
             bundles.Add(new StyleBundle("~/styles/site")
-                .Include("~/css/*.css"));
+                .IncludeDirectory("~/assets/css", "*.css", true));
         }
     }
 }

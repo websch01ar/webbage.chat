@@ -14,7 +14,7 @@
     <RootNamespace>webbage.chat.web</RootNamespace>
     <AssemblyName>webbage.chat.web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
@@ -59,7 +60,7 @@
       <HintPath>..\packages\Microsoft.Owin.Security.2.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+      <Private>False</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -113,77 +114,56 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="directives\" />
-    <Folder Include="templates\" />
+    <Folder Include="app\webbage.directives\controllers\" />
+    <Folder Include="app\webbage.rooms\controllers\" />
+    <Folder Include="app\webbage.services\controllers\" />
+    <Folder Include="app\webbage.users\controllers\" />
+    <Folder Include="assets\img\" />
+    <Folder Include="hubs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\bootstrap.css" />
-    <Content Include="content\bootstrap.min.css" />
-    <Content Include="content\font-awesome.css" />
-    <Content Include="content\font-awesome.min.css" />
-    <Content Include="css\site.css" />
-    <Content Include="services\hubcontext.js" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="app\webbage.app\controllers\home.js" />
+    <Content Include="app\webbage.app\controllers\login.js" />
+    <Content Include="app\webbage.app\views\home.html" />
+    <Content Include="app\webbage.app\views\login.html" />
+    <Content Include="app\webbage.app\webbage.app.js" />
+    <Content Include="app\webbage.directives\webbage.directives.js" />
+    <Content Include="app\webbage.rooms\webbage.rooms.js" />
+    <Content Include="app\webbage.services\webbage.services.js" />
+    <Content Include="app\webbage.users\webbage.users.js" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\site.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\js\site.js" />
     <Content Include="Global.asax" />
-    <Content Include="js\app.js" />
-    <Content Include="ngControllers\AccountController.js" />
-    <Content Include="ngControllers\HomeController.js" />
-    <Content Include="ngControllers\LoginController.js" />
-    <Content Include="ngControllers\ChatController.js" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="content\bootstrap.css.map" />
-    <Content Include="scripts\angular-animate.js" />
-    <Content Include="scripts\angular-animate.min.js" />
-    <Content Include="scripts\angular-mocks.js" />
-    <Content Include="scripts\angular-route.js" />
-    <Content Include="scripts\angular-route.min.js" />
-    <Content Include="scripts\angular-sanitize.js" />
-    <Content Include="scripts\angular-sanitize.min.js" />
-    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.js" />
-    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.min.js" />
-    <Content Include="scripts\angular-ui\ui-bootstrap.js" />
-    <Content Include="scripts\angular-ui\ui-bootstrap.min.js" />
-    <Content Include="scripts\angular.js" />
-    <Content Include="scripts\angular.min.js" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
-    <Content Include="scripts\angular.min.js.map" />
-    <Content Include="scripts\angular-sanitize.min.js.map" />
-    <Content Include="scripts\angular-route.min.js.map" />
-    <Content Include="scripts\angular-animate.min.js.map" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\css\bootstrap.css.map" />
+    <Content Include="assets\libs\ui-bootstrap-tpls.min.js" />
+    <Content Include="assets\libs\ui-bootstrap.min.js" />
+    <Content Include="assets\libs\bootstrap.min.js" />
     <Content Include="index.cshtml" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\FontAwesome.otf" />
-    <None Include="Properties\PublishProfiles\chat.webbage.net - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
-    <None Include="scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="scripts\jquery-2.1.1.js" />
-    <Content Include="scripts\jquery-2.1.1.min.js" />
-    <Content Include="services\interceptor.js" />
-    <Content Include="scripts\jquery.signalR-2.1.2.js" />
-    <Content Include="scripts\jquery.signalR-2.1.2.min.js" />
-    <Content Include="views\account.html" />
-    <Content Include="views\chat.html" />
-    <Content Include="views\home.html" />
-    <Content Include="views\login.html" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\libs\jquery.signalR-2.1.2.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="scripts\jquery-2.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="startup\BundleConfig.cs" />
     <Compile Include="startup\StartUp.cs" />
@@ -193,6 +173,9 @@
       <Project>{7f39e672-dd1a-41a6-8ec4-9f01042e1034}</Project>
       <Name>webbage.chat.model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -209,7 +192,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8086</IISUrl>
+          <IISUrl>http://localhost:8342/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
