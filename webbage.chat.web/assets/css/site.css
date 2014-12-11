@@ -1,5 +1,5 @@
 ﻿body {
-    background: #f7f7f7;
+    background: #e7e7e7;
 }
 
 .a0-close {
@@ -9,6 +9,16 @@
     cursor: pointer;
 }
 
+.login-display:hover {
+    background: #007EA7;    
+}
+    .login-display > span {
+        font-size: 16px;
+        display: block;
+        margin-top: 0;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
 .user-nav-display {
     float: right;
     width: 250px;
@@ -16,9 +26,9 @@
 }
     .user-nav-display > .user-nav-display-profile {
         float: left;
-        width: 150px;
         height: 32px;
         cursor: pointer;
+        margin-right: 50px;
     }
         .user-nav-display > .user-nav-display-profile:hover {            
             background: #007EA7;
@@ -35,15 +45,20 @@
             font-size: 16px;
             display: block;
             float: left;
-            margin-top: 4px;
+            margin-top: 5px;
             margin-left: 5px; 
-            padding: 0;           
+            padding-right: 10px;
         }
-    .user-nav-display > .user-nav-display-logout {
+    .user-nav-display > span {
+        font-size: 16px;
+        display: inline-block;
         float: right;
-        margin-top: 3px;
+        padding: 5px 10px;
         cursor: pointer;
     }
+        .user-nav-display > span:hover {
+            background: #007EA7;  
+        }
 
 .navbar {
     height: 33px;
@@ -74,3 +89,11 @@
     font-size: 22px;
     font-weight: lighter;
 }
+
+#main-home-display {
+    height: 500px;
+}
+    #main-home-display #login-prompt {
+        height: 100%;
+        background: #bdc3c7;
+    }

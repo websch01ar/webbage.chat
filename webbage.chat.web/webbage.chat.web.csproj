@@ -114,23 +114,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\webbage.chat\hubs\" />
+    <Folder Include="app\webbage.chat\signalr\" />
     <Folder Include="app\webbage.directives\controllers\" />
-    <Folder Include="app\webbage.rooms\controllers\" />
-    <Folder Include="app\webbage.services\controllers\" />
-    <Folder Include="app\webbage.users\controllers\" />
+    <Folder Include="app\webbage.services\factories\" />
     <Folder Include="assets\img\" />
-    <Folder Include="hubs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\webbage.app\controllers\home.js" />
-    <Content Include="app\webbage.app\controllers\login.js" />
     <Content Include="app\webbage.app\views\home.html" />
-    <Content Include="app\webbage.app\views\login.html" />
     <Content Include="app\webbage.app\webbage.app.js" />
+    <Content Include="app\webbage.directives\definitions\room-display.js" />
+    <Content Include="app\webbage.directives\templates\room-display.html" />
     <Content Include="app\webbage.directives\webbage.directives.js" />
-    <Content Include="app\webbage.rooms\webbage.rooms.js" />
     <Content Include="app\webbage.services\webbage.services.js" />
-    <Content Include="app\webbage.users\webbage.users.js" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\font-awesome.css" />
@@ -175,6 +172,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\webbage.chat\webbage.chat.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>

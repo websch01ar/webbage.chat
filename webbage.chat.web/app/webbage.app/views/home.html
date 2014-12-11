@@ -1,1 +1,8 @@
-﻿this is a test homepage
+﻿<div id="main-home-display">
+    <div class="container-fluid" style="height: 100%;">
+        <div id="login-prompt" ng-show="!auth.isAuthenticated">
+            <h1>Get started now!</h1>
+        </div>
+        <div ng-show="auth.isAuthenticated">display rooms</div>
+    </div>
+</div>
