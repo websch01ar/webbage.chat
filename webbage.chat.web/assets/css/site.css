@@ -10,26 +10,45 @@
 }
 
 .user-nav-display {
-    margin-right: 70px;
     float: right;
-    font: 16px;
-    width: 100px;
+    width: 250px;
     position: relative;
 }
-.user-nav-display-img {
-    height: 25px;
-    width: 25px;
-    border-radius: 10px;
-    margin-top: -5px;
-}
-.user-nav-display-logout {
-    position: absolute;
-    right: 0;
-}
+    .user-nav-display > .user-nav-display-profile {
+        float: left;
+        width: 150px;
+        height: 32px;
+        cursor: pointer;
+    }
+        .user-nav-display > .user-nav-display-profile:hover {            
+            background: #007EA7;
+        }
+        .user-nav-display > .user-nav-display-profile > .user-nav-display-img {
+            height: 25px;
+            width: 25px;
+            border-radius: 10px;
+            margin-top: 3px;
+            margin-left: 8px;
+            float: left;
+        }
+        .user-nav-display > .user-nav-display-profile > .user-nav-display-name {
+            font-size: 16px;
+            display: block;
+            float: left;
+            margin-top: 4px;
+            margin-left: 5px; 
+            padding: 0;           
+        }
+    .user-nav-display > .user-nav-display-logout {
+        float: right;
+        margin-top: 3px;
+        cursor: pointer;
+    }
 
 .navbar {
     height: 33px;
     min-height: 0;
+    position: relative;
 }
 .navbar > .container-fluid .navbar-header {
     line-height: 33px;

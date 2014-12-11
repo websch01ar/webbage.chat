@@ -27,9 +27,11 @@
             </div>
             <div id="right-nav" class="nav navbar-right">
                 <div class="user-nav-display" ng-show="auth.isAuthenticated">
-                    <img class="user-nav-display-img" ng-src="{{auth.profile.picture}}" />
-                    <span ng-bind="auth.profile.name"></span>
-                    <i class="user-nav-display-logout" ng-click="logout" class="glyphicon glyphicon-log-out"></i>
+                    <div class="user-nav-display-profile">
+                        <img class="user-nav-display-img" ng-src="{{auth.profile.picture}}" />
+                        <span class="user-nav-display-name" ng-bind="auth.profile.name"></span>
+                    </div>
+                    <i ng-click="logout" class="user-nav-display-logout glyphicon glyphicon-log-out"></i>
                 </div>                
             </div>
         </div>
