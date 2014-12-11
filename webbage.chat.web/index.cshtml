@@ -26,8 +26,11 @@
                 <a class="navbar-brand" href="#">webbage.chat</a>
             </div>
             <div id="right-nav" class="nav navbar-right">
-                <img ng-src="{{auth.profile.picture}}" />
-                <i ng-show="auth.isAuthenticated" class="glyphicon glyphicon-log-out"></i>
+                <div class="user-nav-display">
+                    <img class="user-nav-display-img" ng-src="{{auth.profile.picture}}" />
+                    <span ng-bind="auth.profile.name"></span>
+                </div>
+                <i ng-show="auth.isAuthenticated" ng-click="logout" class="glyphicon glyphicon-log-out"></i>
             </div>
         </div>
     </nav>
