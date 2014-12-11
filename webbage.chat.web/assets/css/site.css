@@ -12,12 +12,19 @@
 .user-nav-display {
     margin-right: 70px;
     float: right;
+    font: 16px;
+    width: 100px;
+    position: relative;
 }
 .user-nav-display-img {
     height: 25px;
     width: 25px;
     border-radius: 10px;
     margin-top: -5px;
+}
+.user-nav-display-logout {
+    position: absolute;
+    right: 0;
 }
 
 .navbar {
