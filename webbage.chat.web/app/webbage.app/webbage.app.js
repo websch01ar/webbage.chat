@@ -11,7 +11,8 @@
 
         authProvider.init({
             domain: 'webbage.auth0.com',
-            clientID: 'NjpJcv2innqRppQ7tnaOnP5GSwupT6qw'
+            clientID: 'NjpJcv2innqRppQ7tnaOnP5GSwupT6qw',
+            loginUrl: '/'
         });
     }).run(function ($rootScope, auth, store, jwtHelper, $location) {
         auth.hookEvents();

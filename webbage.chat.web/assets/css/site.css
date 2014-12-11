@@ -1,12 +1,18 @@
 ﻿body {
-    background: #e7e7e7;
-}
-
-.a0-close {
-    display: none !important;
+    background: #ecf0f1;
 }
 .hover {
     cursor: pointer;
+}
+.h100 {
+    height: 100%;
+}
+
+.clouds {
+    background-color: #ecf0f1;
+}
+.silver {
+    background-color: #bdc3c7;
 }
 
 .login-display:hover {
@@ -64,6 +70,7 @@
     height: 33px;
     min-height: 0;
     position: relative;
+    margin-bottom: 0;
 }
 .navbar > .container-fluid .navbar-header {
     line-height: 33px;
@@ -93,7 +100,46 @@
 #main-home-display {
     height: 500px;
 }
-    #main-home-display #login-prompt {
-        height: 100%;
-        background: #bdc3c7;
+    #main-home-display #login-prompter {
+        text-align: center;
     }
+        #main-home-display #login-prompter > h1 {
+            padding-top: 75px;
+            font-size: 6.5em;
+        }
+        #main-home-display #login-prompter > h4 {
+            display: inline-block;                        
+            font-size: 1.9em;
+        }
+            #main-home-display #login-prompter > .social-media-providers {
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+            #main-home-display #login-prompter > .social-media-providers > .social-media-provider {
+                margin: 15px;
+            }
+
+        .fa-facebook-square {
+            color: #3a5795;
+        }
+        .fa-github-square {
+            color: #333;
+        }
+        .fa-google-plus-square {
+            color: #dd4b39
+        }
+        .fa-linkedin-square {
+            color: #007bb6;
+        }
+        .fa-windows {
+            color: #2672EC;
+        }
+        .fa-twitter-square {
+            color: #00aced;
+        }
+
+#bottom-right-copyright {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+}

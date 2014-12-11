@@ -1,8 +1,7 @@
 ﻿<div id="main-home-display">
-    <div class="container-fluid" style="height: 100%;">
-        <div id="login-prompt" ng-show="!auth.isAuthenticated">
-            <h1>Get started now!</h1>
-        </div>
-        <div ng-show="auth.isAuthenticated">display rooms</div>
+    <div class="h100" ng-show="!auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-out.html'"></div>
+    <div ng-show="auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-in.html'"></div>
+    <div id="bottom-right-copyright">
+        webbage.chat <span class="fa fa-copyright"></span> 2014
     </div>
 </div>

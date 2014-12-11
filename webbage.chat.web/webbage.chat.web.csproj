@@ -122,6 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\webbage.app\controllers\home.js" />
+    <Content Include="app\webbage.app\partials\home-logged-in.html" />
+    <Content Include="app\webbage.app\partials\home-logged-out.html" />
     <Content Include="app\webbage.app\views\home.html" />
     <Content Include="app\webbage.app\webbage.app.js" />
     <Content Include="app\webbage.directives\definitions\room-display.js" />
