@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatMessage.cs" />
+    <Compile Include="ChatRoom.cs" />
     <Compile Include="ChatUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

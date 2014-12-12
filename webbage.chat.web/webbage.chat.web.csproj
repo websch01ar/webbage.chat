@@ -114,8 +114,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\webbage.chat\hubs\" />
-    <Folder Include="app\webbage.chat\signalr\" />
     <Folder Include="app\webbage.directives\controllers\" />
     <Folder Include="app\webbage.services\factories\" />
     <Folder Include="assets\img\" />
@@ -126,6 +124,7 @@
     <Content Include="app\webbage.app\partials\home-logged-out.html" />
     <Content Include="app\webbage.app\views\home.html" />
     <Content Include="app\webbage.app\webbage.app.js" />
+    <Content Include="app\webbage.chat\signalr\signalR.js" />
     <Content Include="app\webbage.directives\definitions\room-display.js" />
     <Content Include="app\webbage.directives\templates\room-display.html" />
     <Content Include="app\webbage.directives\webbage.directives.js" />
@@ -146,20 +145,21 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="assets\css\bootstrap.css.map" />
-    <Content Include="assets\libs\ui-bootstrap-tpls.min.js" />
-    <Content Include="assets\libs\ui-bootstrap.min.js" />
-    <Content Include="assets\libs\bootstrap.min.js" />
+    <Content Include="assets\libs\ui-bootstrap-tpls.js" />
+    <Content Include="assets\libs\ui-bootstrap.js" />
+    <Content Include="assets\libs\bootstrap.js" />
     <Content Include="index.cshtml" />
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\fonts\fontawesome-webfont.ttf" />
     <Content Include="assets\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\fonts\FontAwesome.otf" />
-    <Content Include="assets\libs\jquery.signalR-2.1.2.min.js" />
+    <Content Include="assets\libs\jquery.signalR-2.1.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app\webbage.chat\hubs\ChatHub.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
