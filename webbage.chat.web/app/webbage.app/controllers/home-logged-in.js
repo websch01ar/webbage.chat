@@ -11,7 +11,7 @@
         });
         
         $scope.$on('updateRooms', function (e, args) {
-            console.log(args);
+            //args.rooms
         });
 
         activate();

@@ -11,8 +11,6 @@
             // SERVER EVENT LISTENING //////////////////////////////////
             // receive room listing from server
             proxy.on('updateRooms', function (rooms) {
-                console.log('emitting');
-                console.log(rooms);
                 $rootScope.$broadcast('updateRooms', { rooms: rooms });
             });
             ////////////////////////////////////////////////////////////
