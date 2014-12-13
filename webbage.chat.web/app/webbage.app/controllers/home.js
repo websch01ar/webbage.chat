@@ -3,14 +3,9 @@
 
     angular.module('webbage.app').controller('home', home);
 
-    home.$inject = ['$scope', 'signalR']; 
+    home.$inject = ['$scope']; 
 
-    function home($scope, signalR) {
-        signalR.init();
-
-        $scope.sendMessage = function () {
-            signalR.send('test', 'test');
-        }
+    function home($scope) {
 
         activate();
         function activate() { }

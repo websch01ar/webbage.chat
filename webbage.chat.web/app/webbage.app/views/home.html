@@ -1,7 +1,7 @@
-﻿<div id="main-home-display">
-    <div class="h100" ng-show="!auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-out.html'"></div>
-    <div ng-show="auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-in.html'"></div>
-    <div id="bottom-right-copyright">
-        webbage.chat <span class="fa fa-copyright"></span> 2014
-    </div>
+﻿<div class="content">
+    <div class="content" ng-show="!auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-out.html'"></div>
+    <div class="content" ng-show="auth.isAuthenticated" ng-include="'app/webbage.app/partials/home-logged-in.html'"></div>
+</div>
+<div id="copyright">
+    <span>webbage.chat <span class="fa fa-copyright" /> 2014</span>
 </div>

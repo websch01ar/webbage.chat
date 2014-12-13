@@ -23,23 +23,23 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">webbage.chat</a>
+                <a class="navbar-brand" href="#">webbage.<span class="emerald bold">chat</span></a>
             </div>
-            <div id="right-nav" class="nav navbar-right">
-                <div ng-click="login()" class="login-display" ng-show="!auth.isAuthenticated">
+            <div class="nav navbar-right">
+                <div ng-click="login()" class="log-in-display" ng-show="!auth.isAuthenticated">
                     <span>Log In</span>
                 </div>
-                <div class="user-nav-display" ng-show="auth.isAuthenticated">
-                    <div class="user-nav-display-profile">
-                        <img class="user-nav-display-img" ng-src="{{auth.profile.picture}}" />
-                        <span class="user-nav-display-name" ng-bind="auth.profile.name"></span>
+                <div class="logged-in-display" ng-show="auth.isAuthenticated">
+                    <div class="profile-display">
+                        <img  ng-src="{{auth.profile.picture}}" />
+                        <span ng-bind="auth.profile.name"></span>
                     </div>
                     <span ng-click="logout()">Log Out</span>
                 </div>
             </div>
         </div>
     </nav>
-    <div ng-view class="h100"></div>
+    <div ng-view class="content"></div>
 
     @Scripts.Render("~/scripts/lib")
     <script src="~/signalr/hubs"></script>

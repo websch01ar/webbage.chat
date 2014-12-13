@@ -4,9 +4,10 @@
 
     var app = angular.module('webbage.app');
 
-    app.config(function ($routeProvider, authProvider, $provide) {
+    app.config(['$routeProvider', 'authProvider', '$provide', function ($routeProvider, authProvider, $provide) {
         $routeProvider
             .when('/', { controller: 'home', templateUrl: '/app/webbage.app/views/home.html' })
+            .when('/room/:roomId', { controller: 'room', templateUrl: '/app/webbage.app/views/room.html' })
             .otherwise({ controller: 'error', templateUrl: 'app/webbage.app/views/home.html' });
 
         authProvider.init({
@@ -14,21 +15,7 @@
             clientID: 'NjpJcv2innqRppQ7tnaOnP5GSwupT6qw',
             loginUrl: '/'
         });
-
-        // provide the $onRootScope for $scope to listen for $rootScope.$emit();
-        $provide.decorator('$rootScope', ['$delegate', function ($delegate) {
-            Object.defineProperty($delegate.constructor.prototype, '$onRootScope', {
-                value: function (name, listener) {
-                    var unsubscribe = $delegate.$on(name, listener);
-                    this.$on('$destroy', unsubscribe);
-
-                    return unsubscribe;
-                },
-                enumerable: false
-            });
-            return $delegate;
-        }]);
-    }).run(function ($rootScope, auth, store, jwtHelper, $location) {
+    }]).run(['$rootScope', 'auth', 'store', 'jwtHelper', '$location', function ($rootScope, auth, store, jwtHelper, $location) {
         auth.hookEvents();
 
         $rootScope.auth = auth;        
@@ -59,6 +46,6 @@
                 }
             }
         });
-    });
+    }]);
 
 })();

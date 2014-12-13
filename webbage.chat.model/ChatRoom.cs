@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace webbage.chat.model {
     public class ChatRoom {
-
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public IEnumerable<ChatUser> Users { get; set; }
     }
 }
