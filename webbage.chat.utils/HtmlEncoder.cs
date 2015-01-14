@@ -38,8 +38,6 @@ namespace webbage.chat.utils {
         /// a whitelist based approach, leaving the "safe" HTML tags
         /// </summary>
         public static string Sanitize(string html) {
-            return html;
-            
             if (String.IsNullOrEmpty(html))
                 return html;
 
