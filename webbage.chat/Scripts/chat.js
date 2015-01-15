@@ -55,6 +55,13 @@ function playNotification() {
     (new Audio('/Content/Sound/new-message-notification.mp3')).play();
 }
 
+function playAwYis() {
+    if (!audio)
+        return false;
+
+    (new Audio('/Content/Sound/awyis.mp3')).play();
+}
+
 function resetTitle() {
     firstTime = true;
     document.title = oldTitle;
@@ -132,6 +139,7 @@ $(function () {
         // notify room they joined        
         var chatRoomMessage = encodeMessageMaster("room", name + ' has joined the room', false, false, messageId);
         appendMessage("room", chatRoomMessage, '0', messageId);
+        playAwYis();
     };
     chat.client.userDisconnected = function (name, messageId) {
         // remove from online-user-list
