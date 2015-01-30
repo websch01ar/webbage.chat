@@ -62,6 +62,7 @@ function playAwYis() {
     (new Audio('/Content/Sound/awyis.mp3')).play();
 }
 
+
 function resetTitle() {
     firstTime = true;
     document.title = oldTitle;
@@ -235,6 +236,11 @@ $(function () {
         $message.val('').focus();
     });
     function sendMessage(message, codeToggle) {
+        console.log(codeToggle);
+        if (codeToggle) {
+            message = message.replace(/</g, '&lt');
+            message = message.replace(/>/g, '&gt');
+        }
         chat.server.sendMessage(message, codeToggle, roomId);
         $message.val('').focus();
         codeMessage = false;
