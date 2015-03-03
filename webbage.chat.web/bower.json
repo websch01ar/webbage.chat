@@ -1,0 +1,17 @@
+{
+  "name": "webbage.chat.web",
+  "version": "1",
+  "homepage": "https://github.com/webbage/webbage.chat",
+  "authors": [
+    "bamblack <benjamin.a.m.black@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

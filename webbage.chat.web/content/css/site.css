@@ -1,0 +1,86 @@
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+    background: #f7f7f7;
+    font-family: 'Open Sans';
+    padding-top: 30px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.navbar {
+    min-height: 30px;
+    height: 30px;
+    background: #555;
+    font-size: 16px;
+    color: #f7f7f7;
+}
+    .navbar span {
+        padding: 5px 5px;
+        line-height: 20px;
+        display: inline-block;
+    }
+    .navbar .navbar-header a {
+        padding: 5px 15px;
+        font-size: 16px;
+    }
+        .navbar .navbar-header a span {
+            padding: 0;
+        }
+
+.right-menu {    
+    margin-right: 10px;
+    float: right !important;
+}
+    .right-menu div.user-profile {
+        padding: 0 15px;
+        margin-right: 90px;
+        float: left;
+    }
+        .right-menu div.user-profile > img {
+            margin-top: -4px;
+            height: 25px;
+            width: 25px;
+            border-radius: 10px;        
+        }
+    .right-menu div.user-profile:hover,
+    .right-menu span.logout:hover,
+    .right-menu span.login:hover {
+        background: #333;
+        cursor: pointer;
+    }
+
+.room-display {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #c7c7c7;
+    cursor: pointer;
+
+    -webkit-transition-duration: 300ms;
+    -moz-transition-duration: 300ms;
+    -o-transition-duration: 300ms;
+    transition-duration: 300ms;
+}
+    .room-display:hover {
+        background: #e7e7e7;
+        border-style: dashed;
+
+        -webkit-transition-duration: 300ms;
+        -moz-transition-duration: 300ms;
+        -o-transition-duration: 300ms;
+        transition-duration: 300ms;
+    }
+    .room-display .rooms-users {
+        float: right;
+    }
+
+.user-display.xs {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+    .user-display.xs img {
+        height: 19px;
+        width: 19px;
+    }

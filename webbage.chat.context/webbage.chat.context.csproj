@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F39E672-DD1A-41A6-8EC4-9F01042E1034}</ProjectGuid>
+    <ProjectGuid>{0151D60F-7D15-46B1-8FB2-FD667AD20D74}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>webbage.chat.model</RootNamespace>
-    <AssemblyName>webbage.chat.model</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>webbage.chat.context</RootNamespace>
+    <AssemblyName>webbage.chat.context</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,10 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message.cs" />
-    <Compile Include="Room.cs" />
-    <Compile Include="User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GlobalData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\webbage.chat.model\webbage.chat.model.csproj">
+      <Project>{7f39e672-dd1a-41a6-8ec4-9f01042e1034}</Project>
+      <Name>webbage.chat.model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

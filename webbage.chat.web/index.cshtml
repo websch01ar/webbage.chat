@@ -1,12 +1,13 @@
 ﻿@using System.Web.Optimization
 
 <!DOCTYPE html>
-<html ng-app="webbage.app" class="h100">
+<html ng-app="webbage.chat" class="h100">
 <head>
     <title>webbage.chat</title>    
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.2.16/angular-animate.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular-route.min.js"></script>
     <script src="//code.angularjs.org/1.2.16/angular-cookies.min.js"></script>
 
@@ -15,35 +16,35 @@
     <script src="//rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
     <script src="//cdn.auth0.com/w2/auth0-angular-3.js"></script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @Styles.Render("~/styles/site")
 </head>
-<body class="h100">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<body>
+    <nav ng-controller="navCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">webbage.<span class="emerald bold">chat</span></a>
+                <a class="navbar-brand" href="#/"><span class="clouds-font">webbage.</span><span class="emerald-font bold">chat</span></a>
             </div>
-            <div class="nav navbar-right">
-                <div ng-click="login()" class="log-in-display" ng-show="!auth.isAuthenticated">
-                    <span>Log In</span>
+            <div class="nav navbar-right right-menu">
+                <div ng-show="!auth.isAuthenticated">
+                    <span class="login" ng-click="login()">Log In</span>
                 </div>
-                <div class="logged-in-display" ng-show="auth.isAuthenticated">
-                    <div class="profile-display">
-                        <img  ng-src="{{auth.profile.picture}}" />
+                <div ng-show="auth.isAuthenticated">
+                    <div class="user-profile">
+                        <img ng-src="{{auth.profile.picture}}" />
                         <span ng-bind="auth.profile.name"></span>
                     </div>
-                    <span ng-click="logout()">Log Out</span>
+
+                    <span class="logout" ng-click="logout()">Log Out</span>
                 </div>
             </div>
         </div>
     </nav>
-    <div ng-view class="content"></div>
 
-    @Scripts.Render("~/scripts/lib")
-    <script src="~/signalr/hubs"></script>
-    @Scripts.Render("~/scripts/angular")
+    <div ng-view></div>
 
+    @Scripts.Render("~/scripts/third-party")
+    @Scripts.Render("~/scripts/app")
 </body>
 </html>
