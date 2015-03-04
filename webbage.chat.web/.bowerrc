@@ -1,3 +1,4 @@
 {
-  "directory": "content/bower/"
+  "directory": "content/bower/",
+  "proxy": "http://PROXYSERVER:PORT"
 }
