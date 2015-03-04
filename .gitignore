@@ -22,8 +22,6 @@ build/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-webbage.chat.web/content/[Bb]ower
-
 *_i.c
 *_p.c
 *.ilk
