@@ -13,12 +13,7 @@ namespace webbage.chat.context {
 
         static GlobalData() {
             rooms = new List<Room>{
-                new Room { RoomKey = 1, RoomID = "sandbox", Name = "Sandbox", Description = "A test room to play around in", Users = new List<User> {
-                    new User { Name = "Ben", Picture = "https://avatars.githubusercontent.com/u/3428699?v=3" },
-                    new User { Name = "Ben", Picture = "https://avatars.githubusercontent.com/u/3428699?v=3" },
-                    new User { Name = "Ben", Picture = "https://avatars.githubusercontent.com/u/3428699?v=3" },
-                    new User { Name = "Ben", Picture = "https://avatars.githubusercontent.com/u/3428699?v=3" }
-                }, Messages = null }
+                new Room { RoomKey = 1, RoomID = "sandbox", Name = "Sandbox", Description = "A test room to play around in", Users = new List<User>(), Messages = null }
             };
         }
 

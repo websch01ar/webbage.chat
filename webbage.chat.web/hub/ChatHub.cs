@@ -29,7 +29,7 @@ namespace webbage.chat.web.hub {
         }
         private RoomHub roomHub {
             get {
-                return GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
+                return (RoomHub)GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
             }
         }
 

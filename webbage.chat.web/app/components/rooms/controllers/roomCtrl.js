@@ -64,6 +64,7 @@
 
         //#region $scope events
         $scope.$on('$destroy', function () {
+
             chatHub.invoke('UserDisconnect', []);
         });
         //#endregion
