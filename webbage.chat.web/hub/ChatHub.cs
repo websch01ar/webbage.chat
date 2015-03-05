@@ -27,9 +27,9 @@ namespace webbage.chat.web.hub {
                 return room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
             }
         }
-        private RoomHub roomHub {
+        private IHubContext roomHub {
             get {
-                return (RoomHub)GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
+                return GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
             }
         }
 
@@ -56,7 +56,7 @@ namespace webbage.chat.web.hub {
             await Clients.OthersInGroup(room.RoomID).userDisconnected(user);
             await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
 
-            // broadcast it from the RoomHub as well, real-time list there of online users
+            // broadcast it from the RoomHub as well, real-time list there of online users            
             roomHub.Clients.All.userDisconnected(room, user);
         }
     }
