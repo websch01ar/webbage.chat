@@ -1,5 +1,7 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-
+html, body {
+    height: 100%;
+}
 body {
     background: #f7f7f7;
     font-family: 'Open Sans';
@@ -83,4 +85,18 @@ body {
     .user-display.xs img {
         height: 19px;
         width: 19px;
+    }
+    .user-display.xs span {
+        display: none;
+    }
+
+.user-display.lg {
+    margin: 3px;
+}
+    .user-display.lg img {
+        height: 50px;
+        width: 50px;
+    }
+    .user-display.lg span {
+        font-size: 1.4em;
     }

@@ -1,0 +1,47 @@
+﻿.chat-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+    .chat-container > .chat-area {
+        height: 85%;
+        max-height: 85%;
+    }
+    .chat-container > .chat-users {
+        height: 85%;
+        max-height: 85%;
+        background: #e7e7e7;
+    }   
+    .chat-container > .chat-message-buffer {
+        height: 15%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    .chat-container > .chat-message {
+        height: 15%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+        .chat-container > .chat-message > .btn {
+            margin-top: -45px;
+            padding: 2px 4px;
+        }
+            .chat-container > .chat-message > .btn:hover,
+            .chat-container > .chat-message > .btn:focus,
+            .chat-container > .chat-message > .btn:active {
+                color: #ecf0f1;
+                outline: none;
+            }
+        .chat-container > .chat-message > i {
+            position: absolute;
+            bottom: 14%;
+            left: 735px;
+        }
+        .chat-container > .chat-message > textarea {
+            resize: none;
+            margin: 10px;
+            height: 80%;
+            width: 600px;
+        }

@@ -42,9 +42,10 @@
         </div>
     </nav>
 
-    <div ng-view></div>
+    <div ng-view style="height: 100%;"></div>
 
     @Scripts.Render("~/scripts/third-party")
+    <script src="~/signalr/hubs"></script>
     @Scripts.Render("~/scripts/app")
 </body>
 </html>

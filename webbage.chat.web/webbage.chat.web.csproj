@@ -148,6 +148,13 @@
     <Content Include="app\shared\directives\webbage.chat.directives.message.js" />
     <Content Include="app\shared\services\webbage.chat.services.signalR.js" />
     <Content Include="app\shared\services\webbage.chat.services.state.js" />
+    <Content Include="content\bower\angular-hotkeys\build\hotkeys.css" />
+    <Content Include="content\bower\angular-hotkeys\build\hotkeys.js" />
+    <Content Include="content\bower\angular-hotkeys\build\hotkeys.min.css" />
+    <Content Include="content\bower\angular-hotkeys\build\hotkeys.min.js" />
+    <Content Include="content\bower\angular-hotkeys\Gruntfile.js" />
+    <Content Include="content\bower\angular-hotkeys\src\hotkeys.css" />
+    <Content Include="content\bower\angular-hotkeys\src\hotkeys.js" />
     <Content Include="content\bower\angular-ui\.gitignore" />
     <Content Include="content\bower\angular-ui\build\angular-ui-ieshiv.js" />
     <Content Include="content\bower\angular-ui\build\angular-ui-ieshiv.min.js" />
@@ -254,6 +261,7 @@
     <Content Include="content\bower\fontawesome\fonts\fontawesome-webfont.svg" />
     <Content Include="content\bower\signalr\jquery.signalR.js" />
     <Content Include="content\bower\signalr\jquery.signalR.min.js" />
+    <Content Include="content\css\chat.css" />
     <Content Include="content\css\colors.css" />
     <Content Include="content\css\site.css" />
     <Content Include="content\img\background.jpg" />
@@ -438,6 +446,11 @@
     <Content Include="content\bower\signalr\README.md" />
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
+    <Content Include="content\bower\angular-hotkeys\.bower.json" />
+    <Content Include="content\bower\angular-hotkeys\bower.json" />
+    <Content Include="content\bower\angular-hotkeys\LICENSE" />
+    <Content Include="content\bower\angular-hotkeys\package.json" />
+    <Content Include="content\bower\angular-hotkeys\README.md" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ namespace webbage.chat.web {
         public static void RegisterBundles(BundleCollection bundles) {
             bundles.Add(new ScriptBundle("~/scripts/third-party")
                 .IncludeDirectory("~/content/bower/angular-ui/build", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-hotkeys/build", "*.js", true)
                 .IncludeDirectory("~/content/bower/bootstrap/dist/js", "*.js", true)
                 .IncludeDirectory("~/content/bower/signalR", "*.js", true));
 

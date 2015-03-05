@@ -9,17 +9,55 @@ using webbage.chat.context;
 
 namespace webbage.chat.web.hub {
     public class ChatHub : Hub {
-        public async void Connect(User user, Room room) {
-            // add the user to the users list of the approriate room in GlobalData.Rooms
-            Room globalRoom = GlobalData.Rooms.Where(r => r.RoomKey == room.RoomKey).FirstOrDefault();
-            globalRoom.Users.Add(user);
+        private Room room {
+            get {
+                return GlobalData.Rooms.Where(r => r.RoomID == Context.QueryString["roomId"] && r.RoomKey == int.Parse(Context.QueryString["roomKey"])).FirstOrDefault();
+            }
+        }
+        private User user {
+            get {
+                return new User {
+                    Name = Context.QueryString["userName"],
+                    Picture = Context.QueryString["userPicture"]
+                };
+            }
+        }
+        private User roomUser {
+            get {
+                return room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
+            }
+        }
+        private RoomHub roomHub {
+            get {
+                return GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
+            }
+        }
 
-            // add them to the SignalR group and then distribute a message everyone else
-            // to say they connected also distribute a message to the entire group to 
-            // update their online users list
+        public override Task OnConnected() {
+            room.Users.Add(user);            
+            return base.OnConnected();
+        }
+
+        public async Task UserConnect() {
             await Groups.Add(Context.ConnectionId, room.RoomID);
             await Clients.OthersInGroup(room.RoomID).userConnected(user);
-            await Clients.Group(room.RoomID).updateOnlineUsers(globalRoom);
+            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+
+            // broadcast it from the RoomHub as well, real-time list there of online users
+            roomHub.Clients.All.userConnected(room, user);
+        }
+
+        public override Task OnDisconnected(bool stopCalled) {            
+            return base.OnDisconnected(stopCalled);
+        }
+
+        public async Task UserDisconnect() {
+            room.Users.Remove(roomUser);
+            await Clients.OthersInGroup(room.RoomID).userDisconnected(user);
+            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+
+            // broadcast it from the RoomHub as well, real-time list there of online users
+            roomHub.Clients.All.userDisconnected(room, user);
         }
     }
 }

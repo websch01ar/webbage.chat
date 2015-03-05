@@ -5,7 +5,8 @@
         'ngRoute',
         'webbage.chat.services.signalR',
         'webbage.chat.directives.roomDisplay',
-        'webbage.chat.directives.userDisplay'
+        'webbage.chat.directives.userDisplay',
+        'cfp.hotkeys'
     ])
         .config(['$routeProvider', function ($routeProvider) {
             $routeProvider

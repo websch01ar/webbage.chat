@@ -8,11 +8,8 @@ using webbage.chat.model;
 
 namespace webbage.chat.web.hub {
     public class RoomHub : Hub {
-        public override Task OnConnected() {
-            List<Room> rooms = GlobalData.Rooms;
-
-            Clients.Client(Context.ConnectionId).populateRooms(rooms);
-            return base.OnConnected();
+        public List<Room> GetRooms() {
+            return GlobalData.Rooms;
         }
     }
 }
