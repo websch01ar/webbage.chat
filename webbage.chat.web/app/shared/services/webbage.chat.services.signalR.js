@@ -30,10 +30,9 @@
             }
 
             function registerWatch(eventName, callback) {
-                $log.info('Registering client watch: ' + eventName);
+                $log.info('Registering client watch: ' + eventName + ' on ' + hubName);
                 hub.on(eventName, function (result) {
-                    $log.info('Client watch ' + eventName + ' triggered');
-                    $log.info(result);
+                    $log.info('Client watch ' + eventName + ' triggered on ' + hubName);
                     $root.$apply(function () {
                         if (callback) {
                             callback(result);
@@ -41,6 +40,7 @@
                     });
                 });
             }
+
             function connect() {
                 connection.start({ logging: true })
                     .done(function () {
@@ -56,10 +56,7 @@
             connect();
 
             connection.error(function (error) { $log.error('SignalR Error: ' + error); });
-
-            connection.disconnected(function () {
-                $timeout(function () { connect(); }, 5000);
-            })
+            connection.disconnected(function () { $timeout(function () { connect(); }, 5000); });
 
             return {
                 // on: registerWatch,       // removed because watches should be registered during construction
@@ -69,19 +66,19 @@
                     });
                 },
                 invoke: function (methodName, args, callback) {
-                    $log.info('Invoking ' + methodName);                    
+                    $log.info('Invoking ' + methodName + ' on ' + hubName);
                     return hub.invoke.apply(hub, $.merge([methodName], args))
                         .done(function (result) {
                             $root.$apply(function () {
                                 if (callback) {
-                                    $log.info('Executing callback for ' + methodName);
+                                    $log.info('Executing callback for ' + methodName + ' on ' + hubName);
                                     $log.info(result);
                                     callback(result);
                                 }
                             });
                         })
                         .fail(function (error) {
-                            $log.error('Error invoking ' + methodName + ' on server: ' + error);
+                            $log.error('Error invoking ' + methodName + ' on ' + hubName + ' on server: ' + error );
                         })
                 },
                 connection: connection

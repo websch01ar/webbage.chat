@@ -5,19 +5,22 @@
         var roomsHub = hub('roomHub', [
             {
                 eventName: 'userConnected',
-                callback: function (room, user) {
-                    $log.info(room);
-                    $log.info(user);
-                }
+                callback: updateRoomUserList
             },
             {
                 eventName: 'userDisconnected',
-                callback: function (room, user) {
-                    $log.info(room);
-                    $log.info(user);
-                }
+                callback: updateRoomUserList
             }
         ]);
+
+        function updateRoomUserList(room) {
+            $log.info(room);
+            for (var i = 0; i < $scope.rooms.length; i++) {
+                if (room.RoomID === $scope.rooms[i].RoomID && room.RoomKey === $scope.rooms[i].RoomKey) {
+                    $scope.rooms[i].Users = room.Users;
+                }
+            }
+        }
 
         roomsHub.ready(function () {
             roomsHub.invoke('GetRooms', [], function (result) {

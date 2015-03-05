@@ -6,6 +6,7 @@
         $scope.onlineUsers = [];
         //#endregion
 
+        //#region hub instantiation
         var queryString = 'roomKey=' + $routeParams.roomKey + '&roomId=' + $routeParams.roomId + '&userName=' + $root.auth.profile.name + '&userPicture=' + $root.auth.profile.picture;
         var chatHub = hub(
             'chatHub',
@@ -31,6 +32,7 @@
             ],
             queryString
         );
+        //#endregion
 
         // now that we've established a connection, let everyone else know
         chatHub.ready(function () {
@@ -64,7 +66,6 @@
 
         //#region $scope events
         $scope.$on('$destroy', function () {
-
             chatHub.invoke('UserDisconnect', []);
         });
         //#endregion

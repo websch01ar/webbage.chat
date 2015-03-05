@@ -33,18 +33,18 @@ namespace webbage.chat.web.hub {
             }
         }
 
-        public override Task OnConnected() {
-            room.Users.Add(user);            
+        public override Task OnConnected() {                        
             return base.OnConnected();
         }
 
         public async Task UserConnect() {
+            room.Users.Add(user);
             await Groups.Add(Context.ConnectionId, room.RoomID);
             await Clients.OthersInGroup(room.RoomID).userConnected(user);
             await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
 
             // broadcast it from the RoomHub as well, real-time list there of online users
-            roomHub.Clients.All.userConnected(room, user);
+            roomHub.Clients.All.userConnected(room);
         }
 
         public override Task OnDisconnected(bool stopCalled) {            
@@ -57,7 +57,7 @@ namespace webbage.chat.web.hub {
             await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
 
             // broadcast it from the RoomHub as well, real-time list there of online users            
-            roomHub.Clients.All.userDisconnected(room, user);
+            roomHub.Clients.All.userDisconnected(room);
         }
     }
 }
