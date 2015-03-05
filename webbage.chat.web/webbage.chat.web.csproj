@@ -270,6 +270,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="hub\ChatHub.cs" />
     <Compile Include="hub\RoomHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="startup\BundleConfig.cs" />
@@ -464,7 +465,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>48703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/webbagechat</IISUrl>
+          <IISUrl>http://localhost:8081/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

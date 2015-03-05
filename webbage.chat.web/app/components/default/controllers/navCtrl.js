@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('webbage.chat').controller('navCtrl', ['$scope', '$rootScope', '$location', 'auth', 'store', function ($scope, $root, $location, auth, store) {
+    angular.module('webbage.chat').controller('navCtrl', ['$scope', '$rootScope', '$location', '$log', 'auth', 'store', function ($scope, $root, $location, $log, auth, store) {
         $scope.login = function () {
             auth.signin({},
                 function (profile, token) { // success

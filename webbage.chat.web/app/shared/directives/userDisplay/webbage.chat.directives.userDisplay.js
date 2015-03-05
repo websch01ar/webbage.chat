@@ -9,11 +9,10 @@
                 user: '=',
                 displaySize: '@'
             },
-            controller: ['$scope', '$rootScope', '$location', function ($scope, $root, $location) {
+            controller: ['$scope', '$rootScope', '$location', '$log', function ($scope, $root, $location, $log) {
                 
             }],
             link: function (scope, ele, attrs) {
-                console.log('here');
                 scope.$watch('user', function (user) {
                     scope.user = user;
                 });

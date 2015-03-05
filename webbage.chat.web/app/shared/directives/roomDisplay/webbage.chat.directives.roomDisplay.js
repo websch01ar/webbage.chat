@@ -8,8 +8,8 @@
             scope: {
                 roomItem: '='
             },
-            controller: ['$scope', '$location', '$rootScope', function ($scope, $location, $root) {
-                console.log($scope.roomItem);
+            controller: ['$scope', '$location', '$rootScope', '$log', function ($scope, $location, $root, $log) {
+                $log.debug($scope.roomItem);
 
                 $scope.openRoom = function () {
                     $root.openRooms[$root.openRooms.length] = $scope.roomItem;

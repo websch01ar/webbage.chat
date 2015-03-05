@@ -14,7 +14,7 @@
                     templateUrl: 'app/components/rooms/views/rooms.tpl.html',
                     requiresLogin: true
                 })
-                .when('/rooms/:roomId/:roomName', {
+                .when('/rooms/:roomKey/:roomId', {
                     controller: 'roomCtrl',
                     templateUrl: 'app/components/rooms/views/room.tpl.html',
                     requiresLogin: true

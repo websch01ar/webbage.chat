@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('webbage.chat').controller('loginCtrl', ['$scope', '$location', 'auth', 'store', function ($scope, $location, auth, store) {
+    angular.module('webbage.chat').controller('loginCtrl', ['$scope', '$location', '$log', 'auth', 'store', function ($scope, $location, $log, auth, store) {
         if (auth.isAuthenticated) {
             $location.path('/rooms');
         }

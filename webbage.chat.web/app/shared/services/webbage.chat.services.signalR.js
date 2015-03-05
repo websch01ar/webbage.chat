@@ -1,15 +1,24 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('webbage.chat.services.signalR', []).factory('hubProxy', ['$log', '$timeout', '$rootScope', function ($log, $timeout, $root) {
+    angular.module('webbage.chat.services.signalR', []).factory('hubProxy', ['$log', '$timeout', '$rootScope', '$q', function ($log, $timeout, $root, $q) {
         return function (hubName) {
             var connection = $.hubConnection(),
-                hub = connection.createHubProxy(hubName);
-            
+                hub = connection.createHubProxy(hubName),
+                loadDeferment = $q.defer(),
+                isLoaded = loadDeferment.promise;
+
             function connect() {
                 connection.start({ logging: true })
-                    .done(function () { $log.info('Connection established to ' + hubName + '. Connection ID: ' + connection.id); })
-                    .fail(function (error) { $log.error('Error connecting to ' + hubName + ': ' + error); });
+                    .done(function () {
+                        $log.info('Connection established to ' + hubName + '. Connection ID: ' + connection.id);
+                        loadDeferment.resolve();
+                    })
+                    .fail(function (error) {
+                        $log.error('Error connecting to ' + hubName + ': ' + error);
+                        loadDeferment = $q.defer();
+                        isLoaded = loadDeferment.promise;
+                    });
             }
             connect();
 
@@ -26,11 +35,16 @@
                             if (callback) {
                                 callback(result);
                             }
-                        })
-                    })
+                        });
+                    });
                 },
-                invoke: function (methodName, callback) {
-                    hub.invoke(methodName).done(function (result) {
+                ready: function (callback) {
+                    return isLoaded.then(function () {
+                        callback();
+                    });
+                },
+                invoke: function (methodName, args, callback) {
+                    return hub.invoke.apply(hub, $.merge([methodName], $.makeArray(args))).done(function (result) {
                         $root.$apply(function () {
                             if (callback) {
                                 callback(result);
@@ -42,5 +56,4 @@
             };
         }
     }]);
-
 })();
