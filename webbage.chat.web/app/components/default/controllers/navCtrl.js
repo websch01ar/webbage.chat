@@ -7,7 +7,6 @@
                 function (profile, token) { // success
                     if (profile.name.trim() === '') {
                         $log.info('No name detected. Setting name to nickname');
-                        $log.info(profile);
                         profile.name = (profile.nickname.trim() !== '' ? profile.nickname : '');
                     }
 
