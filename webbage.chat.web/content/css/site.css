@@ -128,3 +128,15 @@ body {
         font-size: 1.4em;
         clear: both;
     }
+
+@media only screen and (max-width: 1462px) {
+    body .user-display.sm span {
+        max-width: 40px;
+    }
+}
+
+@media only screen and (max-width: 1246px) {
+    body .user-display.sm span {
+        display: none;
+    }
+}

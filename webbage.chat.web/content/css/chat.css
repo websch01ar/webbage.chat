@@ -12,7 +12,6 @@
     }
         .chat-container > .chat-area .message-container.consecutive-msg {
             display: none;
-            background: red;
             margin-bottom: 10px;
         }
             .chat-container > .chat-area .row > .message-user {
