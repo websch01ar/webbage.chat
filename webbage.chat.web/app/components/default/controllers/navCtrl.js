@@ -6,8 +6,8 @@
             auth.signin({},
                 function (profile, token) { // success
                     if (profile.name.trim() === '') {
-                        $log.info('No name detected. Setting name to username');
-                        profile.name === (profile.username.trim() !== '' ? profile.username : '');
+                        $log.info('No name detected. Setting name to nickname');
+                        profile.name = (profile.nickname.trim() !== '' ? profile.nickname : '');
                     }
 
                     store.set('profile', profile);
