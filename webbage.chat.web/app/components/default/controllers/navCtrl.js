@@ -5,6 +5,11 @@
         $scope.login = function () {
             auth.signin({},
                 function (profile, token) { // success
+                    if (profile.name.trim() === '') {
+                        $log.info('No name detected. Setting name to username');
+                        profile.name === (profile.username.trim() !== '' ? profile.username : '');
+                    }
+
                     store.set('profile', profile);
                     store.set('token', token);
                     $location.path('/rooms');
