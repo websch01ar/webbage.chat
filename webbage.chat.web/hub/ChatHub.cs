@@ -33,6 +33,7 @@ namespace webbage.chat.web.hub {
             }
         }
 
+        #region Dis/Connection events
         public override Task OnConnected() {                        
             return base.OnConnected();
         }
@@ -47,17 +48,30 @@ namespace webbage.chat.web.hub {
             roomHub.Clients.All.userConnected(room);
         }
 
-        public override Task OnDisconnected(bool stopCalled) {            
+        public override Task OnDisconnected(bool stopCalled) {
+            room.Users.Remove(roomUser);
+            Clients.OthersInGroup(room.RoomID).userDisconnected(user);
+            Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+
+            // broadcast it from the RoomHub as well, real-time list there of online users            
+            roomHub.Clients.All.userDisconnected(room);
+
             return base.OnDisconnected(stopCalled);
         }
 
         public async Task UserDisconnect() {
-            room.Users.Remove(roomUser);
-            await Clients.OthersInGroup(room.RoomID).userDisconnected(user);
-            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+            await OnDisconnected(true);
+        }
+        #endregion
 
-            // broadcast it from the RoomHub as well, real-time list there of online users            
-            roomHub.Clients.All.userDisconnected(room);
+        public async Task BroadcastMessage(User user, string message) {
+            Message newMessage = new Message {
+                Sender = user,
+                Content = message,
+                Sent = DateTime.Now.ToString("MMMM d, h:mm tt")
+            };
+
+            await Clients.All.receiveMessage(newMessage);
         }
     }
 }

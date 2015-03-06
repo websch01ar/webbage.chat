@@ -6,6 +6,8 @@
         'webbage.chat.services.signalR',
         'webbage.chat.directives.roomDisplay',
         'webbage.chat.directives.userDisplay',
+        'webbage.chat.directives.message',
+        'webbage.chat.directives.scroll',
         'cfp.hotkeys'
     ])
         .config(['$routeProvider', function ($routeProvider) {

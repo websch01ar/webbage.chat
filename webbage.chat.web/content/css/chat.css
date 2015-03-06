@@ -6,11 +6,51 @@
     .chat-container > .chat-area {
         height: 85%;
         max-height: 85%;
+        overflow-y: scroll;
+        z-index: 999999;
     }
+        .chat-container > .chat-area .message-container.consecutive-msg {
+            display: none;
+            background: red;
+            margin-bottom: 10px;
+        }
+            .chat-container > .chat-area .row > .message-user {
+                padding: 5px;
+                padding-right: 10px;
+                text-align: right;
+            }
+            .chat-container > .chat-area .row > .chat-message {
+                padding: 5px;
+                background: #e7e7e7;
+                margin-top: 5px;   
+                border: 1px solid #e7e7e7;   
+                position: relative;
+            }
+            .chat-container > .chat-area .row > .chat-message.consecutive-msg {
+                margin-top: 0;
+            }
+            .chat-container > .chat-area .row > .chat-message.mine {
+                background: #e59650;
+                border-color: #e59650;
+            }
+                .chat-container > .chat-area .row > .chat-message:hover {
+                    border: 1px dotted #333;
+                }
+                .chat-container > .chat-area .row > .chat-message > .chat-message-time {
+                    position: absolute;
+                    padding: 2px;
+                    right: 3px;
+                    top: 4px;
+                    background: #f7f7f7;
+                    color: #333;
+                    font-size: 12px;
+                    font-style: italic;
+                }
     .chat-container > .chat-users {
         height: 85%;
         max-height: 85%;
         background: #e7e7e7;
+        overflow-y: scroll;
     }   
     .chat-container > .chat-message-buffer {
         height: 15%;
@@ -37,11 +77,21 @@
         .chat-container > .chat-message > i {
             position: absolute;
             bottom: 14%;
-            left: 735px;
+            left: 683px;
         }
         .chat-container > .chat-message > textarea {
             resize: none;
             margin: 10px;
+            margin-left: -43px;
             height: 80%;
             width: 600px;
         }
+
+@media only screen and (max-width: 991px) {
+    body .chat-container > .chat-message > textarea {
+        margin-left: 10px;
+    }
+    body .chat-container > .chat-message > i {
+        left: 735px;
+    }
+}

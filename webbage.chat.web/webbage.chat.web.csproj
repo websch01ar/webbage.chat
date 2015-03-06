@@ -143,9 +143,10 @@
     <Content Include="app\components\rooms\views\rooms.tpl.html" />
     <Content Include="app\components\rooms\webbage.chat.rooms.js" />
     <Content Include="app\components\rooms\controllers\roomsCtrl.js" />
+    <Content Include="app\shared\directives\message\message.tpl.html" />
     <Content Include="app\shared\directives\roomDisplay\roomDisplay.tpl.html" />
     <Content Include="app\shared\directives\userDisplay\userDisplay.tpl.html" />
-    <Content Include="app\shared\directives\webbage.chat.directives.message.js" />
+    <Content Include="app\shared\directives\message\webbage.chat.directives.message.js" />
     <Content Include="app\shared\services\webbage.chat.services.signalR.js" />
     <Content Include="app\shared\services\webbage.chat.services.state.js" />
     <Content Include="content\bower\angular-hotkeys\build\hotkeys.css" />
@@ -451,6 +452,7 @@
     <Content Include="content\bower\angular-hotkeys\LICENSE" />
     <Content Include="content\bower\angular-hotkeys\package.json" />
     <Content Include="content\bower\angular-hotkeys\README.md" />
+    <Content Include="app\shared\directives\scroll\webbage.chat.directives.scroll.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>

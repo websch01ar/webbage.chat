@@ -72,7 +72,6 @@
                             $root.$apply(function () {
                                 if (callback) {
                                     $log.info('Executing callback for ' + methodName + ' on ' + hubName);
-                                    $log.info(result);
                                     callback(result);
                                 }
                             });
