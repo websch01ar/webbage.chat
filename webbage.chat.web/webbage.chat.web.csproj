@@ -266,6 +266,7 @@
     <Content Include="content\css\colors.css" />
     <Content Include="content\css\site.css" />
     <Content Include="content\img\background.jpg" />
+    <Content Include="content\img\bender.jpg" />
     <Content Include="Global.asax" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
