@@ -13,18 +13,6 @@
         var chatHub = hub(
             'chatHub',
             [
-                { 
-                    eventName: 'userConnected', 
-                    callback: function (user) {
-                        $log.info('User Connected: ' + user.Name + ', ' + user.Picture);
-                    }
-                },
-                {
-                    eventName: 'userDisconnected',
-                    callback: function (user) {
-                        $log.info('User Disconnected: ' + user.Name + ', ' + user.Picture);
-                    }
-                },
                 {
                     eventName: 'updateOnlineUsers',
                     callback: function (users) {
@@ -34,8 +22,6 @@
                 {
                     eventName: 'receiveMessage',
                     callback: function (message) {
-                        //message.Sent = new Date(message.Sent).format('MMMM D, hh:mm');
-
                         if ($scope.messages.length > 0) {
                             message.isConsecutive =
                                 $scope.messages[$scope.messages.length - 1].Sender.Name === message.Sender.Name &&
@@ -85,7 +71,15 @@
         $scope.message = '';
         $scope.sendMessage = function  () {
             if ($scope.message.trim() !== '') {
-                chatHub.invoke('BroadcastMessage', [{ Name: $root.auth.profile.name, Picture: $root.auth.profile.picture }, $scope.message]);
+                var message = {
+                    Sender: {
+                        Name: $root.auth.profile.name,
+                        Picture: $root.auth.profile.picture
+                    },
+                    Content: $scope.message
+                };
+
+                chatHub.invoke('BroadcastMessage', [message]);
                 $scope.message = '';
             }
         }

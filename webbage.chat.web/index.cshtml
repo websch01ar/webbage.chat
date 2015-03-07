@@ -27,10 +27,10 @@
                 <a class="navbar-brand" href="#/"><span class="clouds-font">webbage.</span><span class="emerald-font bold">chat</span></a>
             </div>
             <div class="nav navbar-right right-menu">
-                <div ng-show="!auth.isAuthenticated">
+                <div ng-show="!auth.isAuthenticated" ng-cloak>
                     <span class="login" ng-click="login()">Log In</span>
                 </div>
-                <div ng-show="auth.isAuthenticated">
+                <div ng-show="auth.isAuthenticated" ng-cloak>
                     <div class="user-profile">
                         <img ng-src="{{auth.profile.picture}}" />
                         <span ng-bind="auth.profile.name"></span>

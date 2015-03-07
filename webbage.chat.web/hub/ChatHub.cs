@@ -27,6 +27,23 @@ namespace webbage.chat.web.hub {
                 return room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
             }
         }
+        private User roomNotifier {
+            get {
+                return new User {
+                    Name = "room",
+                    Picture = ""
+                };
+            }
+        }
+
+        private User bender {
+            get {
+                return new User {
+                    Name = "Bender",
+                    Picture = "content/img/bender.jpg"
+                };
+            }
+        }
         private IHubContext roomHub {
             get {
                 return GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
@@ -34,23 +51,33 @@ namespace webbage.chat.web.hub {
         }
 
         #region Dis/Connection events
-        public override Task OnConnected() {                        
+        public override Task OnConnected() {
+            room.Users.Add(user);
+            Groups.Add(Context.ConnectionId, room.RoomID);
+            BroadcastMessage(new Message {
+                Sender = roomNotifier,
+                Content = string.Format("{0} has connected", user.Name),
+                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+            });
+            Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+
+            // broadcast it from the RoomHub as well, real-time list there of online users
+            roomHub.Clients.All.userConnected(room);
+
             return base.OnConnected();
         }
 
         public async Task UserConnect() {
-            room.Users.Add(user);
-            await Groups.Add(Context.ConnectionId, room.RoomID);
-            await Clients.OthersInGroup(room.RoomID).userConnected(user);
-            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
-
-            // broadcast it from the RoomHub as well, real-time list there of online users
-            roomHub.Clients.All.userConnected(room);
+            await OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled) {
             room.Users.Remove(roomUser);
-            Clients.OthersInGroup(room.RoomID).userDisconnected(user);
+            BroadcastMessage(new Message {
+                Sender = roomNotifier,
+                Content = string.Format("{0} has disconnected", user.Name),
+                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+            });
             Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
 
             // broadcast it from the RoomHub as well, real-time list there of online users            
@@ -64,14 +91,11 @@ namespace webbage.chat.web.hub {
         }
         #endregion
 
-        public async Task BroadcastMessage(User user, string message) {
-            Message newMessage = new Message {
-                Sender = user,
-                Content = message,
-                Sent = DateTime.Now.ToString("MMMM d, h:mm tt")
-            };
+        public async Task BroadcastMessage(Message message) {
+            message.Sent = DateTime.Now.ToString("MMM d, h:mm tt");
+            room.Messages.Add(message);
 
-            await Clients.All.receiveMessage(newMessage);
+            await Clients.All.receiveMessage(message);
         }
     }
 }
