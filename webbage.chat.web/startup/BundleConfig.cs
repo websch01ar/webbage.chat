@@ -4,6 +4,15 @@ namespace webbage.chat.web {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
             bundles.Add(new ScriptBundle("~/scripts/third-party")
+                .IncludeDirectory("~/content/bower/jquery/dist", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-animate", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-cookies", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-route", "*.js", true)
+                .IncludeDirectory("~/content/bower/auth0-lock/build", "*.js", true)
+                .IncludeDirectory("~/content/bower/auth0-storage/dist", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-jwt/dist", "*.js", true)
+                .IncludeDirectory("~/content/bower/auth0-angular/build", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-ui/build", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-hotkeys/build", "*.js", true)
                 .IncludeDirectory("~/content/bower/bootstrap/dist/js", "*.js", true)

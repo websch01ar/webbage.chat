@@ -12,9 +12,11 @@ namespace webbage.chat.context {
         }
 
         static GlobalData() {
-            rooms = new List<Room>{
-                new Room { RoomKey = 1, RoomID = "sandbox", Name = "Sandbox", Description = "A test room to play around in", Users = new List<User>(), Messages = null }
-            };
+            if (rooms == null) {
+                rooms = new List<Room>{
+                    new Room { RoomKey = 1, RoomID = "sandbox", Name = "Sandbox", Description = "A test room to play around in", Users = new List<User>(), Messages = new List<Message>() }
+                };
+            }
         }
 
         private static List<Room> rooms { get; set; }

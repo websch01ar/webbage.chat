@@ -182,3 +182,26 @@
 .asbestos-font {
   color: #7F8C8D;
 }
+
+.fa.fa-facebook-f,
+.fa.fa-facebook-official {
+    color: #3b5998
+}
+.fa.fa-github {
+    color: #999999;
+}
+.fa.fa-google-plus {
+    color: #dd4b39;
+}
+.fa.fa-linkedin {
+    color: #0976b4;
+}
+.fa.fa-twitter {
+    color: #55acee;
+}
+.fa.fa-windows {
+    color: #00bcf2;
+}
+.fa.fa-wordpress {
+    color: #21759b;
+}

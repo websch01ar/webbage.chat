@@ -13,16 +13,14 @@
                 .when('/', {
                     controller: 'loginCtrl',
                     templateUrl: 'app/components/default/views/login.tpl.html'
-                });
-
-            authProvider.init({
+                });            
+        }])
+        .run(['auth', '$rootScope', 'store', 'jwtHelper', '$location', function (auth, $root, store, jwtHelper, $location) {
+            auth.init({
                 domain: 'webbage.auth0.com',
                 clientID: 'NjpJcv2innqRppQ7tnaOnP5GSwupT6qw',
                 loginUrl: '/'
             });
-        }])
-        .run(['auth', '$rootScope', 'store', 'jwtHelper', '$location', function (auth, $root, store, jwtHelper, $location) {
-            auth.hookEvents();
 
             $root.openRooms = [];
             $root.auth = auth;

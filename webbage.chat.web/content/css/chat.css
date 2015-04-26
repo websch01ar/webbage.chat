@@ -25,6 +25,10 @@
                 margin-top: 5px;   
                 border: 1px solid #e7e7e7;   
                 position: relative;
+                text-align: justify;
+
+                -ms-word-wrap: break-word;
+                word-wrap: break-word;
             }
             .chat-container > .chat-area .row > .chat-message.consecutive-msg {
                 margin-top: 0;

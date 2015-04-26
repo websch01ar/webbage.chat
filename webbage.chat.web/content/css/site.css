@@ -1,4 +1,14 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://weloveiconfonts.com/api/?family=zocial);
+
+/* zocial */
+[class*="zocial-"]:before {
+  font-family: 'zocial', sans-serif;
+}
+.zocial-reddit {
+
+}
+
 html, body {
     height: 100%;
 }
@@ -18,6 +28,7 @@ body {
     background: #555;
     font-size: 16px;
     color: #f7f7f7;
+    z-index: 9999;
 }
     .navbar span {
         padding: 5px 5px;
@@ -53,6 +64,47 @@ body {
         background: #333;
         cursor: pointer;
     }
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:rgba(0,0,0,0.5);
+    z-index: 9998;
+}
+#view {
+    height:100%;
+    width:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    padding-top: 30px;
+}
+#login-background {
+    position: absolute;
+    padding-top: 30px;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: url(/content/img/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+#login-prompt {
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 9999;
+}
+    #login-prompt > .social {
+        margin-top: 120px;
+    }
+        #login-prompt > .social > span.fa {
+            margin: 12px;
+        }
 
 .room-display {
     padding: 10px;
