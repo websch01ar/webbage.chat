@@ -17,6 +17,7 @@ namespace webbage.chat.web.hub {
         private User user {
             get {
                 return new User {
+                    ConnectionId = Context.ConnectionId,
                     Name = Context.QueryString["userName"],
                     Picture = Context.QueryString["userPicture"]
                 };
@@ -67,10 +68,6 @@ namespace webbage.chat.web.hub {
             return base.OnConnected();
         }
 
-        public async Task UserConnect() {
-            await OnConnected();
-        }
-
         public override Task OnDisconnected(bool stopCalled) {
             room.Users.Remove(roomUser);
             BroadcastMessage(new Message {
@@ -78,7 +75,7 @@ namespace webbage.chat.web.hub {
                 Content = string.Format("{0} has disconnected", user.Name),
                 Sent = DateTime.Now.ToString("MMM d, h:mm tt")
             });
-            Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+            Clients.Group(room.RoomID).updateOnlineUsers(room.Users);           
 
             // broadcast it from the RoomHub as well, real-time list there of online users            
             roomHub.Clients.All.userDisconnected(room);
@@ -88,6 +85,12 @@ namespace webbage.chat.web.hub {
 
         public async Task UserDisconnect() {
             await OnDisconnected(true);
+        }
+
+        public async Task RemoveUser(User user) {
+            User userToRemove = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
+
+            await Clients.User(userToRemove.ConnectionId).gettingKicked();
         }
         #endregion
 

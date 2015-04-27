@@ -9,5 +9,6 @@ namespace webbage.chat.model {
         public User Sender { get; set; }
         public string Content { get; set; }
         public string Sent { get; set; }
+        public bool IsCode { get; set; }
     }
 }

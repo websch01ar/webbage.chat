@@ -4,6 +4,7 @@ namespace webbage.chat.web {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles) {
             bundles.Add(new ScriptBundle("~/scripts/third-party")
+                .IncludeDirectory("~/content/scripts", "*.js", true)
                 .IncludeDirectory("~/content/bower/jquery/dist", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-animate", "*.js", true)

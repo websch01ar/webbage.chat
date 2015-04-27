@@ -7,7 +7,12 @@
     </div>
     <div class="chat-users col-md-2 hidden-sm hidden-xs">
         <h3>Users</h3>
-        <user-display ng-repeat="user in onlineUsers" user="user" display-size="lg" hide-name="true"></user-display>
+        <user-display ng-repeat="user in onlineUsers" 
+                      user="user" 
+                      display-size="lg" 
+                      hide-name="true"
+                      show-context-menu="showContextMenu"
+                      kick-me="kickUser(u)"></user-display>
     </div>
     <div class="chat-message-buffer silver-background col-md-1 hidden-sm hidden-xs"></div>
     <div class="chat-message silver-background col-md-11 col-sm-12">

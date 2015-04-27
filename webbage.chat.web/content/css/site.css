@@ -130,6 +130,9 @@ body {
         float: right;
     }
 
+.user-display {
+    position: relative;
+}
 .user-display span {
     display: inline-block;
 
@@ -180,6 +183,29 @@ body {
         font-size: 1.4em;
         clear: both;
     }
+
+.user-display .user-context-menu {
+    display: none;
+    list-style: none;
+    position: absolute;
+    left: 0;
+    padding: 0;
+    width: 150%;
+}
+    .user-display:hover .user-context-menu {
+        display: block;
+    }
+    .user-display .user-context-menu li {
+        padding: 2px;
+        border: 1px solid #333;
+        background: #999;
+        color: #ecf0f1;
+        width: 100%;
+        cursor: pointer;
+    }
+        .user-display .user-context-menu li:hover {
+            background: #888;
+        }
 
 @media only screen and (max-width: 1462px) {
     body .user-display.sm span {
