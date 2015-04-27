@@ -53,7 +53,7 @@
                         isLoaded = loadDeferment.promise;
                     });
             }
-            connect
+            connect();
 
             function disconnect() {
                 connection.stop();
