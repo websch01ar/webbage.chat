@@ -81,9 +81,9 @@
                         }
                     },
                     {
-                        eventName: 'gettingKicked',
+                        eventName: 'disconnect',
                         callback: function () {
-                            $location.path('/');
+                            chatHub.disconnect();
                         }
                     }
                 ],

@@ -56,6 +56,7 @@ namespace webbage.chat.web.hub {
             // check to see if the user is already connected on another connection id, if they are, update their connection id
             User previousUser = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
             if (previousUser != null) {
+                Clients.User(previousUser.ConnectionId).disconnect();
                 previousUser.ConnectionId = Context.ConnectionId;
 
                 BroadcastMessage(new Message {
@@ -102,7 +103,7 @@ namespace webbage.chat.web.hub {
         public async Task RemoveUser(User user) {
             User userToRemove = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
 
-            await Clients.User(userToRemove.ConnectionId).gettingKicked();
+            await Clients.User(userToRemove.ConnectionId).disconnect();
         }
         #endregion
 

@@ -53,7 +53,11 @@
                         isLoaded = loadDeferment.promise;
                     });
             }
-            connect();
+            connect
+
+            function disconnect() {
+                connection.stop();
+            }
 
             connection.error(function (error) { $log.error('webbage.chat.services.signalR(' + hubName + '): SignalR Error: ' + error); });
             connection.disconnected(function () { $timeout(function () { connect(); }, 5000); });
@@ -80,6 +84,7 @@
                             $log.error('webbage.chat.services.signalR(' + hubName + '): Error invoking ' + methodName + ' on ' + hubName + ' on server: ' + error);
                         })
                 },
+                disconnect: disconnect,
                 connection: connection
             };
         }
