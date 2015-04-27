@@ -53,17 +53,29 @@ namespace webbage.chat.web.hub {
 
         #region Dis/Connection events
         public override Task OnConnected() {
-            room.Users.Add(user);
-            Groups.Add(Context.ConnectionId, room.RoomID);
-            BroadcastMessage(new Message {
-                Sender = roomNotifier,
-                Content = string.Format("{0} has connected", user.Name),
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
-            });
-            Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+            // check to see if the user is already connected on another connection id, if they are, update their connection id
+            User previousUser = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
+            if (previousUser != null) {
+                previousUser.ConnectionId = Context.ConnectionId;
 
-            // broadcast it from the RoomHub as well, real-time list there of online users
-            roomHub.Clients.All.userConnected(room);
+                BroadcastMessage(new Message {
+                    Sender = roomNotifier,
+                    Content = string.Format("{0} has swittched to a new connection", user.Name),
+                    Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                });
+            } else {
+                room.Users.Add(user);
+                Groups.Add(Context.ConnectionId, room.RoomID);
+                BroadcastMessage(new Message {
+                    Sender = roomNotifier,
+                    Content = string.Format("{0} has connected", user.Name),
+                    Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                });
+                Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+                
+                // broadcast it from the RoomHub as well, real-time list there of online users
+                roomHub.Clients.All.userConnected(room);
+            }            
 
             return base.OnConnected();
         }
