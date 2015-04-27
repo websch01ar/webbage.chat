@@ -1,16 +1,38 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('webbage.chat.rooms').controller('roomCtrl', ['$scope', '$routeParams', '$rootScope', 'hubProxy', '$log', 'hotkeys', '$timeout',
-        function ($scope, $routeParams, $root, hub, $log, hotkeys) {
+    angular.module('webbage.chat.rooms').controller('roomCtrl', ['$scope', '$routeParams', '$rootScope', 'hubProxy', '$log', 'hotkeys', '$timeout', '$window', '$location',
+        function ($scope, $routeParams, $root, hub, $log, hotkeys, $timeout, $window) {
             //#region variable declaration
             $scope.onlineUsers = [];
             $scope.messages = [];
             $scope.playSound = true;
             $scope.messageIsCode = false;
+            $scope.showContextMenu = $root.auth.profile.isGod;
+            
+            var messageNotification = new Audio('/content/media/new-message-notification.mp3'),
+                connectionNotification = new Audio('/content/media/connection-notification.mp3'),
+                newMessageCount = 0,
+                isTabActive = true,
+                tabTitle = $routeParams.roomId + ' - webbage.chat';
             //#endregion
 
-            var messageNotification = new Audio('/content/media/new-message-notification.mp3');
+            //#region toggle tab dis/active
+            $window.document.title = tabTitle
+
+            angular.element($window)
+                .bind('focus', function () { 
+                    isTabActive = true;
+                    newMessageCount = 0;
+                    $window.document.title = tabTitle
+                })
+                .bind('blur', function () {
+                    isTabActive = false;
+                })
+            //#endregion
+
+            var messageNotification = new Audio('/content/media/new-message-notification.mp3'),
+                connectionNotification = new Audio('/content/media/connection-notification.mp3');
 
             $scope.consecutive = 0;
             //#region hub instantiation
@@ -36,13 +58,32 @@
                             }
                             $scope.messages[$scope.messages.length] = message;
 
-                            // determine if we want to play sound
-                            var isMyMessage = $root.auth.profile.name === message.Sender.Name &&
-                                              $root.auth.profile.picture === message.Sender.Picture;
-
+                            // determine if we need to play sound and if so what sound to play
                             if ($scope.playSound) {
-                                messageNotification.play();
+                                var isMyMessage = $root.auth.profile.name === message.Sender.Name &&
+                                                  $root.auth.profile.picture === message.Sender.Picture;
+
+                                var isConnectionMessage = message.Content.endsWith('has connected') &&
+                                                          message.Sender.Name === 'room' &&
+                                                          message.Sender.Picture === '';
+
+                                if (!isMyMessage && !isConnectionMessage) {
+                                    $timeout(function () { messageNotification.play(); });
+                                } else if (isConnectionMessage) {
+                                    $timeout(function () { connectionNotification.play(); });
+                                }
                             }
+
+                            // determine if we need to increment the notification count on the tab
+                            if (!isTabActive) {
+                                $window.document.title = '(' + ++newMessageCount + ') ' + tabTitle
+                            }
+                        }
+                    },
+                    {
+                        eventName: 'gettingKicked',
+                        callback: function () {
+                            $location.path('/');
                         }
                     }
                 ],
@@ -94,12 +135,16 @@
                             Name: $root.auth.profile.name,
                             Picture: $root.auth.profile.picture
                         },
-                        Content: $scope.message
+                        Content: $scope.message,
+                        IsCode: $scope.messageIsCode
                     };
 
                     chatHub.invoke('BroadcastMessage', [message]);
                     $scope.message = '';
                 }
+            }
+            $scope.kickUser = function (user) {
+                chatHub.invoke('RemoveUser', [user]);
             }
             //#endregion
         

@@ -8,10 +8,12 @@
             scope: {
                 user: '=',
                 displaySize: '@',
-                hideName: '@'
+                hideName: '@',
+                showContextMenu: '@',
+                kickMe: '&'
             },
             controller: ['$scope', '$rootScope', '$location', '$log', function ($scope, $root, $location, $log) {
-                $scope.userDIsplay
+                
             }],
             link: function (scope, ele, attrs) {
                 scope.$watch('user', function (user) {
@@ -24,6 +26,10 @@
 
                 scope.$watch('hideName', function (hideName) {
                     scope.hideName = hideName;
+                })
+
+                scope.$watch('showContextMenu', function (showContextMenu) {
+                    scope.showContextMenu = showContextMenu;
                 })
             }
         }
