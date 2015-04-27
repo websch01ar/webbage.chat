@@ -793,8 +793,6 @@
     <Content Include="content\bower\auth0-lock\.jshintrc" />
     <Content Include="content\bower\auth0-lock\.npmignore" />
     <Content Include="content\bower\auth0-lock\.zuul.yml" />
-    <Content Include="content\bower\auth0-lock\bin\deploy" />
-    <Content Include="content\bower\auth0-lock\bin\version" />
     <Content Include="content\bower\auth0-lock\bower.json" />
     <Content Include="content\bower\auth0-lock\CHANGELOG.md" />
     <Content Include="content\bower\auth0-lock\example\index.less" />
@@ -855,8 +853,6 @@
     <Content Include="content\bower\auth0.js\.bower.json" />
     <Content Include="content\bower\auth0.js\.jshintrc" />
     <Content Include="content\bower\auth0.js\.zuul.yml" />
-    <Content Include="content\bower\auth0.js\bin\deploy" />
-    <Content Include="content\bower\auth0.js\bin\version" />
     <Content Include="content\bower\auth0.js\bower.json" />
     <Content Include="content\bower\auth0.js\CHANGELOG.md" />
     <Content Include="content\bower\auth0.js\package.json" />
