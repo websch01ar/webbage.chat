@@ -18,6 +18,9 @@ body {
     padding-top: 30px;
 }
 
+.a0-lock-container {
+    z-index: 9999;
+}
 .bold {
     font-weight: bold;
 }

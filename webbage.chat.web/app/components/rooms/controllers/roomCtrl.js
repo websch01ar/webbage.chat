@@ -50,7 +50,7 @@
                                     $scope.messages[$scope.messages.length - 1].Sender.Name === message.Sender.Name &&
                                     $scope.messages[$scope.messages.length - 1].Sender.Picture === message.Sender.Picture
                             }
-                            $scope.messages[$scope.messages.length] = message;
+                            $scope.messages.push(message);
 
                             // determine if we need to play sound and if so what sound to play
                             if ($scope.playSound) {
@@ -77,6 +77,14 @@
                     {
                         eventName: 'kill',
                         callback: function () {
+                            $scope.messages.push({
+                                Sender: {
+                                    Name: 'room',
+                                    Picture: ''
+                                },
+                                Content: 'You have been disconnected',
+                                Sent: ''
+                            });
                             chatHub.kill();
                         }
                     },

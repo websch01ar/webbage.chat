@@ -7,7 +7,7 @@
         height: 85%;
         max-height: 85%;
         overflow-y: scroll;
-        z-index: 999999;
+        z-index: 9998;
         padding-bottom: 10px;
     }
         .chat-container > .chat-area .message-container.consecutive-msg {
