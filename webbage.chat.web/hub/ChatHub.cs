@@ -68,6 +68,8 @@ namespace webbage.chat.web.hub {
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
                 });
 
+                await Clients.Client(Context.ConnectionId).updateOnlineUsers(room.Users);
+
             } else {
                 room.Users.Add(user);
                 await Groups.Add(Context.ConnectionId, room.RoomID);
@@ -86,7 +88,7 @@ namespace webbage.chat.web.hub {
         }
 
         public override async Task OnDisconnected(bool stopCalled) {
-            room.Users.Remove(roomUser);
+            room.Users.Remove(user);
             await BroadcastMessage(new Message {
                 Sender = roomNotifier,
                 Content = string.Format("{0} has disconnected", user.Name),
