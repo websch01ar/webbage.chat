@@ -88,7 +88,7 @@ namespace webbage.chat.web.hub {
         }
 
         public override async Task OnDisconnected(bool stopCalled) {
-            room.Users.Remove(user);
+            room.Users.Remove(roomUser);
             await BroadcastMessage(new Message {
                 Sender = roomNotifier,
                 Content = string.Format("{0} has disconnected", user.Name),
