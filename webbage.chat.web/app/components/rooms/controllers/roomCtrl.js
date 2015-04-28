@@ -39,14 +39,7 @@
             var queryString = 'roomKey=' + $routeParams.roomKey + '&roomId=' + $routeParams.roomId + '&userName=' + $root.auth.profile.name + '&userPicture=' + $root.auth.profile.picture;
             var chatHub = hub(
                 'chatHub',
-                [
-                    {
-                        eventName: 'updateOnlineUsers',
-                        callback: function (users) {
-                            $log.info('webbage.chat.rooms.roomCtrl(): updateOnlineUsers(): ', users);
-                            $scope.onlineUsers = users;
-                        }
-                    },
+                [                    
                     {
                         eventName: 'receiveMessage',
                         callback: function (message) {
@@ -81,9 +74,16 @@
                         }
                     },
                     {
-                        eventName: 'disconnect',
+                        eventName: 'kill',
                         callback: function () {
-                            chatHub.disconnect();
+                            chatHub.kill();
+                        }
+                    },
+                    {
+                        eventName: 'updateOnlineUsers',
+                        callback: function (users) {
+                            $log.info('webbage.chat.rooms.roomCtrl(): updateOnlineUsers(): ', users);
+                            $scope.onlineUsers = users;
                         }
                     }
                 ],

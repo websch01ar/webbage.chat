@@ -61,7 +61,7 @@ namespace webbage.chat.web.hub {
 
                 BroadcastMessage(new Message {
                     Sender = roomNotifier,
-                    Content = string.Format("{0} has swittched to a new connection", user.Name),
+                    Content = string.Format("{0} has switched to a new connection", user.Name),
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
                 });
             } else {
@@ -103,7 +103,17 @@ namespace webbage.chat.web.hub {
         public async Task RemoveUser(User user) {
             User userToRemove = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
 
-            await Clients.User(userToRemove.ConnectionId).disconnect();
+            // you can't kick yourself!
+            if (userToRemove.ConnectionId == roomUser.ConnectionId) {
+                return;
+            }
+
+            await Clients.Client(userToRemove.ConnectionId).kill();
+            await BroadcastMessage(new Message {
+                Sender = roomNotifier,
+                Content = string.Format("{0} has been kicked by {1}", userToRemove.Name, roomUser.Name),
+                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+            });
         }
         #endregion
 
