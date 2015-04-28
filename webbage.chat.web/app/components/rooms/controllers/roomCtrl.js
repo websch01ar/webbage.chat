@@ -4,6 +4,7 @@
     angular.module('webbage.chat.rooms').controller('roomCtrl', ['$scope', '$routeParams', '$rootScope', 'hubProxy', '$log', 'hotkeys', '$timeout', '$window', '$location',
         function ($scope, $routeParams, $root, hub, $log, hotkeys, $timeout, $window) {
             //#region variable declaration
+            $scope.loading = true;
             $scope.onlineUsers = [];
             $scope.messages = [];
             $scope.playSound = true;
@@ -94,6 +95,7 @@
             // now that we've established a connection, let everyone else know
             chatHub.ready(function () {
                 $log.info('webbage.chat.rooms.roomCtrl(): chatHub is ready');
+                $scope.loading = false;
                 //chatHub.invoke('UserConnect', [])
             });
 

@@ -1,5 +1,8 @@
 ﻿<div class="chat-container">
     <div class="chat-area col-md-10" scroll="messages">
+        <div class="loader" ng-show="loading">
+
+        </div>
         <message class="message-container" 
                  ng-repeat="message in messages" 
                  message-item="message" 
