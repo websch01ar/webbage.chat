@@ -56,7 +56,7 @@ namespace webbage.chat.web.hub {
             User previousUser = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
             if (previousUser != null) {
                 await Clients.Client(previousUser.ConnectionId).kill();
-                await Groups.Remove(previousUser.ConnectionId, room.RoomID);
+                // await Groups.Remove(previousUser.ConnectionId, room.RoomID);
 
                 previousUser.ConnectionId = Context.ConnectionId;
                 await Groups.Add(previousUser.ConnectionId, room.RoomID);

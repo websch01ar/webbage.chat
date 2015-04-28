@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('webbage.chat').controller('navCtrl', ['$scope', '$rootScope', '$location', '$log', '$route', 'auth', 'store',
-        function ($scope, $root, $location, $log, auth, store) {
+        function ($scope, $root, $location, $log, $route, auth, store) {
             $scope.login = function () {
                 auth.signin({},
                     function (profile, token) { // success
@@ -21,6 +21,7 @@
             }
 
             $scope.logout = function () {
+                console.log(auth);
                 auth.signout();
                 store.remove('profile');
                 store.remove('token');
