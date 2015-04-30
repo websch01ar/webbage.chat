@@ -119,10 +119,11 @@
             //#region hotkeys
             hotkeys.bindTo($scope)
                 .add({ // toggle sound
-                    combo: 'alt+v',
+                    combo: 'shift+ctrl+v',
                     description: 'Toggle sound in a chatroom',
                     allowIn: ['TEXTAREA'],
-                    callback: function () {
+                    callback: function (event, hotkey) {
+                        event.preventDefault();
                         $scope.playSound = !$scope.playSound;
                     }
                 })
@@ -130,7 +131,8 @@
                     combo: 'alt+c',
                     description: 'Toggle whether or not a message should be code',
                     allowIn: ['TEXTAREA'],
-                    callback: function () {
+                    callback: function (event, hotkey) {
+                        event.preventDefault();
                         $scope.messageIsCode = !$scope.messageIsCode;
                     }
                 })
