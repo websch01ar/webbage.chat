@@ -6,10 +6,11 @@ using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using webbage.chat.model;
 using webbage.chat.context;
+using webbage.chat.web.bot.interpreters;
 
 namespace webbage.chat.web.hub {
     public class ChatHub : Hub {
-        private Room room {
+        public Room room {
             get {
                 return GlobalData.Rooms.Where(r => r.RoomID == Context.QueryString["roomId"] && r.RoomKey == int.Parse(Context.QueryString["roomKey"])).FirstOrDefault();
             }
@@ -36,10 +37,10 @@ namespace webbage.chat.web.hub {
                 };
             }
         }
-        private User bender {
+        public User bender {
             get {
                 return new User {
-                    Name = "Bender",
+                    Name = "ಠ_ಠ",
                     Picture = "content/img/bender.jpg"
                 };
             }
@@ -128,6 +129,20 @@ namespace webbage.chat.web.hub {
             room.Messages.Add(message);
 
             await Clients.Group(room.RoomID).receiveMessage(message);
+
+            // test to see if we should do something special with this message
+            if (message.Content.StartsWith(Characters.COMMAND_CHARACTER)) { // run a command
+                await BroadcastCommand(message);
+                return;
+            }
         }
+
+        public async Task BroadcastCommand(Message message) {
+            BotCommander.DoWork(this, message);
+        }
+    }
+
+    static class Characters {
+        public const string COMMAND_CHARACTER = "!";        
     }
 }

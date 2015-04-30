@@ -624,6 +624,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bot\interpreters\BotCommander.cs" />
+    <Compile Include="bot\model\Command.cs" />
+    <Compile Include="bot\model\CommandStruct.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
