@@ -1,3 +1,18 @@
+## 7.4.0 - (April 16, 2015)
+
+### Added
+
+ - [login-hint] Add `login_hint` parameter sent on every request with email/username (`cristiandouce`)
+  https://github.com/auth0/lock/commit/ea8e8e4a77823df9531b1ff2c2051245dad9dffb
+
+## 7.3.2 - (April 13, 2015)
+
+### Added
+
+ - [region-support] Support EU `assetsUrl` (`cristiandouce - sandrinodimattia`)
+  https://github.com/auth0/lock/commit/879946991f70a7a88451c40f08ce148095161c45
+  https://github.com/auth0/lock/commit/89c7e80d381a3fa96bc1223223a4f03520c13e04
+  https://github.com/auth0/lock/commit/ed5ecd1d02e307b382d5b031eb40901405eee492
 
 ## 7.3.1 - (March 24, 2015)
 
@@ -338,9 +353,9 @@ Another idea would be to fix the trailing commas in some of the other translatio
 
 ### Added
 
- - [lock] handle `requires_username` in db connection (`[object Object]`)
+ - [lock] handle `requires_username` in db connection (`Matias Corbanini`)
   https://github.com/auth0/lock/commit/1e53915fafca55cb821fadc65049a1f7068a1d66
- - [lock] sign-up tests with `requires_username` (`[object Object]`)
+ - [lock] sign-up tests with `requires_username` (`Matias Corbanini`)
   https://github.com/auth0/lock/commit/72053c72f23d402089069994a560263deb3b0b86
  - [lock] Move _isUsernameRequired to options-manager lib module (`cristiandouce`)
   https://github.com/auth0/lock/commit/eedf8af250cae6990edfb7546091d5afccb2ed40

@@ -3,6 +3,7 @@
 
     angular.module('webbage.chat.rooms', [
         'ngRoute',
+        'ngSanitize',
         'webbage.chat.services.signalR',
         'webbage.chat.directives.roomDisplay',
         'webbage.chat.directives.userDisplay',

@@ -10,6 +10,7 @@
             },
             controller: ['$scope', '$log', '$rootScope', function ($scope, $log, $root) {
                 $scope.isMyMessage = $scope.messageItem.Sender.Name === $root.auth.profile.name && $scope.messageItem.Sender.Picture === $root.auth.profile.picture;
+                $scope.messageItem.Content = $scope.messageItem.Content.linkify();
                 $log.info('webbage.chat.directives.message(): received message, isMyMessage: ', $scope.isMyMessage, $scope.messageItem);
             }],
             link: function (scope, ele, attrs) {

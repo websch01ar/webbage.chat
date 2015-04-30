@@ -396,11 +396,15 @@
 
         var signinMethod = getInnerLibraryMethod('signin', libName);
         var successFn = !successCallback ? null : function(profile, idToken, accessToken, state, refreshToken) {
-          onSigninOk(idToken, accessToken, state, refreshToken, profile).then(function(profile) {
-            if (successCallback) {
-              successCallback(profile, idToken, accessToken, state, refreshToken);
-            }
-          });
+          if (!idToken && !angular.isUndefined(options.loginAfterSignup) && !options.loginAfterSignup) {
+            successCallback();
+          } else {
+            onSigninOk(idToken, accessToken, state, refreshToken, profile).then(function(profile) {
+              if (successCallback) {
+                successCallback(profile, idToken, accessToken, state, refreshToken);
+              }
+            });
+          }
         };
 
         var errorFn = !errorCallback ? null : function(err) {

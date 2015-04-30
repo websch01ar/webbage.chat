@@ -1,6 +1,6 @@
 /**
  * Angular SDK to use with Auth0
- * @version v4.0.1 - 2015-04-20
+ * @version v4.0.4 - 2015-04-28
  * @link https://auth0.com
  * @author Martin Gontovnikas
  * @license MIT License, http://www.opensource.org/licenses/MIT
@@ -349,11 +349,15 @@
             options = getInnerLibraryConfigField('parseOptions', libName)(options);
             var signinMethod = getInnerLibraryMethod('signin', libName);
             var successFn = !successCallback ? null : function (profile, idToken, accessToken, state, refreshToken) {
-                onSigninOk(idToken, accessToken, state, refreshToken, profile).then(function (profile) {
-                  if (successCallback) {
-                    successCallback(profile, idToken, accessToken, state, refreshToken);
-                  }
-                });
+                if (!idToken && !angular.isUndefined(options.loginAfterSignup) && !options.loginAfterSignup) {
+                  successCallback();
+                } else {
+                  onSigninOk(idToken, accessToken, state, refreshToken, profile).then(function (profile) {
+                    if (successCallback) {
+                      successCallback(profile, idToken, accessToken, state, refreshToken);
+                    }
+                  });
+                }
               };
             var errorFn = !errorCallback ? null : function (err) {
                 callHandler('loginFailure', { error: err });
