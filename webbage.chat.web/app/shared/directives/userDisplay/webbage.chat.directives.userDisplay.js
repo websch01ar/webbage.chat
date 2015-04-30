@@ -9,7 +9,7 @@
                 user: '=',
                 displaySize: '@',
                 hideName: '@',
-                showContextMenu: '@',
+                showContextMenu: '=',
                 kickMe: '&'
             },
             controller: ['$scope', '$rootScope', '$location', '$log', function ($scope, $root, $location, $log) {
@@ -30,6 +30,7 @@
 
                 scope.$watch('showContextMenu', function (showContextMenu) {
                     scope.showContextMenu = showContextMenu;
+                    console.log(showContextMenu);
                 })
             }
         }

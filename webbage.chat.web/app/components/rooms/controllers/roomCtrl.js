@@ -10,6 +10,7 @@
             $scope.playSound = true;
             $scope.messageIsCode = false;
             $scope.showContextMenu = $root.auth.profile.isGod;
+            console.log($scope.showContextMenu);
             $scope.tabs = [
                 { name: 'Room', canClose: false, hub: chatHub, active: true }
             ];
@@ -110,6 +111,7 @@
             // now that we've established a connection, let everyone else know
             chatHub.ready(function () {
                 $log.info('webbage.chat.rooms.roomCtrl(): chatHub is ready');
+                $log.info('webbage.chat.rooms.roomCtrl(): Your profile: ', $root.auth.profile);
                 $scope.loading = false;
                 //chatHub.invoke('UserConnect', [])
             });
