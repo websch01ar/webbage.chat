@@ -1,4 +1,10 @@
 ﻿<div class="chat-container">
+    <div class="tab-area silver-background col-md-12">
+        <div ng-repeat="tab in tabs" class="room-tab concrete-background" ng-class="{ 'active': tab.active }">
+            <span ng-bind="tab.name"></span>
+            <i class="fa fa-close silver-font" ng-show="tab.canClose"></i>
+        </div>
+    </div>
     <div class="chat-area col-md-10" scroll="messages">
         <div class="loader" ng-show="loading">
 

@@ -158,6 +158,7 @@
     <Content Include="content\bower\angular-jwt\LICENSE.txt" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.js" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="content\bower\angular-sanitize\index.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.min.js" />
     <Content Include="content\bower\auth0-storage\gulpfile.js" />

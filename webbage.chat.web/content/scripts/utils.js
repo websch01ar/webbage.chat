@@ -25,3 +25,9 @@ if (typeof String.linkify != 'function') {
             .replace(emailAddressPattern, '<a href="mailto:$&" target="_blank">$&</a>');
     };
 }
+
+if (typeof String.imgify != 'function') {
+    String.prototype.imgify = function () {
+
+    }
+}

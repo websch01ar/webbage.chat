@@ -10,6 +10,9 @@
             $scope.playSound = true;
             $scope.messageIsCode = false;
             $scope.showContextMenu = $root.auth.profile.isGod;
+            $scope.tabs = [
+                { name: 'Room', canClose: false, hub: chatHub, active: true }
+            ];
             
             var messageNotification = new Audio('/content/media/new-message-notification.mp3'),
                 connectionNotification = new Audio('/content/media/connection-notification.mp3'),
@@ -61,8 +64,12 @@
                                                           message.Sender.Name === 'room' &&
                                                           message.Sender.Picture === '';
 
-                                if (!isMyMessage && !isConnectionMessage) {
-                                    $timeout(function () { messageNotification.play(); });
+                                // message notification should only play when
+                                //  1. Messages isn't my own
+                                //  2. Message isn't a connection notification
+                                //  3. Tab is not the active on (browser window DOESN'T have to be active for this)
+                                if (!isMyMessage && !isConnectionMessage && !isTabActive) {
+                                    $timeout(function () { messageNotification.play(); });                                
                                 } else if (isConnectionMessage) {
                                     $timeout(function () { connectionNotification.play(); });
                                 }

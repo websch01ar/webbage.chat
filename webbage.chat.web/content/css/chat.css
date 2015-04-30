@@ -3,8 +3,36 @@
     width: 100%;
     position: relative;
 }
+    .chat-container > .tab-area {
+        height: 5%;
+        max-height: 5%;        
+        z-index: 9998;
+        padding-top: 8px;
+        border-bottom: 1px solid #999;
+    }
+        .chat-container > .tab-area > .room-tab {
+            position: relative;
+            height: 100%;
+            font-size: 17px;
+            display: inline-block;            
+            padding: 9px;
+            bottom: 0;
+            margin-left: 2px;   
+            border: 1px solid #999;
+            cursor: pointer; 
+            background: #AAB0B3;      
+            bottom: -1px;  
+        }
+            .chat-container > .tab-area > .room-tab.active {
+                background: #f7f7f7;
+                border: 1px solid #999;
+                border-bottom: 1px solid #f7f7f7;                
+            }
+            .chat-container > .tab-area > .room-tab > i:hover {
+                color: #444;
+            }
     .chat-container > .chat-area {
-        height: 85%;
+        height: 80%;
         max-height: 85%;
         overflow-y: scroll;
         z-index: 9998;
@@ -51,18 +79,21 @@
                     font-style: italic;
                 }
     .chat-container > .chat-users {
-        height: 85%;
+        height: 80%;
         max-height: 85%;
         background: #e7e7e7;
         overflow-y: scroll;
+        border-left: 1px solid #999;
     }   
     .chat-container > .chat-message-buffer {
+        border-top: 1px solid #999;
         height: 15%;
         position: absolute;
         bottom: 0;
         left: 0;
     }
     .chat-container > .chat-message {
+        border-top: 1px solid #999;
         height: 15%;
         position: absolute;
         bottom: 0;
