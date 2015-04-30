@@ -30,7 +30,6 @@
 
                 scope.$watch('showContextMenu', function (showContextMenu) {
                     scope.showContextMenu = showContextMenu;
-                    console.log(showContextMenu);
                 })
             }
         }

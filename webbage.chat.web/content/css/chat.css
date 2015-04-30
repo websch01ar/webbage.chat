@@ -58,6 +58,9 @@
                 -ms-word-wrap: break-word;
                 word-wrap: break-word;
             }
+                .chat-container > .chat-area .row > .chat-message img {
+                    max-height: 100px;
+                }
             .chat-container > .chat-area .row > .chat-message.consecutive-msg {
                 margin-top: 0;
             }
@@ -70,7 +73,7 @@
                 }
                 .chat-container > .chat-area .row > .chat-message > .chat-message-time {
                     position: absolute;
-                    padding: 2px;
+                    padding: 4px;
                     right: 3px;
                     top: 4px;
                     background: #f7f7f7;
