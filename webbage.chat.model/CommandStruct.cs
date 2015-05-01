@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace webbage.chat.web.bot.model {
+namespace webbage.chat.model {
     public struct CommandStruct<TDesc, TParser, TAction> {
         private TDesc desc;
         private TParser parser;

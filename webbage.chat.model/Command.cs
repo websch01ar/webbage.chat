@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using webbage.chat.model;
 
-namespace webbage.chat.web.bot.model {
+namespace webbage.chat.model {
     public class Command {
         public string Name { get; set; }
         public string Text { get; set; }

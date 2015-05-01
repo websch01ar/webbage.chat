@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using webbage.chat.model;
-using webbage.chat.web.bot.model;
 using webbage.chat.web.hub;
 
 namespace webbage.chat.web.bot.interpreters {
