@@ -1,7 +1,9 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('webbage.chat.rooms').controller('roomsCtrl', ['$scope', '$log', 'hubProxy', function ($scope, $log, hub) {
+    angular.module('webbage.chat.rooms').controller('roomsCtrl', ['$scope', '$log', '$timeout', 'hubProxy', function ($scope, $log, $timeout, hub) {
+        $scope.isLoading = true;
+
         var roomsHub = hub('roomHub', [
             {
                 eventName: 'userConnected',
@@ -24,7 +26,10 @@
 
         roomsHub.ready(function () {
             roomsHub.invoke('GetRooms', [], function (result) {
-                $scope.rooms = result;
+                $timeout(function () {
+                    $scope.rooms = result;
+                    $scope.isLoading = false;
+                }, 1000); // show loading for at least 1 second
             });
         });
 
