@@ -6,28 +6,36 @@
         </div>
     </div>
     <div class="chat-area col-md-10" scroll="messages">
-        <div class="loader" ng-show="loading">
-
+        <div class="page-loader" ng-show="isLoading">
+            <i class="fa fa-3x fa-spin fa-refresh emerald-font"></i>
+            <h3>Loading...</h3>
         </div>
-        <message class="message-container" 
-                 ng-repeat="message in messages" 
-                 message-item="message" 
+        <message class="message-container"
+                 ng-repeat="message in messages"
+                 message-item="message"
+                 ng-show="!isLoading"
                  ng-class="{ 'consecutive-msg': consecutiveCheck($index) }"></message>
     </div>
     <div class="chat-users col-md-2 hidden-sm hidden-xs">
         <h3>Users</h3>
+        <div class="page-loader" ng-show="isLoading">
+            <i class="fa fa-2x fa-spin fa-refresh emerald-font"></i>
+            <h3>Loading...</h3>
+        </div>
         <user-display ng-repeat="user in onlineUsers" 
                       user="user" 
                       display-size="lg" 
                       hide-name="true"
                       show-context-menu="showContextMenu"
+                      ng-show="!isLoading"
                       kick-me="kickUser(u)"></user-display>
     </div>
     <div class="chat-message-buffer silver-background col-md-1 hidden-sm hidden-xs"></div>
     <div class="chat-message silver-background col-md-11 col-sm-12">
         <textarea class="message-input" ng-model="message"></textarea>
         <button type="button"
-                class="btn clouds-font carrot-background hover">
+                class="btn clouds-font carrot-background hover"
+                ng-click="sendMessage()">
             send
         </button>
         <button type="button"

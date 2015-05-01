@@ -9,11 +9,11 @@ using webbage.chat.web.bot.model;
 using webbage.chat.web.hub;
 
 namespace webbage.chat.web.bot.interpreters {
-    public static class BotCommander {
+    public static class Bender {
         private static Dictionary<string, CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>>> commands;
         private static ChatHub hub;
 
-        static BotCommander() {
+        static Bender() {
             commands = new Dictionary<string, CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>>> {
                 {
                     "!help",
@@ -46,41 +46,42 @@ namespace webbage.chat.web.bot.interpreters {
                         Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.MOAB)
                     }
+                },
+                {
+                    "!kick",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.MOAB,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.Kick)
+                    }
+                },
+                {
+                    "!guid",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.MOAB,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.Guid)
+                    }
                 }
             };            
         }
 
         public static async Task DoWork(ChatHub chatHub, Message message) {
-            Command cmd = new Command(message.Content);
+            Command cmd = new Command(message);
             hub = chatHub;
 
             if (!(validateCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(new Message {
-                    Sender = hub.bender,
-                    Content = "Unable to validate command. Make sure you typed a valid command name",
-                    Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
-                    IsCode = false
-                });
+                await hub.Clients.Caller.receiveMessage(BotHelper.INVALID_COMMAND);
                 return;
             }
 
             if (!(parseCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(new Message {
-                    Sender = hub.bender,
-                    Content = "Unable to parse this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}",
-                    Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
-                    IsCode = false
-                });
+                await hub.Clients.Caller.receiveMessage(BotHelper.INVALID_PARSE_COMMAND);
                 return;
             }
 
             if (!(execCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(new Message {
-                    Sender = hub.bender,
-                    Content = "Unable to execute this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}",
-                    Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
-                    IsCode = false
-                });
+                await hub.Clients.Caller.receiveMessage(BotHelper.INVALID_EXEC_COMMAND);
                 return;
             }
         }
@@ -108,6 +109,8 @@ namespace webbage.chat.web.bot.interpreters {
         public const string INSULT = "";
         public const string LMGTFY = "";
         public const string MOAB = "";
+        public const string KICK = "";
+        public const string GUID = "";
     }
 
     class ParseHelper {
@@ -120,7 +123,8 @@ namespace webbage.chat.web.bot.interpreters {
         }
     }
 
-    class CommandExecutor {
+    class CommandExecutor {        
+
         static CommandExecutor() {
             random = new Random();
             insults = new List<string>() {
@@ -156,7 +160,10 @@ namespace webbage.chat.web.bot.interpreters {
             };
         }
 
-        public static bool Help(Command cmd, ChatHub hub) {            
+        #region Normal Commands
+        public static bool Help(Command cmd, ChatHub hub) {
+            // TODO: implement
+            hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
             return true;
         }
 
@@ -166,12 +173,8 @@ namespace webbage.chat.web.bot.interpreters {
             if (cmd.Args.Length != 1 || cmd.Args[0] == "")
                 return false;
 
-            hub.Clients.Group(hub.room.RoomID).receiveMessage(new Message {
-                Sender = hub.bender,
-                Content = string.Format(insults[random.Next(0, insults.Count())], cmd.Args[0]),
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
-                IsCode = false
-            });
+            Message msg = BotHelper.GetMessage(string.Format(insults[random.Next(0, insults.Count())], cmd.Args[0]));
+            hub.Clients.Group(hub.room.RoomID).receiveMessage();
             return true;
         }
 
@@ -179,23 +182,85 @@ namespace webbage.chat.web.bot.interpreters {
             if (cmd.Args.Length != 1 || cmd.Args[0] == "")
                 return false;
 
-            hub.Clients.Group(hub.room.RoomID).receiveMessage(new Message {
-                Sender = hub.bender,
-                Content = string.Format("http://lmgtfy.com/?q={0}", HttpUtility.UrlEncode(cmd.Args[0])),
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
-                IsCode = false
-            });
+            Message msg = BotHelper.GetMessage(string.Format("http://lmgtfy.com/?q={0}", HttpUtility.UrlEncode(cmd.Args[0])));
+            hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            return true;
+        }
+
+        public static bool Guid(Command cmd, ChatHub hub) {
+            // TODO: implement
+            hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            return true;
+        }
+        #endregion
+
+        #region Admin Commands
+        public static bool Kick(Command cmd, ChatHub hub) {
+            // TODO: implement
+            if (cmd.CallerIsAdmin) {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            } else {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.INVALID_PRIVILEGES);
+            }
             return true;
         }
 
         public static bool MOAB(Command cmd, ChatHub hub) {
-            hub.Clients.Group(hub.room.RoomID).receiveMessage(new Message {
-                Sender = hub.bender,
-                Content = "This hasn't been implemented yet",
+            // TODO: implement
+            if (cmd.CallerIsAdmin) {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            } else {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.INVALID_PRIVILEGES);
+            }
+            return true;
+        }
+        #endregion
+
+    }
+
+    class BotHelper {
+        public static User BENDER {
+            get {
+                return new User {
+                    Name = "ಠ_ಠ",
+                    Picture = "content/img/bender.jpg"
+                };
+            }
+        }
+
+        public static Message INVALID_COMMAND {
+            get {
+                return GetMessage("Unable to validate command. Make sure you typed a valid command name");
+            }
+        }
+        public static Message INVALID_PARSE_COMMAND {
+            get {
+                return GetMessage("Unable to parse this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}");
+            }
+        }
+        public static Message INVALID_EXEC_COMMAND {
+            get {
+                return GetMessage("Unable to execute this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}");
+            }
+        }
+        public static Message INVALID_PRIVILEGES {
+            get {
+                return GetMessage("You don't have permission to do that");
+            }
+        }
+        public static Message NOT_YET_IMPLEMENTED {
+            get {
+                return GetMessage("This hasn't been implemented yet");
+            }
+        }
+
+        public static Message GetMessage(string content) {
+            return new Message {
+                Sender = BENDER,
+                Content = content,
                 Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
                 IsCode = false
-            });
-            return true;
+            };
         }
     }
 

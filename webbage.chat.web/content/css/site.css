@@ -1,5 +1,5 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans);
-@import url(http://weloveiconfonts.com/api/?family=zocial);
+﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://weloveiconfonts.com/api/?family=zocial);
 
 /* zocial */
 [class*="zocial-"]:before {
@@ -23,6 +23,12 @@ body {
 }
 .bold {
     font-weight: bold;
+}
+.page-loader {
+    position: relative;
+    top: 20%;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .navbar {

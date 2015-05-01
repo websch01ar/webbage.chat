@@ -1,1 +1,5 @@
-﻿<room-display ng-repeat="room in rooms" room-item="room"></room-display>
+﻿<div class="page-loader" ng-show="isLoading">
+    <i class="fa fa-4x fa-spin fa-refresh emerald-font"></i>
+    <h3>Loading...</h3>
+</div>
+<room-display ng-repeat="room in rooms" room-item="room" ng-show="!isLoading"></room-display>

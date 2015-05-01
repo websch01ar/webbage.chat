@@ -9,5 +9,6 @@ namespace webbage.chat.model {
         public string ConnectionId { get; set; }
         public string Name { get; set; }
         public string Picture { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
