@@ -155,7 +155,7 @@
                         Sender: {
                             Name: $root.auth.profile.name,
                             Picture: $root.auth.profile.picture,
-                            IsAdmin: $root.auth.profil.isGod
+                            IsAdmin: $root.auth.profile.isGod
                         },
                         Content: $scope.message,
                         IsCode: $scope.messageIsCode
