@@ -128,7 +128,7 @@
                     }
                 })
                 .add({ // toggle code
-                    combo: 'alt+c',
+                    combo: 'shift+ctrl+c',
                     description: 'Toggle whether or not a message should be code',
                     allowIn: ['TEXTAREA'],
                     callback: function (event, hotkey) {
