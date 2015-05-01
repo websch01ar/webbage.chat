@@ -9,12 +9,7 @@ using webbage.chat.context;
 using webbage.chat.web.bot.interpreters;
 
 namespace webbage.chat.web.hub {
-    public class ChatHub : Hub {
-        public Room room {
-            get {
-                return GlobalData.Rooms.Where(r => r.RoomID == Context.QueryString["roomId"] && r.RoomKey == int.Parse(Context.QueryString["roomKey"])).FirstOrDefault();
-            }
-        }
+    public class ChatHub : Hub {        
         private User user {
             get {
                 return new User {
@@ -36,20 +31,18 @@ namespace webbage.chat.web.hub {
                     Picture = ""
                 };
             }
-        }
-        public User bender {
-            get {
-                return new User {
-                    Name = "ಠ_ಠ",
-                    Picture = "content/img/bender.jpg"
-                };
-            }
-        }
+        }        
         private IHubContext roomHub {
             get {
                 return GlobalHost.ConnectionManager.GetHubContext<RoomHub>();
             }
         }
+
+        public Room room {
+            get {
+                return GlobalData.Rooms.Where(r => r.RoomID == Context.QueryString["roomId"] && r.RoomKey == int.Parse(Context.QueryString["roomKey"])).FirstOrDefault();
+            }
+        }        
 
         #region Dis/Connection events
         public override async Task OnConnected() {
@@ -138,7 +131,7 @@ namespace webbage.chat.web.hub {
         }
 
         public async Task BroadcastCommand(Message message) {
-            BotCommander.DoWork(this, message);
+            Bender.DoWork(this, message);
         }
     }
 

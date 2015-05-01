@@ -27,7 +27,8 @@
     <div class="chat-message silver-background col-md-11 col-sm-12">
         <textarea class="message-input" ng-model="message"></textarea>
         <button type="button"
-                class="btn clouds-font carrot-background hover">
+                class="btn clouds-font carrot-background hover"
+                ng-click="sendMessage()">
             send
         </button>
         <button type="button"

@@ -154,7 +154,8 @@
                     var message = {
                         Sender: {
                             Name: $root.auth.profile.name,
-                            Picture: $root.auth.profile.picture
+                            Picture: $root.auth.profile.picture,
+                            IsAdmin: $root.auth.profil.isGod
                         },
                         Content: $scope.message,
                         IsCode: $scope.messageIsCode
