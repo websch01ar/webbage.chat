@@ -71,6 +71,7 @@
 
                 function destroy() { // to prevent the popup from showing up when you disconnect manually
                     destroyed = true;
+                    connection.stop();
                 }
                 function kill() { // to disconnect, allows a reconnection to happen
                     destroyed = false;

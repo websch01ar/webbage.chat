@@ -171,7 +171,7 @@
             //#endregion
         
             $scope.$on('$destroy', function () {
-                chatHub.invoke('UserDisconnect', []);
+                //chatHub.invoke('UserDisconnect', []); // take out, see what happens
                 chatHub.destroy();
             });
         }]);
