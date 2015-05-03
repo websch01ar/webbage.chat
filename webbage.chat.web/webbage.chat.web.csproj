@@ -624,7 +624,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bot\interpreters\Bender.cs" />
+    <Compile Include="bot\Bender.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

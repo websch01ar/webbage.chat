@@ -257,7 +257,7 @@ namespace webbage.chat.web.bot.interpreters {
             return new Message {
                 Sender = BENDER,
                 Content = content,
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt"),
+                Sent = DateTime.Now.ToString(),
                 IsCode = false
             };
         }

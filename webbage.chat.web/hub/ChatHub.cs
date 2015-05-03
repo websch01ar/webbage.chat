@@ -59,7 +59,7 @@ namespace webbage.chat.web.hub {
                 await BroadcastMessage(new Message {
                     Sender = roomNotifier,
                     Content = string.Format("{0} has switched to a new connection", user.Name),
-                    Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                    Sent = DateTime.Now.ToString()
                 });
             } else {
                 room.Users.Add(user);
@@ -67,7 +67,7 @@ namespace webbage.chat.web.hub {
                 await BroadcastMessage(new Message {
                     Sender = roomNotifier,
                     Content = string.Format("{0} has connected", user.Name),
-                    Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                    Sent = DateTime.Now.ToString()
                 });                
             }
 
@@ -85,7 +85,7 @@ namespace webbage.chat.web.hub {
             await BroadcastMessage(new Message {
                 Sender = roomNotifier,
                 Content = string.Format("{0} has disconnected", user.Name),
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                Sent = DateTime.Now.ToString()
             });
             await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);           
 
@@ -111,13 +111,13 @@ namespace webbage.chat.web.hub {
             await BroadcastMessage(new Message {
                 Sender = roomNotifier,
                 Content = string.Format("{0} has been kicked by {1}", userToRemove.Name, roomUser.Name),
-                Sent = DateTime.Now.ToString("MMM d, h:mm tt")
+                Sent = DateTime.Now.ToString()
             });
         }
         #endregion
 
         public async Task BroadcastMessage(Message message) {
-            message.Sent = DateTime.Now.ToString("MMM d, h:mm tt");
+            message.Sent = DateTime.Now.ToString();
             room.Messages.Add(message);
 
             await Clients.Group(room.RoomID).receiveMessage(message);
@@ -130,7 +130,7 @@ namespace webbage.chat.web.hub {
         }
 
         public async Task BroadcastCommand(Message message) {
-            Bender.DoWork(this, message);
+            await Bender.DoWork(this, message);
         }
     }
 
