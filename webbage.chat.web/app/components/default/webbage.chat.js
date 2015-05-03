@@ -6,7 +6,10 @@
         'auth0',
         'angular-storage',
         'angular-jwt',
+        'ui.bootstrap',
+        'webbage.chat.modals',
         'webbage.chat.rooms'
+        
     ])
         .config(['$routeProvider', 'authProvider', function ($routeProvider, authProvider) {
             $routeProvider

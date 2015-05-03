@@ -147,8 +147,13 @@
     <Content Include="app\shared\directives\roomDisplay\roomDisplay.tpl.html" />
     <Content Include="app\shared\directives\userDisplay\userDisplay.tpl.html" />
     <Content Include="app\shared\directives\message\webbage.chat.directives.message.js" />
+    <Content Include="app\shared\modals\disconnected\disconnected.tpl.html" />
+    <Content Include="app\shared\modals\webbage.chat.modals.js" />
     <Content Include="app\shared\services\webbage.chat.services.signalR.js" />
     <Content Include="app\shared\services\webbage.chat.services.state.js" />
+    <Content Include="content\bower\angular-bootstrap\ui-bootstrap-csp.css" />
+    <Content Include="content\bower\angular-bootstrap\ui-bootstrap-tpls.js" />
+    <Content Include="content\bower\angular-bootstrap\ui-bootstrap-tpls.min.js" />
     <Content Include="content\bower\angular-jwt\dist\angular-jwt.js" />
     <Content Include="content\bower\angular-jwt\dist\angular-jwt.min.js" />
     <Content Include="content\bower\angular-jwt\gulpfile.js" />
@@ -944,6 +949,9 @@
     <Content Include="content\bower\angular-sanitize\bower.json" />
     <Content Include="content\bower\angular-sanitize\package.json" />
     <Content Include="content\bower\angular-sanitize\README.md" />
+    <Content Include="content\bower\angular-bootstrap\.bower.json" />
+    <Content Include="content\bower\angular-bootstrap\bower.json" />
+    <Content Include="app\shared\modals\disconnected\webbage.chat.modals.disconnected.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>

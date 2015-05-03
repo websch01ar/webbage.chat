@@ -11,7 +11,7 @@
             <h3>Loading...</h3>
         </div>
         <message class="message-container"
-                 ng-repeat="message in messages"
+                 ng-repeat="message in messages track by $index"
                  message-item="message"
                  ng-show="!isLoading"
                  ng-class="{ 'consecutive-msg': consecutiveCheck($index) }"></message>

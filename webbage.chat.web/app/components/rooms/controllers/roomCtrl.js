@@ -172,7 +172,7 @@
         
             $scope.$on('$destroy', function () {
                 chatHub.invoke('UserDisconnect', []);
-                chatHub.kill();
-            })
+                chatHub.destroy();
+            });
         }]);
 })();

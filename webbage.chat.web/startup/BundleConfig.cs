@@ -9,6 +9,7 @@ namespace webbage.chat.web {
                 .IncludeDirectory("~/content/bower/google-code-prettify/bin", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-animate", "*.js", true)
+                .IncludeDirectory("~/content/bower/angular-bootstrap", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-cookies", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-route", "*.js", true)
                 .IncludeDirectory("~/content/bower/angular-sanitize", "*.js", true)
@@ -22,6 +23,7 @@ namespace webbage.chat.web {
                 .IncludeDirectory("~/content/bower/signalR", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/scripts/app")
+                .IncludeDirectory("~/app/shared/modals", "*.js", true)
                 .IncludeDirectory("~/app/shared/services", "*.js", true)
                 .IncludeDirectory("~/app/shared/directives", "*.js", true)
                 .IncludeDirectory("~/app/components/rooms", "*.js", true)
