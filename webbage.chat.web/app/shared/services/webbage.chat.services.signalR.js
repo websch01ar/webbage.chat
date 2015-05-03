@@ -5,8 +5,8 @@
         return function (hubName, watches, queryString) {
             var connection = $.hubConnection(),
                 hub = connection.createHubProxy(hubName),
-                loadDeferment = $q.defer(),
-                isLoaded = loadDeferment.promise;
+                deferred = $q.defer(),
+                promise = deferred.promise;
 
             $log.info('webbage.chat.services.signalR(' + hubName + '): Creating SignalR service for ' + hubName);
 
@@ -56,12 +56,12 @@
                     connection.start({ logging: true })
                         .done(function () {
                             $log.info('webbage.chat.services.signalR(' + hubName + '): Connection established to ' + hubName + '. Connection ID: ' + connection.id);
-                            loadDeferment.resolve();
+                            deferred.resolve();
                         })
                         .fail(function (error) {
                             $log.error('webbage.chat.services.signalR(' + hubName + '): Error connecting to ' + hubName + ': ' + error);
-                            loadDeferment = $q.defer();
-                            isLoaded = loadDeferment.promise;
+                            deferred = $q.defer();
+                            promise = deferred.promise;
                         });
                 });
             }
@@ -79,9 +79,9 @@
 
             return {
                 // on: registerWatch,       // removed because watches should be registered during construction
-                ready: function (callback) {
-                    return isLoaded.then(function () {
-                        callback();
+                ready: function (fn) {
+                    return promise.then(function () {
+                        fn();
                     });
                 },
                 invoke: function (methodName, args, callback) {

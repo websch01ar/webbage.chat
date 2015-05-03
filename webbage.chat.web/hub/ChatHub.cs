@@ -46,6 +46,10 @@ namespace webbage.chat.web.hub {
 
         #region Dis/Connection events
         public override async Task OnConnected() {
+            // bot has a connection to chathub, but we don't want to show him connecting and disconnecting
+            if (Context.QueryString["userName"] == "bender")
+                return;
+
             // check to see if the user is already connected on another connection id, if they are, update their connection id
             User previousUser = room.Users.Where(u => u.Name == user.Name && u.Picture == user.Picture).FirstOrDefault();
             if (previousUser != null) {
@@ -55,14 +59,12 @@ namespace webbage.chat.web.hub {
                 previousUser.ConnectionId = Context.ConnectionId;
                 await Groups.Add(previousUser.ConnectionId, room.RoomID);
 
-                await Task.Delay(1000); // hate it but can't think of anything better at the moment
+                await Task.Delay(1000); // wait for the old connection to send the disconnected message
                 await BroadcastMessage(new Message {
                     Sender = roomNotifier,
                     Content = string.Format("{0} has switched to a new connection", user.Name),
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
                 });
-
-                await Clients.Client(Context.ConnectionId).updateOnlineUsers(room.Users);
 
             } else {
                 room.Users.Add(user);
@@ -72,12 +74,16 @@ namespace webbage.chat.web.hub {
                     Content = string.Format("{0} has connected", user.Name),
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
                 });
-                await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
                 
-                // broadcast it from the RoomHub as well, real-time list there of online users
-                await roomHub.Clients.All.userConnected(room);
-            }            
+            }
 
+            // make sure we have the updated user list
+            if (roomUser == null) {
+                room.Users.Add(user);
+            }
+
+            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+            await roomHub.Clients.All.userConnected(room);
             await base.OnConnected();
         }
 
@@ -126,12 +132,11 @@ namespace webbage.chat.web.hub {
             // test to see if we should do something special with this message
             if (message.Content.StartsWith(Characters.COMMAND_CHARACTER)) { // run a command
                 await BroadcastCommand(message);
-                return;
             }
         }
 
         public async Task BroadcastCommand(Message message) {
-            Bender.DoWork(this, message);
+            await Bender.DoWork(this, message);
         }
     }
 

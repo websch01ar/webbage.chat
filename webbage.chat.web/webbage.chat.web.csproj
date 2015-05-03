@@ -624,7 +624,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bot\interpreters\Bender.cs" />
+    <Compile Include="bot\Bender.cs" />
+    <Compile Include="bot\IBot.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -944,6 +945,7 @@
     <Content Include="content\bower\angular-sanitize\bower.json" />
     <Content Include="content\bower\angular-sanitize\package.json" />
     <Content Include="content\bower\angular-sanitize\README.md" />
+    <Content Include="app\shared\services\webbage.chat.services.bender.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
