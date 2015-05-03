@@ -61,9 +61,6 @@ namespace webbage.chat.web.hub {
                     Content = string.Format("{0} has switched to a new connection", user.Name),
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
                 });
-
-                await Clients.Client(Context.ConnectionId).updateOnlineUsers(room.Users);
-
             } else {
                 room.Users.Add(user);
                 await Groups.Add(Context.ConnectionId, room.RoomID);
@@ -71,13 +68,15 @@ namespace webbage.chat.web.hub {
                     Sender = roomNotifier,
                     Content = string.Format("{0} has connected", user.Name),
                     Sent = DateTime.Now.ToString("MMM d, h:mm tt")
-                });
-                await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
-                
-                // broadcast it from the RoomHub as well, real-time list there of online users
-                await roomHub.Clients.All.userConnected(room);
-            }            
+                });                
+            }
 
+            if (roomUser == null) { // make sure we have the user in the array (might not be if this is a new connection switch)
+                room.Users.Add(user);
+            }
+
+            await Clients.Group(room.RoomID).updateOnlineUsers(room.Users);
+            await roomHub.Clients.All.userConnected(room);
             await base.OnConnected();
         }
 
