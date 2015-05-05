@@ -8,7 +8,8 @@
             $scope.onlineUsers = [];
             $scope.messages = [];
             $scope.playSound = true;
-            $scope.messageIsCode = false;
+            $scope.isMessageCode = false;
+            $scope.isTextAreaFocused = false;
             $scope.showContextMenu = $root.auth.profile.isGod;
             console.log($scope.showContextMenu);
             $scope.tabs = [
@@ -19,7 +20,9 @@
                 connectionNotification = new Audio('/content/media/connection-notification.mp3'),
                 newMessageCount = 0,
                 isTabActive = true,
-                tabTitle = $routeParams.roomId + ' - webbage.chat';
+                tabTitle = $routeParams.roomId + ' - webbage.chat',
+                sentMessagesIndex = 0,
+                sentMessages = [];
             //#endregion
 
             //#region toggle tab dis/active
@@ -133,7 +136,7 @@
                     allowIn: ['TEXTAREA'],
                     callback: function (event, hotkey) {
                         event.preventDefault();
-                        $scope.messageIsCode = !$scope.messageIsCode;
+                        $scope.isMessageCode = !$scope.isMessageCode;
                     }
                 })
                 .add({
@@ -144,7 +147,35 @@
                         event.preventDefault();
                         $scope.sendMessage();
                     }
-                });
+                })
+                .add({
+                    combo: 'up',
+                    description: 'Scroll up through previously sent messages',
+                    allowIn: ['TEXTAREA'],
+                    callback: function (event, hotkey) {
+                        if (sentMessagesIndex > 0) {
+                            sentMessagesIndex--;
+                        }
+
+                        if ($scope.isTextAreaFocused && sentMessagesIndex >= 0) {
+                            $scope.message = sentMessages[sentMessagesIndex].Content;
+                        }
+                    }
+                })
+                .add({
+                    combo: 'down',
+                    description: 'Scroll down through previously sent messages',
+                    allowIn: ['TEXTAREA'],
+                    callback: function (event, hotkey) {
+                        if (sentMessagesIndex < sentMessages.length - 1) {
+                            sentMessagesIndex++;
+                        }
+
+                        if ($scope.isTextAreaFocused && sentMessagesIndex < sentMessages.length) {
+                            $scope.message = sentMessages[sentMessagesIndex].Content;
+                        }
+                    }
+                })
             //#endregion
 
             //#region client-to-server events
@@ -158,10 +189,14 @@
                             IsAdmin: $root.auth.profile.isGod
                         },
                         Content: $scope.message,
-                        IsCode: $scope.messageIsCode
+                        IsCode: $scope.isMessageCode
                     };
 
                     chatHub.invoke('BroadcastMessage', [message]);
+
+                    sentMessages.push(message);
+                    sentMessagesIndex = sentMessages.length;
+
                     $scope.message = '';
                 }
             }
@@ -169,10 +204,10 @@
                 chatHub.invoke('RemoveUser', [user]);
             }
             //#endregion
-        
+
             $scope.$on('$destroy', function () {
-                chatHub.invoke('UserDisconnect', []);
-                chatHub.kill();
-            })
+                //chatHub.invoke('UserDisconnect', []); // take out, see what happens
+                chatHub.destroy();
+            });
         }]);
 })();

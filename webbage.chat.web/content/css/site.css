@@ -37,7 +37,7 @@ body {
     background: #555;
     font-size: 16px;
     color: #f7f7f7;
-    z-index: 9999;
+    z-index: 1030;
 }
     .navbar span {
         padding: 5px 5px;
@@ -81,7 +81,7 @@ body {
     top: 0;
     left: 0;
     background:rgba(0,0,0,0.5);
-    z-index: 9998;
+    z-index: 1020;
 }
 #view {
     height:100%;
