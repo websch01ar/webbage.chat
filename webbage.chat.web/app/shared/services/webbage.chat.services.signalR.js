@@ -97,6 +97,9 @@
                                 })
                             },
                             function () { // user clicked no (what action to take here) //TODO: review
+							});
+					}
+				});
 
 
                 return {
