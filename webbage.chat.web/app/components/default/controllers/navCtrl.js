@@ -21,7 +21,6 @@
             }
 
             $scope.logout = function () {
-                console.log(auth);
                 auth.signout();
                 store.remove('profile');
                 store.remove('token');

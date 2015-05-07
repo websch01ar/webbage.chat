@@ -47,3 +47,17 @@ if (typeof String.linkify != 'function') {
             .replace(emailAddressPattern, '<a href="mailto:$&" target="_blank">$&</a>');
     };
 }
+
+if (typeof Date.convertToLocalDate != 'function') {
+    Date.prototype.convertToLocalDate = function () {
+        // this assumes time is in UTC, will not work for developing locally
+        var date = new Date(this.getTime() + this.getTimezoneOffset() * 60 * 1000),
+            offset = this.getTimezoneOffset() / 60,
+            hours = this.getHours();
+
+        console.log(date, offset, hours);
+
+        date.setHours(hours - offset);
+        return date;
+    }
+}
