@@ -153,7 +153,7 @@ namespace webbage.chat.web.bot.interpreters {
         public const string GUID = "";
         public const string YOUTUBE = "Plays a YouTube video in the stage - Not Yet Implemented";
         public const string DUCK = "Provides a link to Duck Duck Go search of the provided string.";
-        public const string ROLL = "Provides a random number between 1 and the number specified.";
+        public const string ROLL = "Provides a random number between 1 and the number specified (maximum of 2147483646).  Example: !roll 100";
     }
 
     class ParseHelper {
@@ -265,15 +265,30 @@ namespace webbage.chat.web.bot.interpreters {
 
         public static bool Roll(Command cmd, ChatHub hub)
         {
+            Message msg;
             if (cmd.Args.Length != 1 || cmd.Args[0] == "")
                 return false;
             int value;
             if (!int.TryParse(cmd.Args[0], out value))
                 return false;
+            if (value >= int.MaxValue)
+            {
+                msg = BotHelper.GetMessage("That number's too fucking big. Try again sucka.");
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
+            else if(value <= 0)
+            {
+                msg = BotHelper.GetMessage("Number must be positive between 1 and 2147483646.");
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
+            else
+            {
+                random = new Random();
+                msg = BotHelper.GetMessage(random.Next(1, value + 1).ToString());
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
 
-            random = new Random();
-            Message msg = BotHelper.GetMessage(random.Next(1, value + 1).ToString());
-            hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            
             return true;
         }
 

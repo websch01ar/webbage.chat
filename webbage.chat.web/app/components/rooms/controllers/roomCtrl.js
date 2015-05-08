@@ -210,7 +210,6 @@
             //#endregion
 
             $scope.clearChat = function (user) {
-                $(".message-container").remove();
                 $scope.messages = [];
             }
 
