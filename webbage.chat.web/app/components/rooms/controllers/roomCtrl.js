@@ -196,6 +196,10 @@
 
                     sentMessages.push(message);
                     sentMessagesIndex = sentMessages.length;
+                    if ($scope.isMessageCode)
+                    {
+                        $scope.isMessageCode = false;
+                    }
 
                     $scope.message = '';
                 }
