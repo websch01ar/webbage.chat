@@ -205,6 +205,11 @@
             }
             //#endregion
 
+            $scope.clearChat = function (user) {
+                $(".message-container").remove();
+                $scope.messages = [];
+            }
+
             $scope.$on('$destroy', function () {
                 //chatHub.invoke('UserDisconnect', []); // take out, see what happens
                 chatHub.destroy();

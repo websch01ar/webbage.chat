@@ -47,8 +47,20 @@
                 ng-click="isMessageCode = !isMessageCode">
             code
         </button>
-        <i class="fa fa-2x"
+        <button type="button"
+                class="btn clouds-font wet-asphalt-background"
+                ng-click="clearChat()">
+            clear
+        </button>
+        <button type="button"
+                class="btn clouds-font nephritis-background">
+            <i class="fa fa-2x"
+               ng-click="playSound=!playSound"
+               ng-class="{ 'fa-volume-up': playSound, 'fa-volume-off': !playSound}"></i>
+        </button>
+
+        <!--<i class="fa fa-2x"
            ng-class="{ 'fa-volume-up': playSound, 'fa-volume-off': !playSound}"
-           ng-click="playSound=!playSound"></i>
+           ng-click="playSound=!playSound" style="padding-left:40px"></i>-->
     </div>
 </div>
