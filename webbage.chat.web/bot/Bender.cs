@@ -22,6 +22,7 @@ namespace webbage.chat.web.bot.interpreters {
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.Help)
                     }
                 },
+
                 {
                     "!insult",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
@@ -30,14 +31,34 @@ namespace webbage.chat.web.bot.interpreters {
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.Insult)
                     }
                 },
+
                 {
                     "!lmgtfy",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
-                        Desc = CommandDescriptions.INSULT,
+                        Desc = CommandDescriptions.LMGTFY,
                         Parser = new Func<string, string[]>(ParseHelper.ParseDoubleQuotes),
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.LMGTFY)
                     }
                 },
+
+                {
+                    "!google",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.LMGTFY,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseDoubleQuotes),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.LMGTFY)
+                    }
+                },
+
+                {
+                    "!duck",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.DUCK,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseDoubleQuotes),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.Duck)
+                    }
+                },
+
                 {
                     "!moab",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
@@ -46,6 +67,7 @@ namespace webbage.chat.web.bot.interpreters {
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.MOAB)
                     }
                 },
+
                 {
                     "!kick",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
@@ -54,12 +76,31 @@ namespace webbage.chat.web.bot.interpreters {
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.Kick)
                     }
                 },
+
                 {
                     "!guid",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
                         Desc = CommandDescriptions.MOAB,
                         Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.Guid)
+                    }
+                },
+
+                {
+                    "!youtube",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.YOUTUBE,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.YouTube)
+                    }
+                },
+
+                {
+                    "!roll",
+                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
+                        Desc = CommandDescriptions.ROLL,
+                        Parser = new Func<string, string[]>(ParseHelper.ParseNormal),
+                        Action = new Func<Command, ChatHub, bool>(CommandExecutor.Roll)
                     }
                 }
             };            
@@ -110,6 +151,9 @@ namespace webbage.chat.web.bot.interpreters {
         public const string MOAB = "";
         public const string KICK = "";
         public const string GUID = "";
+        public const string YOUTUBE = "Plays a YouTube video in the stage - Not Yet Implemented";
+        public const string DUCK = "Provides a link to Duck Duck Go search of the provided string.";
+        public const string ROLL = "Provides a random number between 1 and the number specified (maximum of 2147483646).  Example: !roll 100";
     }
 
     class ParseHelper {
@@ -161,8 +205,31 @@ namespace webbage.chat.web.bot.interpreters {
 
         #region Normal Commands
         public static bool Help(Command cmd, ChatHub hub) {
-            // TODO: implement
-            hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            //// TODO: implement
+            //hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            if (cmd.Args.Length != 1 || cmd.Args[0] == "")
+                return false;
+
+            string message;
+            switch(cmd.Args[0].ToString().ToLower())
+            {
+                case "duck":
+                    message = CommandDescriptions.DUCK;
+                    break;
+                case "youtube":
+                    message = CommandDescriptions.YOUTUBE;
+                    break;
+                case "roll":
+                    message = CommandDescriptions.ROLL;
+                    break;
+                default:
+                    message = null;
+                    break;
+            }
+            if (message == null)
+                return false;
+            Message msg = BotHelper.GetMessage(message);
+            hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
             return true;
         }
 
@@ -186,6 +253,45 @@ namespace webbage.chat.web.bot.interpreters {
             return true;
         }
 
+        public static bool Duck(Command cmd, ChatHub hub)
+        {
+            if (cmd.Args.Length != 1 || cmd.Args[0] == "")
+                return false;
+
+            Message msg = BotHelper.GetMessage(string.Format("http://duckduckgo.com/?q={0}", HttpUtility.UrlEncode(cmd.Args[0])));
+            hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            return true;
+        }
+
+        public static bool Roll(Command cmd, ChatHub hub)
+        {
+            Message msg;
+            if (cmd.Args.Length != 1 || cmd.Args[0] == "")
+                return false;
+            int value;
+            if (!int.TryParse(cmd.Args[0], out value))
+                return false;
+            if (value >= int.MaxValue)
+            {
+                msg = BotHelper.GetMessage("That number's too fucking big. Try again sucka.");
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
+            else if(value <= 0)
+            {
+                msg = BotHelper.GetMessage("Number must be positive between 1 and 2147483646.");
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
+            else
+            {
+                random = new Random();
+                msg = BotHelper.GetMessage(random.Next(1, value + 1).ToString());
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
+            }
+
+            
+            return true;
+        }
+
         public static bool Guid(Command cmd, ChatHub hub) {
             // TODO: implement
             hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
@@ -199,6 +305,20 @@ namespace webbage.chat.web.bot.interpreters {
             if (cmd.CallerIsAdmin) {
                 hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
             } else {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.INVALID_PRIVILEGES);
+            }
+            return true;
+        }
+
+        public static bool YouTube(Command cmd, ChatHub hub)
+        {
+            // TODO: implement
+            if (cmd.CallerIsAdmin)
+            {
+                hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.NOT_YET_IMPLEMENTED);
+            }
+            else
+            {
                 hub.Clients.Group(hub.room.RoomID).receiveMessage(BotHelper.INVALID_PRIVILEGES);
             }
             return true;
