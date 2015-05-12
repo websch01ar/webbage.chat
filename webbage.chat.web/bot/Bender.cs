@@ -290,8 +290,6 @@ namespace webbage.chat.web.bot.interpreters {
                 msg = BotHelper.GetMessage(random.Next(1, value + 1).ToString());
                 hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
             }
-
-            
             return true;
         }
 
