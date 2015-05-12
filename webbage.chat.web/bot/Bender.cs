@@ -145,7 +145,7 @@ namespace webbage.chat.web.bot.interpreters {
     }
 
 
-    // move these to database when implemented????
+    //TODO: move these to database when implemented
     class CommandDescriptions {
         public const string HELP = "";
         public const string INSULT = "";
