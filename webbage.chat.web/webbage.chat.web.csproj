@@ -630,6 +630,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="bot\Bender.cs" />
+    <Compile Include="bot\helper\BotMessenger.cs" />
+    <Compile Include="bot\helper\CommandDescriptions.cs" />
+    <Compile Include="bot\helper\CommandExecutors.cs" />
+    <Compile Include="bot\helper\Parser.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
