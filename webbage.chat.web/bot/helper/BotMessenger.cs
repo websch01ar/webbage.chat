@@ -25,6 +25,11 @@ namespace webbage.chat.web.bot.helper {
                 return GetMessage("Unable to parse this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}");
             }
         }
+        public static Message INVALID_PARSE_ARGUMENTS { 
+            get { 
+                return GetMessage("Unable to parse the arguments of this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}"); 
+            } 
+        }
         public static Message INVALID_EXEC_COMMAND {
             get {
                 return GetMessage("Unable to execute this command. Make sure you typed in valid parameters for it. If you need help, type in !help {commandName}");
@@ -41,6 +46,7 @@ namespace webbage.chat.web.bot.helper {
             }
         }
 
+
         public static Message GetMessage(string content) {
             return new Message {
                 Sender = BENDER,
@@ -49,5 +55,7 @@ namespace webbage.chat.web.bot.helper {
                 IsCode = false
             };
         }
+
+        
     }
 }

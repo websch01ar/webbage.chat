@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace webbage.chat.web.bot.helper {
-    class Parser {
+    class CommandParser {
         public static string[] ParseNormal(string text) {
             return text.Split(' ');
         }

@@ -5,13 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using webbage.chat.model;
 
-namespace webbage.chat.model {
+namespace webbage.chat.model.bot {
     public class Command {
         public string Name { get; set; }
         public string Text { get; set; }
         public string[] Args { get; set; }
         public string Response { get; set; }
-        public dynamic Dynamic { get; set; }
         public bool CallerIsAdmin { get; set; }
 
         public Command(Message message) {            
