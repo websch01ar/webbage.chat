@@ -44,7 +44,7 @@ namespace webbage.chat.web.bot.interpreters {
                 {
                     "!google",
                     new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, bool>> {
-                        Desc = CommandDescriptions.LMGTFY,
+                        Desc = CommandDescriptions.GOOGLE,
                         Parser = new Func<string, string[]>(ParseHelper.ParseDoubleQuotes),
                         Action = new Func<Command, ChatHub, bool>(CommandExecutor.LMGTFY)
                     }
@@ -144,6 +144,8 @@ namespace webbage.chat.web.bot.interpreters {
         }
     }
 
+
+    // move these to database when implemented????
     class CommandDescriptions {
         public const string HELP = "";
         public const string INSULT = "";
@@ -151,6 +153,7 @@ namespace webbage.chat.web.bot.interpreters {
         public const string MOAB = "";
         public const string KICK = "";
         public const string GUID = "";
+        public const string GOOGLE = "Alias of lmgtfy - Usage: !google {phrase} - returns lmgtfy results for the given phrase.";
         public const string YOUTUBE = "Plays a YouTube video in the stage - Not Yet Implemented";
         public const string DUCK = "Provides a link to Duck Duck Go search of the provided string.";
         public const string ROLL = "Provides a random number between 1 and the number specified (maximum of 2147483646).  Example: !roll 100";
