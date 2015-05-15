@@ -147,6 +147,8 @@
     <Content Include="app\shared\directives\roomDisplay\roomDisplay.tpl.html" />
     <Content Include="app\shared\directives\userDisplay\userDisplay.tpl.html" />
     <Content Include="app\shared\directives\message\webbage.chat.directives.message.js" />
+    <Content Include="app\shared\modals\addRoom\addRoom.tpl.html" />
+    <Content Include="app\shared\modals\addRoom\webbage.chat.modals.addRoom.js" />
     <Content Include="app\shared\modals\disconnected\disconnected.tpl.html" />
     <Content Include="app\shared\modals\webbage.chat.modals.js" />
     <Content Include="app\shared\services\webbage.chat.services.signalR.js" />
@@ -612,6 +614,7 @@
     <Content Include="content\bower\signalr\jquery.signalR.min.js" />
     <Content Include="content\css\chat.css" />
     <Content Include="content\css\colors.css" />
+    <Content Include="content\css\modal.css" />
     <Content Include="content\css\prettycode.css" />
     <Content Include="content\css\site.css" />
     <Content Include="content\img\background.jpg" />

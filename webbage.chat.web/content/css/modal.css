@@ -1,0 +1,81 @@
+﻿.modal-content {
+    border-radius: 0;
+    top: 25px;
+}
+
+.wbg-modal-body .form-control {
+    border-radius: 0;
+}
+
+.wbg-modal-body {
+    padding: 15px;
+    background: #f0f0f0;
+    position: relative;
+}
+    .wbg-modal-body .closer {
+        position: absolute;
+        top: 0; 
+        right: 10px;
+        color: #ccc;
+        cursor: pointer;
+    }
+        .wbg-modal-body .closer:after {
+            content: '\00d7';
+            font-size: 28px;
+        }
+        .wbg-modal-body .closer:hover {
+            color: #aaa;
+        }
+    .wbg-modal-body .wbg-modal-header,
+    .wbg-modal-body .wbg-modal-content {
+        margin-bottom: 20px;
+    }
+        .wbg-modal-header .description {
+            color: #888;
+        }
+        .wbg-modal-content .control-label {
+            text-transform: uppercase;
+        }
+    .wbg-modal-body .wbg-modal-actions {
+        margin-top: 25px;
+    }
+        .wbg-modal-actions .btn {
+            background-color: transparent;
+            border-radius: 0;
+            border: 1px solid #888;
+            color: #888;
+            margin-left: 10px;
+            min-width: 100px;
+        }
+            .wbg-modal-actions .btn.btn-primary {
+                border-color: #2e6da4;
+                color: #2e6da4;
+            }
+                .wbg-modal-actions .btn.btn-primary:hover {
+                    background: #2e6da4;
+                    color: #ecf0f1;
+                }
+            .wbg-modal-actions .btn.btn-success {
+                border-color: #4cae4c;
+                color: #4cae4c;
+            }
+                .wbg-modal-actions .btn.btn-success:hover {
+                    background: #4cae4c;
+                    color: #ecf0f1;
+                }
+            .wbg-modal-actions .btn.btn-warning {
+                border-color: #eea236;
+                color: #eea236;
+            }
+                .wbg-modal-actions .btn.btn-warning:hover {
+                    background: #eea236;
+                    color: #ecf0f1;
+                }
+            .wbg-modal-actions .btn.btn-danger {
+                border-color: #d43f3a;
+                color: #d43f3a;
+            }
+                .wbg-modal-actions .btn.btn-danger:hover {
+                    background: #d43f3a;
+                    color: #ecf0f1;
+                }

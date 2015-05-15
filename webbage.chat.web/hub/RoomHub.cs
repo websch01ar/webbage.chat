@@ -11,5 +11,15 @@ namespace webbage.chat.web.hub {
         public List<Room> GetRooms() {
             return GlobalData.Rooms;
         }
+
+        public async Task AddRoom(Room room) {
+            // room.RoomKey = soome way to figure out next RoomKey to use
+            room.RoomID = room.Name.Replace(" ", string.Empty); // remove the spaces from the Name to get the RoomKey
+            room.Messages = new List<Message>();
+            room.Users = new List<User>();
+            GlobalData.Rooms.Add(room);
+
+            await Clients.All.getNewRoom(room);
+        }
     }
 }
