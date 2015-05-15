@@ -176,6 +176,14 @@
                         }
                     }
                 })
+                .add({
+                    combo: 'ctrl+`',
+                    description: 'Clear chat',
+                    allowIn: ['TEXTAREA'],
+                    callback: function (event, hotkey) {
+                        $scope.clearChat();
+                    }
+                })
             //#endregion
 
             //#region client-to-server events
@@ -196,6 +204,10 @@
 
                     sentMessages.push(message);
                     sentMessagesIndex = sentMessages.length;
+                    if ($scope.isMessageCode)
+                    {
+                        $scope.isMessageCode = false;
+                    }
 
                     $scope.message = '';
                 }
@@ -204,6 +216,10 @@
                 chatHub.invoke('RemoveUser', [user]);
             }
             //#endregion
+
+            $scope.clearChat = function (user) {
+                $scope.messages = [];
+            }
 
             $scope.$on('$destroy', function () {
                 //chatHub.invoke('UserDisconnect', []); // take out, see what happens

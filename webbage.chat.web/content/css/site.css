@@ -30,6 +30,9 @@ body {
     margin: 0 auto;
     text-align: center;
 }
+.btn-group-block {
+    width: 100%;
+}
 
 .navbar {
     min-height: 30px;

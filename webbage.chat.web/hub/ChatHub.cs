@@ -6,7 +6,7 @@ using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
 using webbage.chat.model;
 using webbage.chat.context;
-using webbage.chat.web.bot.interpreters;
+using webbage.chat.web.bot;
 
 namespace webbage.chat.web.hub {
     public class ChatHub : Hub {        
@@ -133,7 +133,7 @@ namespace webbage.chat.web.hub {
         }
 
         public async Task BroadcastCommand(Message message) {
-            await Bender.DoWork(this, message);
+            await Bender.DoWork(this, message);            
         }
     }
 
