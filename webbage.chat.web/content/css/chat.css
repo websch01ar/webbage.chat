@@ -98,6 +98,7 @@
         position: absolute;
         bottom: 0;
         left: 0;
+        padding: 10px;
     }
     .chat-container > .chat-message {
         border-top: 1px solid #999;
@@ -105,6 +106,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
+        padding: 10px;
     }
         .chat-container > .chat-message > .btn {
             margin-top: -45px;
@@ -123,16 +125,11 @@
         }
         .chat-container > .chat-message > textarea {
             resize: none;
-            margin: 10px;
-            margin-left: -43px;
             height: 80%;
-            width: 600px;
+            padding-left: 5px;
         }
 
 @media only screen and (max-width: 991px) {
-    body .chat-container > .chat-message > textarea {
-        margin-left: 10px;
-    }
     body .chat-container > .chat-message > i {
         left: 735px;
     }
