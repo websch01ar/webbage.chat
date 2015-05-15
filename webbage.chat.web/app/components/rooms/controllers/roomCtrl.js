@@ -176,6 +176,14 @@
                         }
                     }
                 })
+                .add({
+                    combo: 'ctrl+`',
+                    description: 'Clear chat',
+                    allowIn: ['TEXTAREA'],
+                    callback: function (event, hotkey) {
+                        $scope.clearChat();
+                    }
+                })
             //#endregion
 
             //#region client-to-server events

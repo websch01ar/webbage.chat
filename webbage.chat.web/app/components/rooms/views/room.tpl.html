@@ -22,45 +22,43 @@
             <i class="fa fa-2x fa-spin fa-refresh emerald-font"></i>
             <h3>Loading...</h3>
         </div>
-        <user-display ng-repeat="user in onlineUsers" 
-                      user="user" 
-                      display-size="lg" 
+        <user-display ng-repeat="user in onlineUsers"
+                      user="user"
+                      display-size="lg"
                       hide-name="true"
                       show-context-menu="showContextMenu"
                       ng-show="!isLoading"
                       kick-me="kickUser(u)"></user-display>
     </div>
-    <div class="chat-message-buffer silver-background col-md-1 hidden-sm hidden-xs"></div>
-    <div class="chat-message silver-background col-md-11 col-sm-12">
-        <textarea class="message-input"
+    <div class="chat-message silver-background col-xs-12">
+        <textarea class="message-input col-sm-10 col-xs-9"
                   ng-model="message"
                   ng-focus="isTextAreaFocused = true"
                   ng-blur="isTextAreaFocused = false"></textarea>
-        <button type="button"
-                class="btn clouds-font carrot-background hover"
-                ng-click="sendMessage()">
-            send
-        </button>
-        <button type="button"
-                class="btn clouds-font"
-                ng-class="{ 'concrete-background' : !isMessageCode, 'carrot-background': isMessageCode }"
-                ng-click="isMessageCode = !isMessageCode">
-            code
-        </button>
-        <button type="button"
-                class="btn clouds-font wet-asphalt-background"
-                ng-click="clearChat()">
-            clear
-        </button>
-        <button type="button"
-                class="btn clouds-font nephritis-background">
-            <i class="fa fa-2x"
-               ng-click="playSound=!playSound"
-               ng-class="{ 'fa-volume-up': playSound, 'fa-volume-off': !playSound}"></i>
-        </button>
-
-        <!--<i class="fa fa-2x"
-           ng-class="{ 'fa-volume-up': playSound, 'fa-volume-off': !playSound}"
-           ng-click="playSound=!playSound" style="padding-left:40px"></i>-->
+        <div class="btn-container col-sm-2 col-xs-3">
+            <div class="btn-group-vertical btn-group-block btn-group-xs">
+                <button type="button"
+                        class="btn btn-block btn-primary"
+                        ng-click="clearChat()">
+                    Clear Chat
+                </button>
+            </div>
+            <div class="btn-group-vertical btn-group-block btn-group-xs" style="top: 29px">
+                <button type="button"
+                        class="btn btn-block"
+                        ng-class="{ 'btn-default' : !isMessageCode, 'btn-success': isMessageCode }"
+                        ng-click="isMessageCode = !isMessageCode">
+                    Toggle Code
+                </button>
+                <button type="button"
+                        class="btn btn-block"
+                        ng-click="playSound=!playSound"
+                        ng-class="{ 'btn-success': playSound, 'btn-default': !playSound}">
+                    Toggle Sound:
+                    <i class="fa"
+                       ng-class="{ 'fa-volume-up': playSound, 'fa-volume-off': !playSound }"></i>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
