@@ -10,10 +10,13 @@ namespace webbage.chat.model {
         public string Name { get; set; }
         public string Text { get; set; }
         public string[] Args { get; set; }
-        public string Response { get; set; }
+        public Message Response { get; set; }
+        public dynamic Dynamic { get; set; }
         public bool CallerIsAdmin { get; set; }
 
-        public Command(Message message) {            
+        public Command(Message message) {
+            message.Content = message.Content.ToLower();
+
             int firstSpace = message.Content.IndexOf(' ');
             if (firstSpace != -1) {
                 this.Name = message.Content.Substring(0, firstSpace);

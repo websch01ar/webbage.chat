@@ -133,7 +133,8 @@ namespace webbage.chat.web.hub {
         }
 
         public async Task BroadcastCommand(Message message) {
-            await Bender.DoWork(this, message);            
+            Command cmd = Bender.DoWork(this, message);
+            await Clients.Group(room.RoomID).receiveMessage(cmd.Response);            
         }
     }
 
