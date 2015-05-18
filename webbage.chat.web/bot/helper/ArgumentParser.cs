@@ -16,92 +16,138 @@ namespace webbage.chat.web.bot.helper {
         }
 
         /// Layout should be !help [commandName]
-        internal static dynamic Help(Command cmd, ChatHub hub) {
-            return null;
+        internal static void Help(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 0, 1)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
+
+            string commandToGet = "!help";
+            if (cmd.Args.Length == 1) {
+                commandToGet = cmd.Args[0];
+            }
+
+            cmd.Dynamic = new {
+                Cmd = commandToGet
+            };
         }
 
         /// Layout should be !insult {recipient}
-        internal static dynamic Insult(Command cmd, ChatHub hub) {
-            if (!checkParameters(cmd.Args, 1, 1))
-                return null;
+        internal static void Insult(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 1, 1)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
             
-            return new {
+            cmd.Dynamic = new {
                 Recipient = cmd.Args[0],
                 Insult = Insulter.GetInsult()
             };
         }
 
-        /// Layout should be !lmgtfy {"some query string"}
-        internal static dynamic LMGTFY(Command cmd, ChatHub hub) {
-            return null;
+        /// Layout should be !lmgtfy {some query string}
+        internal static void LMGTFY(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 1, 1)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
+
+            cmd.Dynamic = new {
+                QueryString = HttpUtility.UrlEncode(cmd.Args[0])
+            };            
         }
 
-        /// Layout should be !google {"some query string"}
-        internal static dynamic Google(Command cmd, ChatHub hub) {
-            return null;
-        }
+        /// Layout should be !google {some query string}
+        internal static void Google(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 1, 1)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
 
-        /// Layout should be !moab
-        internal static dynamic MOAB(Command cmd, ChatHub hub) {
-            return null;
-        }
-
-        /// Layout should be !guid
-        internal static dynamic GUID(Command cmd, ChatHub hub) {
-            if (!checkParameters(cmd.Args, 0, 0))
-                return null;
-
-            return new {
-                Guid = Guid.NewGuid().ToString()
+            cmd.Dynamic = new {
+                QueryString = HttpUtility.UrlEncode(cmd.Args[0])
             };
         }
 
-        /// Layout should be !youtube {videoId} [-force]
-        internal static dynamic YouTube(Command cmd, ChatHub hub) {
-            return null;
+        // TODO: implement
+        /// Layout should be !moab
+        internal static void MOAB(ref Command cmd) {
+            cmd.Response = BotMessenger.NOT_YET_IMPLEMENTED;
         }
 
-        /// Layout should be !roll {someNumber} [maxNumber]
-        internal static dynamic Roll(Command cmd, ChatHub hub) {
-            if (!checkParameters(cmd.Args, 1, 2))
-                return null;
+        /// Layout should be !guid
+        internal static void GUID(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 0, 0)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
 
-            int number = 0;
-            int maxNumber = int.MaxValue;
+            cmd.Dynamic = new {
+                GUID = Guid.NewGuid().ToString()
+            };
+        }
 
-            if (!int.TryParse(cmd.Args[0], out number))
-                return null;
+        // TODO: implement
+        /// Layout should be !youtube {videoId} [-force]
+        internal static void YouTube(ref Command cmd) {
+            cmd.Response = BotMessenger.NOT_YET_IMPLEMENTED;
+        }
+
+        /// Layout should be !roll [someNumber] [maxNumber]
+        internal static void Roll(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 0, 2)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
+
+            int number = 1;
+            int maxNumber = 100;
+
+            if (cmd.Args.Length > 0) {
+                if (!int.TryParse(cmd.Args[0], out maxNumber)) {
+                    cmd.Response = BotMessenger.GetMessage("Input must be a valid number. The ");
+                    return;
+                }
+            }
 
             if (cmd.Args.Length == 2) {
-                if (!int.TryParse(cmd.Args[1], out maxNumber))
-                    return null;
+                number = maxNumber;
+                if (!int.TryParse(cmd.Args[1], out maxNumber)) {
+                    cmd.Response = BotMessenger.GetMessage("Input must be a valid number");
+                    return;
+                }
             }
-
-            Message msg = null;
-            if (number >= int.MaxValue || maxNumber >= int.MaxValue || number <= 0) { // both have to be less than the int.MaxValue
-                msg = BotMessenger.GetMessage(string.Format("The supplied number(s) must be between 1 and {0}.", (int.MaxValue - 1).ToString()));
+            
+            if (number > int.MaxValue || maxNumber > int.MaxValue || number <= 0) { // both have to be less than the int.MaxValue
+                cmd.Response = BotMessenger.GetMessage(string.Format("The supplied number(s) must be between 1 and {0}.", (int.MaxValue - 1).ToString()));
+                return;
             } else if (number >= maxNumber) {
-                msg = BotMessenger.GetMessage("The first supplied number must be smaller than the second supplied number.");
+                cmd.Response = BotMessenger.GetMessage("The first supplied number must be smaller than the second supplied number.");
+                return;
             }
 
-            if (msg != null) {
-                hub.Clients.Group(hub.room.RoomID).receiveMessage(msg);
-            }
-
-            return new {
+            cmd.Dynamic = new {
                 Number = number,
                 MaxNumber = maxNumber
             };
         }
 
+        // TODO: implement
         /// Layout should be !kick {userName} [-ban]
-        internal static dynamic Kick(Command cmd, ChatHub hub) {
-            return null;
+        internal static void Kick(ref Command cmd) {
+            cmd.Response = BotMessenger.NOT_YET_IMPLEMENTED;
         }
 
-        /// Layout should be !duck {"some query string"}
-        internal static dynamic Duck(Command cmd, ChatHub hub) {
-            return null;
+        /// Layout should be !duck {some query string}
+        internal static void Duck(ref Command cmd) {
+            if (!checkParameters(cmd.Args, 1, 1)) {
+                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
+                return;
+            }
+
+            cmd.Dynamic = new {
+                QueryString = HttpUtility.UrlEncode(cmd.Args[0])
+            };
         }
     }
 }

@@ -10,7 +10,7 @@ namespace webbage.chat.model {
         public string Name { get; set; }
         public string Text { get; set; }
         public string[] Args { get; set; }
-        public string Response { get; set; }
+        public Message Response { get; set; }
         public dynamic Dynamic { get; set; }
         public bool CallerIsAdmin { get; set; }
 
