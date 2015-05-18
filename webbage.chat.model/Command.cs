@@ -17,8 +17,8 @@ namespace webbage.chat.model {
         public Command(Message message) {            
             int firstSpace = message.Content.IndexOf(' ');
             if (firstSpace != -1) {
-                this.Name = message.Content.Substring(0, firstSpace);
-                this.Text = message.Content.Substring(firstSpace + 1);
+                this.Name = message.Content.Substring(0, firstSpace).ToLower();
+                this.Text = message.Content.Substring(firstSpace + 1).ToLower();
             } else {
                 this.Name = message.Content;
                 this.Text = "";
