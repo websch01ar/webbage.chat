@@ -10,7 +10,8 @@
                 displaySize: '@',
                 hideName: '@',
                 showContextMenu: '=',
-                kickMe: '&'
+                kickMe: '&',
+                reference: '&'
             },
             controller: ['$scope', '$rootScope', '$location', '$log', function ($scope, $root, $location, $log) {
                 
