@@ -4,8 +4,8 @@
     angular.module('webbage.chat.modals').controller('addRoomCtrl', ['$scope', '$modalInstance',
         function ($scope, $modalInstance) {
             function init() {
-                $scope.newRoomName = 'test';
-                $scope.newRoomDesc = 'test';
+                $scope.newRoomName = '';
+                $scope.newRoomDesc = '';
             }
             init();
 
