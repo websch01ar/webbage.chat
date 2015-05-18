@@ -42,7 +42,7 @@ namespace webbage.chat.web.bot {
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.LMGTFY,
                         Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
-                        ArgParser = new RefCommandAction(ArgumentParser.LMGTFY),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.LMGTFY)
                     }
                 },
@@ -52,7 +52,7 @@ namespace webbage.chat.web.bot {
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.GOOGLE,
                         Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
-                        ArgParser = new RefCommandAction(ArgumentParser.Google),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.Google)
                     }
                 },
@@ -62,7 +62,7 @@ namespace webbage.chat.web.bot {
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.DUCK,
                         Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
-                        ArgParser = new RefCommandAction(ArgumentParser.Duck),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.Duck)
                     }
                 },
