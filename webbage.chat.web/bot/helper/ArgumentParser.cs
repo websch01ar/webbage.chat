@@ -45,20 +45,8 @@ namespace webbage.chat.web.bot.helper {
             };
         }
 
-        /// Layout should be !lmgtfy {some query string}
-        internal static void LMGTFY(ref Command cmd) {
-            if (!checkParameters(cmd.Args, 1, 1)) {
-                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
-                return;
-            }
-
-            cmd.Dynamic = new {
-                QueryString = HttpUtility.UrlEncode(cmd.Args[0])
-            };            
-        }
-
-        /// Layout should be !google {some query string}
-        internal static void Google(ref Command cmd) {
+        /// Layout should be !google/!lmgtfy/!duck {some query string}
+        internal static void SearchEngine(ref Command cmd) {
             if (!checkParameters(cmd.Args, 1, 1)) {
                 cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
                 return;
@@ -136,18 +124,6 @@ namespace webbage.chat.web.bot.helper {
         /// Layout should be !kick {userName} [-ban]
         internal static void Kick(ref Command cmd) {
             cmd.Response = BotMessenger.NOT_YET_IMPLEMENTED;
-        }
-
-        /// Layout should be !duck {some query string}
-        internal static void Duck(ref Command cmd) {
-            if (!checkParameters(cmd.Args, 1, 1)) {
-                cmd.Response = BotMessenger.INVALID_ARGUMENT_NUM;
-                return;
-            }
-
-            cmd.Dynamic = new {
-                QueryString = HttpUtility.UrlEncode(cmd.Args[0])
-            };
         }
     }
 }
