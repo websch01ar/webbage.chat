@@ -46,6 +46,12 @@ namespace webbage.chat.web.bot.helper {
             }
         }
 
+        public static Message INVALID_ARGUMENT_NUM {
+            get {
+                return GetMessage("Invalid number of arguments");
+            }
+        }
+
 
         public static Message GetMessage(string content) {
             return new Message {

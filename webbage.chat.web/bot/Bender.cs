@@ -10,146 +10,166 @@ using webbage.chat.web.hub;
 
 namespace webbage.chat.web.bot {
     public static class Bender {
-        private static Dictionary<string, CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>>> commands;
+        private delegate void RefCommandAction(ref Command cmd);
+
+        private static Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> commands;
         private static ChatHub hub;
 
         static Bender() {
-            commands = new Dictionary<string, CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>>> {
+            commands = new Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> {
                 {
                     "!help",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.HELP,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Help),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.Help)
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.Help),
+                        Action = new RefCommandAction(CommandExecutors.Help)
                     }
                 },
 
                 {
                     "!insult",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.INSULT,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Insult),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.Insult)
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.Insult),
+                        Action = new RefCommandAction(CommandExecutors.Insult)
                     }
                 },
 
                 {
                     "!lmgtfy",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.LMGTFY,
-                        Parser = new Func<string, string[]>(CommandParser.ParseDoubleQuotes),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.LMGTFY),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.LMGTFY)
+                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
+                        Action = new RefCommandAction(CommandExecutors.LMGTFY)
                     }
                 },
 
                 {
                     "!google",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.GOOGLE,
-                        Parser = new Func<string, string[]>(CommandParser.ParseDoubleQuotes),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Google),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.LMGTFY)
+                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
+                        Action = new RefCommandAction(CommandExecutors.Google)
                     }
                 },
 
                 {
                     "!duck",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.DUCK,
-                        Parser = new Func<string, string[]>(CommandParser.ParseDoubleQuotes),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Duck),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.Duck)
+                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
+                        Action = new RefCommandAction(CommandExecutors.Duck)
                     }
                 },
 
                 {
                     "!moab",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.MOAB,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.MOAB),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.MOAB)
+                        Parser = new RefCommandAction(CommandParser.ParseNone),
+                        ArgParser = new RefCommandAction(ArgumentParser.MOAB),
+                        Action = new RefCommandAction(CommandExecutors.MOAB)
                     }
                 },
 
                 {
                     "!kick",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.KICK,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Kick),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.Kick)
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.Kick),
+                        Action = new RefCommandAction(CommandExecutors.Kick)
                     }
                 },
 
                 {
                     "!guid",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.GUID,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.GUID),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.GUID)
+                        Parser = new RefCommandAction(CommandParser.ParseNone),
+                        ArgParser = new RefCommandAction(ArgumentParser.GUID),
+                        Action = new RefCommandAction(CommandExecutors.GUID)
                     }
                 },
 
                 {
                     "!youtube",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.YOUTUBE,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.YouTube),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.YouTube)
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.YouTube),
+                        Action = new RefCommandAction(CommandExecutors.YouTube)
                     }
                 },
 
                 {
                     "!roll",
-                    new CommandStruct<string, Func<string, string[]>, Func<Command, ChatHub, dynamic>, Func<Command, ChatHub, bool>> {
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.ROLL,
-                        Parser = new Func<string, string[]>(CommandParser.ParseNormal),
-                        ArgParser = new Func<Command, ChatHub, dynamic>(ArgumentParser.Roll),
-                        Action = new Func<Command, ChatHub, bool>(CommandExecutors.Roll)
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.Roll),
+                        Action = new RefCommandAction(CommandExecutors.Roll)
                     }
                 }
             };            
         }
 
-        public static async Task DoWork(ChatHub chatHub, Message message) {
+        // TODO: add some sort of logging in these functions
+        public static Command DoWork(ChatHub chatHub, Message message) {
             Command cmd = new Command(message);
             hub = chatHub;
 
             if (!(validateCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(BotMessenger.INVALID_COMMAND);
-                return;
+                cmd.Response = BotMessenger.INVALID_COMMAND;                
             }
 
-            if (!(parseCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(BotMessenger.INVALID_PARSE_COMMAND);
-                return;
+            if (cmd.Response == null && !(parseCommand(cmd))) {
+                cmd.Response = BotMessenger.INVALID_PARSE_COMMAND;
             }
 
-            if (!(parseArguments(cmd))) {
-                // don't worry about error message here, the Func<> pointer for each command should handle that
-                return;
+            if (cmd.Response == null && !(parseArguments(cmd))) {
+                // don't worry about setting response here, the RefCommandAction does it
             }
 
-            if (!(execCommand(cmd))) {
-                await hub.Clients.Caller.receiveMessage(BotMessenger.INVALID_EXEC_COMMAND);
-                return;
+            if (cmd.Response == null && !(execCommand(cmd))) {
+                cmd.Response = BotMessenger.INVALID_EXEC_COMMAND;
             }
+
+            return cmd;
         }
 
+        public static string GetCommandDescription(string cmdName) {
+            string desc = "";
+
+            if (!cmdName.StartsWith("!")) {
+                cmdName = "!" + cmdName;
+            }
+
+            if (validateCommand(cmdName)) {
+                desc = commands[cmdName].Desc;
+            } else {
+                desc = "Invalid command name";
+            }
+
+            return desc;
+        }
+
+        private static bool validateCommand(string cmdName) {
+            return commands.Keys.Contains(cmdName);
+        }
         private static bool validateCommand(Command cmd) {
-            return commands.Keys.Contains<string>(cmd.Name);
+            return commands.Keys.Contains(cmd.Name);
         }
 
         private static bool parseCommand(Command cmd) {
             try {
-                cmd.Args = (string[])commands[cmd.Name].Parser.DynamicInvoke(new object[] { (object)cmd.Text });
-                return true;
+                commands[cmd.Name].Parser.DynamicInvoke(new object[] { cmd });
+                return cmd.Args != null;
             } catch {
                 return false;
             }
@@ -157,7 +177,7 @@ namespace webbage.chat.web.bot {
 
         private static bool parseArguments(Command cmd) {
             try {
-                cmd.Dynamic = (dynamic)commands[cmd.Name].ArgParser.DynamicInvoke(new object[] { (object)cmd, (object)hub });
+                commands[cmd.Name].ArgParser.DynamicInvoke(new object[] { cmd });
                 return cmd.Dynamic != null;
             } catch {
                 return false;
@@ -165,7 +185,12 @@ namespace webbage.chat.web.bot {
         }
 
         private static bool execCommand(Command cmd) {
-            return (bool)commands[cmd.Name].Action.DynamicInvoke(new object[] { (object)cmd, (object)hub });
+            try {
+                commands[cmd.Name].Action.DynamicInvoke(new object[] { cmd });
+                return cmd.Response != null;
+            } catch {
+                return false;
+            }
         }
     }
 }
