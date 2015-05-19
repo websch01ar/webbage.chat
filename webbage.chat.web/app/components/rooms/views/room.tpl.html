@@ -14,7 +14,8 @@
                  ng-repeat="message in messages track by $index"
                  message-item="message"
                  ng-show="!isLoading"
-                 ng-class="{ 'consecutive-msg': consecutiveCheck($index) }"></message>
+                 ng-class="{ 'consecutive-msg': consecutiveCheck($index) }"
+                 reference="insertReference(message.Sender)"></message>
     </div>
     <div class="chat-users col-md-2 hidden-sm hidden-xs">
         <h3>Users</h3>
@@ -28,7 +29,8 @@
                       hide-name="true"
                       show-context-menu="showContextMenu"
                       ng-show="!isLoading"
-                      kick-me="kickUser(u)"></user-display>
+                      kick-me="kickUser(u)"
+                      reference="insertReference(user)"></user-display>
     </div>
     <div class="chat-message silver-background col-xs-12">
         <textarea class="message-input col-sm-10 col-xs-9"

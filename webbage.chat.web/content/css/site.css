@@ -186,7 +186,18 @@ body {
         font-size: 0.89em;
         font-style: italic;
         margin-right: 10px;
+<<<<<<< HEAD
         max-width: 70%;
+=======
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+
+    .message-container .user-display {
+        cursor: pointer;
+>>>>>>> 7804ecdd5bd642eaa8af19e85e6847dc118913eb
     }
 
 .user-display.lg {
@@ -226,7 +237,7 @@ body {
 
 @media only screen and (max-width: 1462px) {
     body .user-display.sm span {
-        max-width: 40px;
+        max-width: 30px;
     }
 }
 

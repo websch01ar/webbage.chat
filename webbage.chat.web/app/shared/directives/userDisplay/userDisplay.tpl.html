@@ -1,4 +1,4 @@
-﻿<div class="user-display pull-left" ng-class="displaySize">
+﻿<div class="user-display pull-left" ng-class="displaySize" ng-click="reference()">
     <img ng-src="{{user.Picture}}" />
     <span ng-bind="user.Name" ng-hide="hideName" ng-cloak></span>
     <ul class="user-context-menu" ng-show="showContextMenu" ng-cloak>

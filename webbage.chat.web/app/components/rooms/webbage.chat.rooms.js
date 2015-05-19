@@ -4,6 +4,7 @@
     angular.module('webbage.chat.rooms', [
         'ngRoute',
         'ngSanitize',
+        'ui.bootstrap',
         'webbage.chat.services.signalR',
         'webbage.chat.directives.roomDisplay',
         'webbage.chat.directives.userDisplay',
