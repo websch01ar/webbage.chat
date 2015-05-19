@@ -48,34 +48,34 @@
             min-width: 100px;
         }
             .wbg-modal-actions .btn.btn-primary {
-                border-color: #2e6da4;
-                color: #2e6da4;
+                border-color: #337ab7;
+                color: #337ab7;
             }
                 .wbg-modal-actions .btn.btn-primary:hover {
-                    background: #2e6da4;
-                    color: #ecf0f1;
+                    border-color: #286090;
+                    color: #286090;
                 }
             .wbg-modal-actions .btn.btn-success {
-                border-color: #4cae4c;
-                color: #4cae4c;
+                border-color: #5cb85c;
+                color: #5cb85c;
             }
                 .wbg-modal-actions .btn.btn-success:hover {
-                    background: #4cae4c;
-                    color: #ecf0f1;
+                    border-color: #449d44;
+                    color: #449d44;                    
                 }
             .wbg-modal-actions .btn.btn-warning {
-                border-color: #eea236;
-                color: #eea236;
+                border-color: #f0ad4e;
+                color: #f0ad4e;
             }
                 .wbg-modal-actions .btn.btn-warning:hover {
-                    background: #eea236;
-                    color: #ecf0f1;
+                    border-color: #ec971f;
+                    color: #ec971f;
                 }
             .wbg-modal-actions .btn.btn-danger {
-                border-color: #d43f3a;
-                color: #d43f3a;
+                border-color: #d9534f;
+                color: #d9534f;
             }
                 .wbg-modal-actions .btn.btn-danger:hover {
-                    background: #d43f3a;
-                    color: #ecf0f1;
+                    border-color: #c9302c;
+                    color: #c9302c;
                 }

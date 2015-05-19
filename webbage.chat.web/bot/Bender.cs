@@ -21,7 +21,7 @@ namespace webbage.chat.web.bot {
                     "!help",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.HELP,
-                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        Parser = new RefCommandAction(CommandParser.ParseSpaces),
                         ArgParser = new RefCommandAction(ArgumentParser.Help),
                         Action = new RefCommandAction(CommandExecutors.Help)
                     }
@@ -41,7 +41,7 @@ namespace webbage.chat.web.bot {
                     "!lmgtfy",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.LMGTFY,
-                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
                         ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.LMGTFY)
                     }
@@ -51,7 +51,7 @@ namespace webbage.chat.web.bot {
                     "!google",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.GOOGLE,
-                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
                         ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.Google)
                     }
@@ -61,7 +61,7 @@ namespace webbage.chat.web.bot {
                     "!duck",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.DUCK,
-                        Parser = new RefCommandAction(CommandParser.ParseSearchEngine),
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
                         ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
                         Action = new RefCommandAction(CommandExecutors.Duck)
                     }
@@ -81,7 +81,7 @@ namespace webbage.chat.web.bot {
                     "!kick",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.KICK,
-                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        Parser = new RefCommandAction(CommandParser.ParseSpaces),
                         ArgParser = new RefCommandAction(ArgumentParser.Kick),
                         Action = new RefCommandAction(CommandExecutors.Kick)
                     }
@@ -101,7 +101,7 @@ namespace webbage.chat.web.bot {
                     "!youtube",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.YOUTUBE,
-                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        Parser = new RefCommandAction(CommandParser.ParseSpaces),
                         ArgParser = new RefCommandAction(ArgumentParser.YouTube),
                         Action = new RefCommandAction(CommandExecutors.YouTube)
                     }
@@ -111,7 +111,7 @@ namespace webbage.chat.web.bot {
                     "!roll",
                     new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
                         Desc = CommandDescriptions.ROLL,
-                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        Parser = new RefCommandAction(CommandParser.ParseSpaces),
                         ArgParser = new RefCommandAction(ArgumentParser.Roll),
                         Action = new RefCommandAction(CommandExecutors.Roll)
                     }

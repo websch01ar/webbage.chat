@@ -24,7 +24,7 @@ namespace webbage.chat.web.bot.helper {
 
             string commandToGet = "!help";
             if (cmd.Args.Length == 1) {
-                commandToGet = cmd.Args[0];
+                commandToGet = cmd.Args[0].ToLower();
             }
 
             cmd.Dynamic = new {
