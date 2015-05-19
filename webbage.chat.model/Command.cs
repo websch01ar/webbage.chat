@@ -14,7 +14,7 @@ namespace webbage.chat.model {
         public dynamic Dynamic { get; set; }
         public bool CallerIsAdmin { get; set; }
 
-        public Command(Message message) {            
+        public Command(Message message) {
 
             int firstSpace = message.Content.IndexOf(' ');
             if (firstSpace != -1) {
@@ -22,7 +22,7 @@ namespace webbage.chat.model {
                 this.Text = message.Content.Substring(firstSpace + 1);
             } else {
                 this.Name = message.Content.ToLower();
-                this.Text = "";
+                this.Text = string.Empty;                
             }
 
             this.CallerIsAdmin = message.Sender.IsAdmin;
