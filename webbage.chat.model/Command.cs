@@ -15,15 +15,14 @@ namespace webbage.chat.model {
         public bool CallerIsAdmin { get; set; }
 
         public Command(Message message) {
-            message.Content = message.Content.ToLower();
 
             int firstSpace = message.Content.IndexOf(' ');
             if (firstSpace != -1) {
-                this.Name = message.Content.Substring(0, firstSpace);
+                this.Name = message.Content.Substring(0, firstSpace).ToLower();
                 this.Text = message.Content.Substring(firstSpace + 1);
             } else {
-                this.Name = message.Content;
-                this.Text = "";
+                this.Name = message.Content.ToLower();
+                this.Text = string.Empty;                
             }
 
             this.CallerIsAdmin = message.Sender.IsAdmin;
