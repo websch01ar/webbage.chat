@@ -1,6 +1,8 @@
 ﻿(function () {
     'use strict';
 
+    //lol need APP Harbor to pull and re-build so im not muted. 
+    
     angular.module('webbage.chat.directives.message', []).directive('message', function () {
         return {
             restrict: 'E',
