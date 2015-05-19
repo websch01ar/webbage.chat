@@ -45,7 +45,7 @@
             .chat-container > .chat-area .row > .message-user {
                 padding: 5px;
                 padding-right: 10px;
-                text-align: right;
+                text-align: left;
             }
             .chat-container > .chat-area .row > .chat-message {
                 padding: 5px;

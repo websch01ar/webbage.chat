@@ -8,7 +8,8 @@
             restrict: 'E',
             templateUrl: 'app/shared/directives/message/message.tpl.html',
             scope: {
-                messageItem: '='
+                messageItem: '=',
+                reference: '&'
             },
             controller: ['$scope', '$log', '$rootScope', function ($scope, $log, $root) {
                 $scope.isMyMessage = $scope.messageItem.Sender.Name === $root.auth.profile.name && $scope.messageItem.Sender.Picture === $root.auth.profile.picture;

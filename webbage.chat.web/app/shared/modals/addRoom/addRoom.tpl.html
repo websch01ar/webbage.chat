@@ -1,0 +1,25 @@
+﻿<div class="wbg-modal-body">
+    <div class="wbg-modal-header">
+        <h4>Add a new room</h4>
+        <span class="description">Add a new room to the list that users can join and chat with you in! Specify a name and description for your room below and click the Save button; that's it!</span>
+    </div>
+
+    <div class="wbg-modal-content">
+        <div class="form-group">
+            <label class="control-label" for="newRoomName">Name</label>
+            <input type="text" class="form-control" id="newRoomName" ng-model="newRoomName" placeholder="Enter a name" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="newRoomDesc">Description</label>
+            <input type="text" class="form-control" id="newRoomDesc" ng-model="newRoomDesc" placeholder="Enter a short description" />
+        </div>
+    </div>
+
+    <div class="wbg-modal-actions">
+        <button class="btn btn-success pull-right" ng-click="save()">Save</button>
+        <button class="btn btn-danger pull-right" ng-click="cancel()">Cancel</button>
+        <div class="clearfix"></div>
+    </div>
+
+    <span class="closer"></span>
+</div>
