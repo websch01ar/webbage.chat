@@ -22,7 +22,7 @@ namespace webbage.chat.model {
                 this.Text = message.Content.Substring(firstSpace + 1);
             } else {
                 this.Name = message.Content.ToLower();
-                this.Text = string.Empty;                
+                this.Text = string.Empty;
             }
 
             this.CallerIsAdmin = message.Sender.IsAdmin;
