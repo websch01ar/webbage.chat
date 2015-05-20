@@ -9,15 +9,14 @@
         'ui.bootstrap',
         'webbage.chat.providers.log',
         'webbage.chat.modals',
-        'webbage.chat.rooms'
-        
+        'webbage.chat.rooms'        
     ])
         .config(['$routeProvider', 'authProvider', function ($routeProvider, authProvider) {
             $routeProvider
                 .when('/', {
                     controller: 'loginCtrl',
                     templateUrl: 'app/components/default/views/login.tpl.html'
-                });            
+                });
         }])
         .run(['auth', '$rootScope', 'store', 'jwtHelper', '$location', function (auth, $root, store, jwtHelper, $location) {
             auth.init({

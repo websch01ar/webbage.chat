@@ -623,6 +623,7 @@
     <Content Include="content\media\connection-notification.mp3" />
     <Content Include="content\media\new-message-notification.mp3" />
     <Content Include="content\media\reference-message-notification.mp3" />
+    <Content Include="content\scripts\debugLevel.js" />
     <Content Include="content\scripts\utils.js" />
     <Content Include="Global.asax" />
     <Content Include="packages.config">
