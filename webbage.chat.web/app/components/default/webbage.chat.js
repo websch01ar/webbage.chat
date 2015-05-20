@@ -7,6 +7,7 @@
         'angular-storage',
         'angular-jwt',
         'ui.bootstrap',
+        'webbage.chat.providers.log',
         'webbage.chat.modals',
         'webbage.chat.rooms'
         

@@ -166,7 +166,6 @@
     <Content Include="content\bower\angular-jwt\LICENSE.txt" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.js" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.min.js" />
-    <Content Include="content\bower\angular-sanitize\index.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.min.js" />
     <Content Include="content\bower\auth0-storage\gulpfile.js" />
@@ -620,6 +619,7 @@
     <Content Include="content\css\site.css" />
     <Content Include="content\img\background.jpg" />
     <Content Include="content\img\bender.jpg" />
+    <Content Include="content\img\favicon.ico" />
     <Content Include="content\media\connection-notification.mp3" />
     <Content Include="content\media\new-message-notification.mp3" />
     <Content Include="content\media\reference-message-notification.mp3" />
@@ -964,6 +964,7 @@
     <Content Include="content\bower\angular-bootstrap\.bower.json" />
     <Content Include="content\bower\angular-bootstrap\bower.json" />
     <Content Include="app\shared\modals\disconnected\webbage.chat.modals.disconnected.js" />
+    <Content Include="app\shared\providers\webbage.chat.providers.log.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>

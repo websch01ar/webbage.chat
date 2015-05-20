@@ -7,7 +7,6 @@
         }
 
         $scope.login = function () {
-            console.log('in login');
             auth.signin({},
                 function (profile, token) { // success
                     if (profile.name.trim() === '') {
