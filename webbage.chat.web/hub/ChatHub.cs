@@ -139,6 +139,6 @@ namespace webbage.chat.web.hub {
     }
 
     static class Characters {
-        public const string COMMAND_CHARACTER = "!";        
+        public const string COMMAND_CHARACTER = "!";
     }
 }
