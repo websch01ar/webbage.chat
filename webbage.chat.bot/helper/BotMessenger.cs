@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using webbage.chat.model;
 
-namespace webbage.chat.web.bot.helper {
+namespace webbage.chat.bot.helper {
     class BotMessenger {
         private static User BENDER {
             get {

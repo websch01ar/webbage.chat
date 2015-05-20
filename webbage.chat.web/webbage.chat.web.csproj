@@ -635,13 +635,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bot\Bender.cs" />
-    <Compile Include="bot\helper\ArgumentParser.cs" />
-    <Compile Include="bot\helper\BotMessenger.cs" />
-    <Compile Include="bot\helper\CommandDescriptions.cs" />
-    <Compile Include="bot\helper\CommandExecutors.cs" />
-    <Compile Include="bot\helper\CommandParser.cs" />
-    <Compile Include="bot\Insulter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -969,6 +962,10 @@
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\webbage.chat.bot\webbage.chat.bot.csproj">
+      <Project>{afa6099f-fe79-4d96-bc58-fc02f22264d8}</Project>
+      <Name>webbage.chat.bot</Name>
+    </ProjectReference>
     <ProjectReference Include="..\webbage.chat.context\webbage.chat.context.csproj">
       <Project>{0151d60f-7d15-46b1-8fb2-fd667ad20d74}</Project>
       <Name>webbage.chat.context</Name>

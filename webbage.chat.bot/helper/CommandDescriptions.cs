@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace webbage.chat.web.bot.helper {
+namespace webbage.chat.bot.helper {
     class CommandDescriptions {
         const string template = "<span class=\"pomegranate-font\">Syntax:</span> <b>{0}</b> <em>{1}</em>. <span class=\"emerald-font\">Purpose:</span> {2}.";
 
