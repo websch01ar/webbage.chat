@@ -47,7 +47,7 @@
 				    var enhanceLogFn = function () {
 				        var args = Array.prototype.slice.call(arguments),
 							now = new Date().toLocaleString();
-
+                        
 				        args[0] = '{0} :: {1}{2}'.format(now, className, args[0]);
 
 				        logFn.call(null, args[0]);
