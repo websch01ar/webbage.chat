@@ -1,12 +1,5 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-/* zocial */
-[class*="zocial-"]:before {
-  font-family: 'zocial', sans-serif;
-}
-.zocial-reddit {
-
-}
 
 html, body {
     height: 100%;
@@ -118,6 +111,10 @@ body {
             margin: 12px;
         }
 
+.message-container .user-display {
+    cursor: pointer;
+}
+
 .room-display {
     padding: 10px;
     margin: 10px;
@@ -196,14 +193,12 @@ body {
         text-overflow: ellipsis;
     }
 
-    .message-container .user-display {
-        cursor: pointer;
-    }
-
 .user-display.lg {
     padding: 3px;
     width: 100%;
     font-size: 13px;
+    cursor: pointer;
+    position: relative;
 }
     .user-display.lg .user-indicator {
         display: inline-block;
@@ -226,33 +221,32 @@ body {
         white-space: nowrap;
         overflow: hidden;
         max-width: 80%;
+
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;        
+        text-overflow: ellipsis;
     }
-
-.user-display .user-context-menu {
-    display: none;
-    list-style: none;
-    position: absolute;
-    left: 0;
-    padding: 0;
-    width: 150%;
-}
-    .user-display:hover .user-context-menu {
-        display: block;
+    .user-display.lg i.user-menu-expander {
+        position: absolute;
+        font-weight: 300;
+        right: 10px;
+        top: 15px;
     }
-    .user-display .user-context-menu li {
-        padding: 2px;
-        border: 1px solid #333;
-        background: #999;
-        color: #ecf0f1;
-        width: 100%;
-        cursor: pointer;
+    .user-display.lg div.user-context-menu {
+        margin: 0 -3px;
+        padding: 5px;
     }
-        .user-display .user-context-menu li:hover {
-            background: #888;
+        .user-display.lg div.user-context-menu .user-context-action {
+            height: 40px;
+            display: table;
+            text-align: center;
+            border: 1px solid #cdcdcd;
         }
+            .user-display.lg div.user-context-menu .user-context-action div {
+                text-transform: uppercase;
+                display: table-cell;
+                vertical-align: middle;                
+            }
 
 @media only screen and (max-width: 1462px) {
     body .user-display.sm span {

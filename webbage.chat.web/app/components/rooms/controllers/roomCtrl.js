@@ -46,7 +46,11 @@
 
             $scope.consecutive = 0;
             //#region hub instantiation
-            var queryString = 'roomKey=' + $routeParams.roomKey + '&roomId=' + $routeParams.roomId + '&userName=' + $root.auth.profile.name + '&userPicture=' + $root.auth.profile.picture;
+            var queryString = 'roomKey=' + $routeParams.roomKey +
+                              '&roomId=' + $routeParams.roomId +
+                              '&userName=' + $root.auth.profile.name +
+                              '&userPicture=' + $root.auth.profile.picture +
+                              '&isAdmin=' + $root.auth.profile.isGod;
             var chatHub = hub(
                 'chatHub',
                 [                    
@@ -110,6 +114,7 @@
                     {
                         eventName: 'updateOnlineUsers',
                         callback: function (users) {
+                            console.log(users);
                             $scope.onlineUsers = users;
                         }
                     }

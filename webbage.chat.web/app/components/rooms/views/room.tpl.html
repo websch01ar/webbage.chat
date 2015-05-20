@@ -18,16 +18,31 @@
                  reference="insertReference(message.Sender)"></message>
     </div>
     <div class="chat-users col-md-2 hidden-sm hidden-xs">
-        <div class="panel-heading">Users</div>
         <div class="page-loader" ng-show="isLoading">
             <i class="fa fa-2x fa-spin fa-refresh emerald-font"></i>
             <h3>Loading...</h3>
         </div>
-        <user-display ng-repeat="user in onlineUsers"
-                      user="user"
-                      display-size="lg"
-                      ng-show="!isLoading"
-                      kick-me="kickUser(u)"></user-display>
+        <div ng-show="!isLoading">
+            <div class="panel-heading">Admins</div>
+
+            <user-display ng-repeat="user in onlineUsers | filter: { 'IsAdmin': true }"
+                          user="user"
+                          display-size="lg"
+                          ng-show="!isLoading"
+                          show-context-menu="true"
+                          kick-me="kickUser(u)"></user-display>
+            <div class="clearfix" style="margin-bottom: 20px;"></div>
+
+            <div class="panel-heading">Users</div>
+
+            <user-display ng-repeat="user in onlineUsers | filter: { 'IsAdmin': false }"
+                          user="user"
+                          display-size="lg"
+                          ng-show="!isLoading"
+                          show-context-menu="true"
+                          kick-me="kickUser(u)"></user-display>
+            <div class="clearfix" style="margin-bottom: 20px;"></div>
+        </div>
     </div>
     <div class="chat-message silver-background col-xs-12">
         <textarea class="message-input col-sm-10 col-xs-9"

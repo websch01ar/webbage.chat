@@ -1,8 +1,15 @@
-﻿<div class="user-display pull-left" ng-class="displaySize" ng-click="reference()">
+﻿<div class="user-display pull-left" ng-class="{ {{displaySize}}: true, 'clouds-background': menuExpanded }" ng-click="reference()">
     <div class="user-indicator" ng-class="{{user.Status}}"></div>
     <img ng-src="{{user.Picture}}" />
     <span ng-bind="user.Name" ng-hide="hideName" ng-cloak></span>
-    <ul class="user-context-menu" ng-show="showContextMenu" ng-cloak>
-        <li ng-click="kickMe({u: user})">Kick</li>
-    </ul>
+    <div class="user-context-menu ng-animate ng-hide-animate" ng-show="showContextMenu && menuExpanded" ng-cloak>
+        <button class="btn btn-xs btn-default col-sm-6">Ignore</button>
+        <button class="btn btn-xs btn-default col-sm-6" ng-show="$root.auth.profile.isGod">Mute</button>
+        <button class="btn btn-xs btn-default col-sm-6" ng-show="$root.auth.profile.isGod">Kick</button>
+        <button class="btn btn-xs btn-default col-sm-6" ng-show="$root.auth.profile.isGod">Ban</button>
+        <div class="clearfix"></div>
+    </div>
+    <i class="user-menu-expander fa asbestos-font pull-right" ng-show="showContextMenu" 
+       ng-class="{ 'fa-plus': !menuExpanded, 'fa-minus': menuExpanded }"
+       ng-click="menuExpanded = !menuExpanded"></i>
 </div>

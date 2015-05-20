@@ -15,7 +15,8 @@ namespace webbage.chat.web.hub {
                 return new User {
                     ConnectionId = Context.ConnectionId,
                     Name = Context.QueryString["userName"],
-                    Picture = Context.QueryString["userPicture"]
+                    Picture = Context.QueryString["userPicture"],
+                    IsAdmin = Convert.ToBoolean(Context.QueryString["isAdmin"])
                 };
             }
         }

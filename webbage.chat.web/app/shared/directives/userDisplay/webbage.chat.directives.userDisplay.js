@@ -14,7 +14,7 @@
                 reference: '&'
             },
             controller: ['$scope', '$rootScope', '$location', '$log', function ($scope, $root, $location, $log) {
-                
+                $scope.menuExpanded = false;
             }],
             link: function (scope, ele, attrs) {
                 scope.$watch('user', function (user) {

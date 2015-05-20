@@ -3,6 +3,7 @@
 
     angular.module('webbage.chat.rooms', [
         'ngRoute',
+        'ngAnimate',
         'ngSanitize',
         'ui.bootstrap',
         'webbage.chat.providers.log',
