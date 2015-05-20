@@ -7,6 +7,8 @@
             var roomsHub = undefined;
             //#endregion
 
+            $log = $log.getInstance('webbage.chat.rooms.roomsCtrl');
+
             function init() {
                 $scope.isLoading = true;
                 $scope.rooms = [];
@@ -37,9 +39,9 @@
             }
             init();
 
-            function updateRoomUserList(room) {
-                $log.info(room);
+            function updateRoomUserList(room) {                
                 for (var i = 0; i < $scope.rooms.length; i++) {
+                    $log.debug('User joined ' + room.RoomID);
                     if (room.RoomID === $scope.rooms[i].RoomID && room.RoomKey === $scope.rooms[i].RoomKey) {
                         $scope.rooms[i].Users = room.Users;
                     }
@@ -47,7 +49,6 @@
             }
 
             function addRoomToList(room) {
-                $log.info(room);
                 $scope.rooms.push(room);
             }
 
@@ -67,5 +68,9 @@
 
                     })
             }
+
+            $scope.$on('$destroy', function () {                
+                roomsHub.destroy();
+            });
         }]);
 })();

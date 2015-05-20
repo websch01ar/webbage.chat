@@ -5,6 +5,7 @@
         'ngRoute',
         'ngSanitize',
         'ui.bootstrap',
+        'webbage.chat.providers.log',
         'webbage.chat.services.signalR',
         'webbage.chat.directives.roomDisplay',
         'webbage.chat.directives.userDisplay',

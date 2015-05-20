@@ -11,10 +11,11 @@
             $scope.isMessageCode = false;
             $scope.isTextAreaFocused = false;
             $scope.showContextMenu = $root.auth.profile.isGod;
-            console.log($scope.showContextMenu);
             $scope.tabs = [
                 { name: 'Room', canClose: false, hub: chatHub, active: true }
             ];
+
+            $log = $log.getInstance('webbage.chat.rooms.roomCtrl(' + $routeParams.roomId + ')');
             
             var messageNotification = new Audio('/content/media/new-message-notification.mp3'),
                 connectionNotification = new Audio('/content/media/connection-notification.mp3'),
@@ -109,7 +110,6 @@
                     {
                         eventName: 'updateOnlineUsers',
                         callback: function (users) {
-                            $log.info('webbage.chat.rooms.roomCtrl(): updateOnlineUsers(): ', users);
                             $scope.onlineUsers = users;
                         }
                     }
@@ -120,10 +120,8 @@
 
             // now that we've established a connection, let everyone else know
             chatHub.ready(function () {
-                $log.info('webbage.chat.rooms.roomCtrl(): chatHub is ready');
-                $log.info('webbage.chat.rooms.roomCtrl(): Your profile: ', $root.auth.profile);
+                $log.info('chatHub is ready');
                 $scope.isLoading = false;
-                //chatHub.invoke('UserConnect', [])
             });
 
             //#region hotkeys
@@ -233,8 +231,7 @@
                 // figure out how to trigger focus here, probably need to do a directive
             }
 
-            $scope.$on('$destroy', function () {
-                //chatHub.invoke('UserDisconnect', []); // take out, see what happens
+            $scope.$on('$destroy', function () {                
                 chatHub.destroy();
             });
         }]);
