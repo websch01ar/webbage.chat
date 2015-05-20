@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using webbage.chat.model;
-using webbage.chat.web.hub;
 
-namespace webbage.chat.web.bot.helper {
+namespace webbage.chat.bot.helper {
     /// <summary>
     /// Lays out commands and how their arguments should be parsed. In the comments above each method there should be an example
     /// of how the command should look. Parameters in {} are required, parameters in [] are optional.

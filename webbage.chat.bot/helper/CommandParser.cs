@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using webbage.chat.model;
 
-namespace webbage.chat.web.bot.helper {
+namespace webbage.chat.bot.helper {
     class CommandParser {
         /// <summary>
         /// Use ParseNone if you don't expect any arguments to be included with the command. An example would be !guid or !moab

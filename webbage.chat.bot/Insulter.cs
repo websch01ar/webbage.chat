@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace webbage.chat.web.bot {
+namespace webbage.chat.bot {
     public class Insulter {
         private static Random random;
         private static List<string> insults;

@@ -5,15 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using webbage.chat.model;
-using webbage.chat.web.bot.helper;
-using webbage.chat.web.hub;
+using webbage.chat.bot.helper;
 
-namespace webbage.chat.web.bot {
+namespace webbage.chat.bot {
     public static class Bender {
         private delegate void RefCommandAction(ref Command cmd);
 
         private static Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> commands;
-        private static ChatHub hub;
 
         static Bender() {
             commands = new Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> {
@@ -120,9 +118,8 @@ namespace webbage.chat.web.bot {
         }
 
         // TODO: add some sort of logging in these functions
-        public static Command DoWork(ChatHub chatHub, Message message) {
+        public static Command DoWork(Message message) {
             Command cmd = new Command(message);
-            hub = chatHub;
 
             if (!(validateCommand(cmd))) {
                 cmd.Response = BotMessenger.INVALID_COMMAND;                
