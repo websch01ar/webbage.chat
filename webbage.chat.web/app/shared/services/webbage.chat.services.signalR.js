@@ -10,7 +10,8 @@
                     promise = deferred.promise,
                     destroyed = true;
 
-                $log.info('webbage.chat.services.signalR(' + hubName + '): Creating SignalR service for ' + hubName);
+                $log = $log.getInstance('webbage.chat.services.signalR({0})'.format(hubName));                
+                $log.info('Creating SignalR service for ' + hubName);
 
                 function registerWatches() {
                     var deferred = $q.defer(),
@@ -23,7 +24,7 @@
                                 registerWatch(watch.eventName, watch.callback);
                             }
                         } else {
-                            $log.info('webbage.chat.services.signalR(' + hubName + '): No watches registered for ' + hubName);
+                            $log.warn('No watches registered for ' + hubName);
                         }
                     } finally {
                         deferred.resolve();
@@ -32,9 +33,9 @@
                     return promise;
                 }
                 function registerWatch(eventName, callback) {
-                    $log.info('webbage.chat.services.signalR(' + hubName + '): Registering client watch: ' + eventName + ' on ' + hubName);
+                    $log.debug('Registering client watch: ' + eventName + ' on ' + hubName);
                     hub.on(eventName, function (result) {
-                        $log.info('webbage.chat.services.signalR(' + hubName + '): Client watch ' + eventName + ' triggered on ' + hubName);
+                        $log.debug('Client watch ' + eventName + ' triggered on ' + hubName);
                         $root.$apply(function () {
                             if (callback) {
                                 callback(result);
@@ -46,10 +47,10 @@
                 function connect() {
                     // set the query string before we start the connection
                     if (queryString) {
-                        $log.info('webbage.chat.services.signalR(' + hubName + '): Setting query string for ' + hubName + ': ' + queryString);
+                        $log.info('Setting query string for ' + hubName + ': ' + queryString);
                         connection.qs = queryString;
                     } else {
-                        $log.info('webbage.chat.services.signalR(' + hubName + '): No query string set for ' + hubName);
+                        $log.warn('No query string set for ' + hubName);
                     }
 
                     // register the watches for events from the server to the client, need to do this before
@@ -57,11 +58,11 @@
                     registerWatches().then(function () {
                         connection.start({ logging: true })
                             .done(function () {
-                                $log.info('webbage.chat.services.signalR(' + hubName + '): Connection established to ' + hubName + '. Connection ID: ' + connection.id);
+                                $log.info('Connection established. Connection ID: ' + connection.id);
                                 deferred.resolve();
                             })
                             .fail(function (error) {
-                                $log.error('webbage.chat.services.signalR(' + hubName + '): Error connecting to ' + hubName + ': ' + error);
+                                $log.error('Error during connection.start(): ' + error);
                                 deferred = $q.defer();
                                 promise = deferred.promise;
                             });
@@ -81,7 +82,7 @@
                 connection.error(function (error) { $log.error('webbage.chat.services.signalR(' + hubName + '): SignalR Error: ' + error); });
                 connection.disconnected(function () {
                     if (!destroyed) {
-                        $log.error('webbage.chat.services.signalR(' + hubName + '): Connection disconnected');
+                        $log.error('Connection killed.');
 						
                         var size = undefined,
                             modal = $modal.open({
@@ -98,30 +99,31 @@
                             },
                             function () { // user clicked no (what action to take here) //TODO: review
 							});
-					}
+                    } else {
+                        $log.error('Connection lost.');
+                    }
 				});
 
 
                 return {
-                    // on: registerWatch,       // removed because watches should be registered during construction
                     ready: function (callback) {
                         return promise.then(function () {
                             callback();
                         });
                     },
                     invoke: function (methodName, args, callback) {
-                        $log.info('webbage.chat.services.signalR(' + hubName + '): Invoking ' + methodName + ' on ' + hubName);
+                        $log.debug('Invoking ' + methodName + ' on server');
                         return hub.invoke.apply(hub, $.merge([methodName], args))
                             .done(function (result) {
                                 $root.$apply(function () {
                                     if (callback) {
-                                        $log.info('webbage.chat.services.signalR(' + hubName + '): Executing callback for ' + methodName + ' on ' + hubName);
+                                        $log.debug('Executing callback for ' + methodName);
                                         callback(result);
                                     }
                                 });
                             })
                             .fail(function (error) {
-                                $log.error('webbage.chat.services.signalR(' + hubName + '): Error invoking ' + methodName + ' on ' + hubName + ' on server: ' + error);
+                                $log.error('Error invoking ' + methodName + ' on server: ' + error);
                             })
                     },
                     kill: kill,

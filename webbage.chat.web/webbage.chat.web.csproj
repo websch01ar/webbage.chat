@@ -166,7 +166,6 @@
     <Content Include="content\bower\angular-jwt\LICENSE.txt" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.js" />
     <Content Include="content\bower\angular-sanitize\angular-sanitize.min.js" />
-    <Content Include="content\bower\angular-sanitize\index.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.js" />
     <Content Include="content\bower\auth0-storage\dist\angular-storage.min.js" />
     <Content Include="content\bower\auth0-storage\gulpfile.js" />
@@ -620,9 +619,11 @@
     <Content Include="content\css\site.css" />
     <Content Include="content\img\background.jpg" />
     <Content Include="content\img\bender.jpg" />
+    <Content Include="content\img\favicon.ico" />
     <Content Include="content\media\connection-notification.mp3" />
     <Content Include="content\media\new-message-notification.mp3" />
     <Content Include="content\media\reference-message-notification.mp3" />
+    <Content Include="content\scripts\logLevels.js" />
     <Content Include="content\scripts\utils.js" />
     <Content Include="Global.asax" />
     <Content Include="packages.config">
@@ -634,13 +635,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bot\Bender.cs" />
-    <Compile Include="bot\helper\ArgumentParser.cs" />
-    <Compile Include="bot\helper\BotMessenger.cs" />
-    <Compile Include="bot\helper\CommandDescriptions.cs" />
-    <Compile Include="bot\helper\CommandExecutors.cs" />
-    <Compile Include="bot\helper\CommandParser.cs" />
-    <Compile Include="bot\Insulter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -964,9 +958,14 @@
     <Content Include="content\bower\angular-bootstrap\.bower.json" />
     <Content Include="content\bower\angular-bootstrap\bower.json" />
     <Content Include="app\shared\modals\disconnected\webbage.chat.modals.disconnected.js" />
+    <Content Include="app\shared\providers\webbage.chat.providers.log.js" />
     <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\webbage.chat.bot\webbage.chat.bot.csproj">
+      <Project>{afa6099f-fe79-4d96-bc58-fc02f22264d8}</Project>
+      <Name>webbage.chat.bot</Name>
+    </ProjectReference>
     <ProjectReference Include="..\webbage.chat.context\webbage.chat.context.csproj">
       <Project>{0151d60f-7d15-46b1-8fb2-fd667ad20d74}</Project>
       <Name>webbage.chat.context</Name>

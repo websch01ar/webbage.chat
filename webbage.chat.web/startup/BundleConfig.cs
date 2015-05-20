@@ -23,6 +23,7 @@ namespace webbage.chat.web {
                 .IncludeDirectory("~/content/bower/signalR", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/scripts/app")
+                .IncludeDirectory("~/app/shared/providers", "*.js", true)
                 .IncludeDirectory("~/app/shared/modals", "*.js", true)
                 .IncludeDirectory("~/app/shared/services", "*.js", true)
                 .IncludeDirectory("~/app/shared/directives", "*.js", true)

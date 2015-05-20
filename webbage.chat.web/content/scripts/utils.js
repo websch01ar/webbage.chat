@@ -1,10 +1,10 @@
 ﻿if (typeof String.prototype.format != 'function') {
     String.prototype.format = function () {
         var args = arguments;
-        return this.replace(/{(\d+)}/g, function (match, number) {
+        return this.replace(/{([^{}]*)}/g, function (match, number) {
             return typeof args[number] != 'undefined'
               ? args[number]
-              : match
+              : ''
             ;
         });
     };
@@ -54,8 +54,6 @@ if (typeof Date.convertToLocalDate != 'function') {
         var date = new Date(this.getTime() + this.getTimezoneOffset() * 60 * 1000),
             offset = this.getTimezoneOffset() / 60,
             hours = this.getHours();
-
-        console.log(date, offset, hours);
 
         date.setHours(hours - offset);
         return date;

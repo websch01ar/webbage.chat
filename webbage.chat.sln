@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.model", "webba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.context", "webbage.chat.context\webbage.chat.context.csproj", "{0151D60F-7D15-46B1-8FB2-FD667AD20D74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webbage.chat.bot", "webbage.chat.bot\webbage.chat.bot.csproj", "{AFA6099F-FE79-4D96-BC58-FC02F22264D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0151D60F-7D15-46B1-8FB2-FD667AD20D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0151D60F-7D15-46B1-8FB2-FD667AD20D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0151D60F-7D15-46B1-8FB2-FD667AD20D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA6099F-FE79-4D96-BC58-FC02F22264D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA6099F-FE79-4D96-BC58-FC02F22264D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA6099F-FE79-4D96-BC58-FC02F22264D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA6099F-FE79-4D96-BC58-FC02F22264D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

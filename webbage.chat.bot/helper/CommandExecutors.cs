@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using webbage.chat.model;
-using webbage.chat.web.hub;
 
-namespace webbage.chat.web.bot.helper {
+namespace webbage.chat.bot.helper {
     class CommandExecutors {
 
         static CommandExecutors() {
