@@ -100,6 +100,11 @@ namespace webbage.chat.web.hub {
             await base.OnDisconnected(stopCalled);
         }
 
+        public override async Task OnReconnected() {
+
+            await base.OnReconnected();
+        }
+
         public async Task UserDisconnect() {
             await OnDisconnected(true);
         }
