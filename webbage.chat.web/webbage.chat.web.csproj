@@ -959,7 +959,6 @@
     <Content Include="content\bower\angular-bootstrap\bower.json" />
     <Content Include="app\shared\modals\disconnected\webbage.chat.modals.disconnected.js" />
     <Content Include="app\shared\providers\webbage.chat.providers.log.js" />
-    <None Include="Properties\PublishProfiles\test.chat.webbage.net - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\webbage.chat.bot\webbage.chat.bot.csproj">
@@ -974,6 +973,10 @@
       <Project>{7f39e672-dd1a-41a6-8ec4-9f01042e1034}</Project>
       <Name>webbage.chat.model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\chat.webbage.net.pubxml" />
+    <None Include="Properties\PublishProfiles\test.chat.webbage.net.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
