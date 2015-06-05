@@ -17,5 +17,6 @@ namespace webbage.chat.bot.helper {
         public static string YOUTUBE = string.Format(template, "<b>!youtube</b>", "<em>\"{videoId}\" [-force]</em>", "Plays the specified video from YouTube or puts it in the queue to be played if one is already playing. If the optional -force flag is specified it immediately starts playing, even if another is already playing.");
         public static string DUCK = string.Format(template, "<b>!duck</b>", "<em>{queryString}</em>", "Returns an http://www.duckduckgo.com search link.");
         public static string ROLL = string.Format(template, "<b>!roll</b>", "<em>[minNumber] [maxNumber]</em>", "Returns a random number between two numbers. If no numbers are specified 1 and 100 are used. If one number is specified 1 and that number are used. If 2 numbers are specified it uses them.");
+        public static string LMBTFY = string.Format(template, "<b>!lmbtfy</b>", "<em>{queryString}</em>", "Returns an http://bing.lmgtfy.com/ search link.");
     }
 }

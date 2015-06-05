@@ -40,6 +40,11 @@ namespace webbage.chat.bot.helper {
         internal static void Duck(ref Command cmd) {
             cmd.Response = BotMessenger.GetMessage(string.Format("http://duckduckgo.com/?q={0}", cmd.Dynamic.QueryString));
         }
+
+        internal static void LMBTFY(ref Command cmd)
+        {
+            cmd.Response = BotMessenger.GetMessage(string.Format("http://lmbtfy.com/?q={0}", cmd.Dynamic.QueryString));
+        }
         #endregion
 
         #region Admin Commands

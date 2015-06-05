@@ -7,13 +7,16 @@ using System.Web;
 using webbage.chat.model;
 using webbage.chat.bot.helper;
 
-namespace webbage.chat.bot {
-    public static class Bender {
+namespace webbage.chat.bot
+{
+    public static class Bender
+    {
         private delegate void RefCommandAction(ref Command cmd);
 
         private static Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> commands;
 
-        static Bender() {
+        static Bender()
+        {
             commands = new Dictionary<string, CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction>> {
                 {
                     "!help",
@@ -113,79 +116,112 @@ namespace webbage.chat.bot {
                         ArgParser = new RefCommandAction(ArgumentParser.Roll),
                         Action = new RefCommandAction(CommandExecutors.Roll)
                     }
+                },
+                {
+                    "!lmbtfy",
+                    new CommandStruct<string, RefCommandAction, RefCommandAction, RefCommandAction> {
+                        Desc = CommandDescriptions.LMBTFY,
+                        Parser = new RefCommandAction(CommandParser.ParseNormal),
+                        ArgParser = new RefCommandAction(ArgumentParser.SearchEngine),
+                        Action = new RefCommandAction(CommandExecutors.LMBTFY)
+                    }
                 }
-            };            
+            };
         }
 
         // TODO: add some sort of logging in these functions
-        public static Command DoWork(Message message) {
+        public static Command DoWork(Message message)
+        {
             Command cmd = new Command(message);
 
-            if (!(validateCommand(cmd))) {
-                cmd.Response = BotMessenger.INVALID_COMMAND;                
+            if (!(validateCommand(cmd)))
+            {
+                cmd.Response = BotMessenger.INVALID_COMMAND;
             }
 
-            if (cmd.Response == null && !(parseCommand(cmd))) {
+            if (cmd.Response == null && !(parseCommand(cmd)))
+            {
                 cmd.Response = BotMessenger.INVALID_PARSE_COMMAND;
             }
 
-            if (cmd.Response == null && !(parseArguments(cmd))) {
+            if (cmd.Response == null && !(parseArguments(cmd)))
+            {
                 // don't worry about setting response here, the RefCommandAction does it
             }
 
-            if (cmd.Response == null && !(execCommand(cmd))) {
+            if (cmd.Response == null && !(execCommand(cmd)))
+            {
                 cmd.Response = BotMessenger.INVALID_EXEC_COMMAND;
             }
 
             return cmd;
         }
 
-        public static string GetCommandDescription(string cmdName) {
+        public static string GetCommandDescription(string cmdName)
+        {
             string desc = "";
 
-            if (!cmdName.StartsWith("!")) {
+            if (!cmdName.StartsWith("!"))
+            {
                 cmdName = "!" + cmdName;
             }
 
-            if (validateCommand(cmdName)) {
+            if (validateCommand(cmdName))
+            {
                 desc = commands[cmdName].Desc;
-            } else {
+            }
+            else
+            {
                 desc = "Invalid command name";
             }
 
             return desc;
         }
 
-        private static bool validateCommand(string cmdName) {
+        private static bool validateCommand(string cmdName)
+        {
             return commands.Keys.Contains(cmdName);
         }
-        private static bool validateCommand(Command cmd) {
+        private static bool validateCommand(Command cmd)
+        {
             return commands.Keys.Contains(cmd.Name);
         }
 
-        private static bool parseCommand(Command cmd) {
-            try {
+        private static bool parseCommand(Command cmd)
+        {
+            try
+            {
                 commands[cmd.Name].Parser.DynamicInvoke(new object[] { cmd });
                 return cmd.Args != null;
-            } catch {
+            }
+            catch
+            {
                 return false;
             }
         }
 
-        private static bool parseArguments(Command cmd) {
-            try {
+        private static bool parseArguments(Command cmd)
+        {
+            try
+            {
                 commands[cmd.Name].ArgParser.DynamicInvoke(new object[] { cmd });
                 return cmd.Dynamic != null;
-            } catch {
+            }
+            catch
+            {
                 return false;
             }
         }
 
-        private static bool execCommand(Command cmd) {
-            try {
+        private static bool execCommand(Command cmd)
+        {
+            try
+            {
                 commands[cmd.Name].Action.DynamicInvoke(new object[] { cmd });
                 return cmd.Response != null;
-            } catch {
+            }
+            catch
+            {
                 return false;
             }
         }
