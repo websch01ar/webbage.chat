@@ -167,7 +167,7 @@
                             sentMessagesIndex--;
                         }
 
-                        if ($scope.isTextAreaFocused && sentMessagesIndex >= 0) {
+                        if ($scope.isTextAreaFocused && sentMessagesIndex > 0) {
                             $scope.message = sentMessages[sentMessagesIndex].Content;
                         }
                     }
