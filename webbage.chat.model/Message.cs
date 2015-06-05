@@ -10,5 +10,6 @@ namespace webbage.chat.model {
         public string Content { get; set; }
         public string Sent { get; set; }
         public bool IsCode { get; set; }
+        public bool IsPrivate { get; set; }
     }
 }

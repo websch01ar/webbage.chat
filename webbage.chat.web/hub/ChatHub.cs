@@ -128,6 +128,7 @@ namespace webbage.chat.web.hub {
 
         public async Task BroadcastMessage(Message message) {
             message.Sent = DateTime.Now.ToString();
+            message.IsPrivate = false;
             room.Messages.Add(message);
 
             await Clients.Group(room.RoomID).receiveMessage(message);
@@ -136,6 +137,18 @@ namespace webbage.chat.web.hub {
             if (message.Content.StartsWith(Characters.COMMAND_CHARACTER)) { // run a command
                 await BroadcastCommand(message);
             }
+        }
+
+        public async Task BroadcastMessage(Message message, string userName)
+        {
+            message.Sent = DateTime.Now.ToString();
+            message.IsPrivate = true;
+            User user = room.Users.Where(u => u.Name == userName).FirstOrDefault();
+            IList<string> clients = new List<string>();
+            clients.Add(user.ConnectionId);
+            clients.Add(Context.ConnectionId);
+            message.Content = message.Content.Substring(message.Content.IndexOf("]") + 1);
+            await Clients.Clients(clients).receiveMessage(message);
         }
 
         public async Task BroadcastCommand(Message message) {

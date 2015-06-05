@@ -208,9 +208,12 @@
                         Content: $scope.message,
                         IsCode: $scope.isMessageCode
                     };
-
-                    chatHub.invoke('BroadcastMessage', [message]);
-
+                    if (message.Content.startsWith('[')) {
+                        var recipient = message.Content.substring(1, message.Content.indexOf(']'))
+                        chatHub.invoke('BroadcastMessage', [message, recipient]);
+                    } else {
+                        chatHub.invoke('BroadcastMessage', [message]);
+                    }
                     sentMessages.push(message);
                     sentMessagesIndex = sentMessages.length;
                     if ($scope.isMessageCode)
