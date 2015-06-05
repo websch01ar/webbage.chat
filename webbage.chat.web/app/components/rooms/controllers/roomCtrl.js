@@ -114,7 +114,6 @@
                     {
                         eventName: 'updateOnlineUsers',
                         callback: function (users) {
-                            console.log(users);
                             $scope.onlineUsers = users;
                         }
                     }
@@ -231,7 +230,6 @@
                 $scope.messages = [];
             }
             $scope.insertReference = function (user) {
-                console.log(user);
                 $scope.message = '@' + user.Name + ' ' + $scope.message;
                 // figure out how to trigger focus here, probably need to do a directive
             }
