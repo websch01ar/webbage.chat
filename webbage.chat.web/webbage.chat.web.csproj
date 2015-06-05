@@ -993,7 +993,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>48703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:8081/</IISUrl>
+          <IISUrl>http://localhost/webbagechat</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

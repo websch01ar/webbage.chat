@@ -1,8 +1,8 @@
 ﻿<div class="row">
-    <div class="col-xs-1 message-user">
+    <div class="col-xs-2 message-user">
         <user-display user="messageItem.Sender" display-size="sm" ng-hide="messageItem.isConsecutive" reference="reference(messageItem.Sender)"></user-display>
     </div>
-    <div class="col-xs-11 chat-message" ng-class="{ 'consecutive-msg': messageItem.isConsecutive, 'mine': isMyMessage, 'is-reference': messageItem.isReference }" ng-mouseover="hovering = true" ng-mouseleave="hovering = false">
+    <div class="col-xs-10 chat-message" ng-class="{ 'consecutive-msg': messageItem.isConsecutive, 'mine': isMyMessage, 'is-reference': messageItem.isReference }" ng-mouseover="hovering = true" ng-mouseleave="hovering = false">
         <pre ng-if="messageItem.IsCode" class="prettyprint"><code ng-bind="messageItem.Content"></code></pre>
         <span ng-bind-html="messageItem.Content" ng-if="!messageItem.IsCode"></span>
         <div class="chat-message-time" ng-bind="messageItem.Sent" ng-show="hovering"></div>
